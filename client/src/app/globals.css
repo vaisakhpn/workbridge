@@ -1,0 +1,46 @@
+@import "tailwindcss";
+
+:root {
+  --background: #ffffff;
+  --foreground: #0f172a;
+  --brand: #e0531f;
+  --brand-hover: #f26a36;
+  --brand-light: #fff2ec;
+  --brand-dark: #b83c11;
+  --gray-subtle: #f8fafc;
+  --gray-border: #e2e8f0;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-brand: var(--brand);
+  --color-brand-hover: var(--brand-hover);
+  --color-brand-light: var(--brand-light);
+  --color-brand-dark: var(--brand-dark);
+  --color-gray-subtle: var(--gray-subtle);
+  --color-gray-border: var(--gray-border);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+/* Custom interactive styles */
+.gradient-text {
+  background: linear-gradient(135deg, #e0531f 0%, #f26a36 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #e0531f 0%, #f26a36 100%);
+}
+
+.glow-orange {
+  box-shadow: 0 4px 20px -2px rgba(224, 83, 31, 0.15);
+}
+
