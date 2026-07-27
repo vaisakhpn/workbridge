@@ -1,10 +1,10 @@
-import { create } from 'zustand';
+import { create } from "zustand";
 
 export interface User {
   id: string;
   name: string;
   email: string;
-  role: 'worker' | 'event_team' | 'admin';
+  role: "worker" | "eventTeam" | "admin";
   phone?: string;
   avatar?: string;
 }
@@ -25,15 +25,15 @@ export const useAuthStore = create<AuthState>((set) => {
   let initialToken = null;
   let initialUser = null;
 
-  if (typeof window !== 'undefined') {
-    initialToken = localStorage.getItem('workbridge_token');
-    const userStr = localStorage.getItem('workbridge_user');
+  if (typeof window !== "undefined") {
+    initialToken = localStorage.getItem("workbridge_token");
+    const userStr = localStorage.getItem("workbridge_user");
     if (userStr) {
       try {
         initialUser = JSON.parse(userStr);
       } catch {
         // Clear corrupt data
-        localStorage.removeItem('workbridge_user');
+        localStorage.removeItem("workbridge_user");
       }
     }
   }
@@ -45,17 +45,17 @@ export const useAuthStore = create<AuthState>((set) => {
     isLoading: false,
 
     login: (user, token) => {
-      if (typeof window !== 'undefined') {
-        localStorage.setItem('workbridge_token', token);
-        localStorage.setItem('workbridge_user', JSON.stringify(user));
+      if (typeof window !== "undefined") {
+        localStorage.setItem("workbridge_token", token);
+        localStorage.setItem("workbridge_user", JSON.stringify(user));
       }
       set({ user, token, isAuthenticated: true });
     },
 
     logout: () => {
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('workbridge_token');
-        localStorage.removeItem('workbridge_user');
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("workbridge_token");
+        localStorage.removeItem("workbridge_user");
       }
       set({ user: null, token: null, isAuthenticated: false });
     },
@@ -66,8 +66,8 @@ export const useAuthStore = create<AuthState>((set) => {
       set((state) => {
         if (!state.user) return state;
         const newUserData = { ...state.user, ...updatedUser };
-        if (typeof window !== 'undefined') {
-          localStorage.setItem('workbridge_user', JSON.stringify(newUserData));
+        if (typeof window !== "undefined") {
+          localStorage.setItem("workbridge_user", JSON.stringify(newUserData));
         }
         return { user: newUserData };
       });

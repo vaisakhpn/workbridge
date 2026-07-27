@@ -1,63 +1,72 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { motion, AnimatePresence } from 'framer-motion';
-import { User, Users, Mail, Lock, ShieldAlert, ArrowRight } from 'lucide-react';
-import { useAuthStore } from '@/stores/authStore';
-import { api } from '@/lib/api';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Card, CardContent } from '@/components/ui/Card';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { motion, AnimatePresence } from "framer-motion";
+import { User, Users, Mail, Lock, ShieldAlert, ArrowRight } from "lucide-react";
+import { useAuthStore } from "@/stores/authStore";
+import { api } from "@/lib/api";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Card, CardContent } from "@/components/ui/Card";
 
 export default function RegisterPage() {
   const router = useRouter();
   const loginUser = useAuthStore((state) => state.login);
 
-  const [activeTab, setActiveTab] = useState<'worker' | 'event_team'>('worker');
+  const [activeTab, setActiveTab] = useState<"worker" | "eventTeam">("worker");
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [formErrors, setFormErrors] = useState<Record<string, string[]>>({});
 
   // Worker Form State
   const [workerData, setWorkerData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    password: '',
+    name: "",
+    email: "",
+    phone: "",
+    password: "",
   });
 
   // Event Team Form State
   const [eventTeamData, setEventTeamData] = useState({
-    companyName: '',
-    ownerName: '',
-    email: '',
-    phone: '',
-    password: '',
+    companyName: "",
+    ownerName: "",
+    email: "",
+    phone: "",
+    password: "",
   });
 
   const handleWorkerSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
     setFormErrors({});
 
     try {
       const response = await api.post<{
-        user: { id: string; email: string; role: 'worker'; isProfileSetup: boolean; name: string };
+        user: {
+          id: string;
+          email: string;
+          role: "worker";
+          isProfileSetup: boolean;
+          name: string;
+        };
         accessToken: string;
         refreshToken: string;
-      }>('/auth/register/worker', workerData);
+      }>("/auth/register/worker", workerData);
 
       loginUser(response.user, response.accessToken);
-      router.push('/');
+      router.push("/");
     } catch (err: any) {
       console.error(err);
       if (err.info?.errors) {
         setFormErrors(err.info.errors);
       } else {
-        setError(err.info?.message || 'Registration failed. Please check your network.');
+        setError(
+          err.info?.message ||
+            "Registration failed. Please check your network.",
+        );
       }
     } finally {
       setIsLoading(false);
@@ -67,15 +76,21 @@ export default function RegisterPage() {
   const handleEventTeamSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setError('');
+    setError("");
     setFormErrors({});
 
     try {
       const response = await api.post<{
-        user: { id: string; email: string; role: 'event_team'; isProfileSetup: boolean; companyName: string };
+        user: {
+          id: string;
+          email: string;
+          role: "eventTeam";
+          isProfileSetup: boolean;
+          companyName: string;
+        };
         accessToken: string;
         refreshToken: string;
-      }>('/auth/register/event-team', eventTeamData);
+      }>("/auth/register/event-team", eventTeamData);
 
       const parsedUser = {
         id: response.user.id,
@@ -86,13 +101,16 @@ export default function RegisterPage() {
       };
 
       loginUser(parsedUser, response.accessToken);
-      router.push('/');
+      router.push("/");
     } catch (err: any) {
       console.error(err);
       if (err.info?.errors) {
         setFormErrors(err.info.errors);
       } else {
-        setError(err.info?.message || 'Registration failed. Please check your network.');
+        setError(
+          err.info?.message ||
+            "Registration failed. Please check your network.",
+        );
       }
     } finally {
       setIsLoading(false);
@@ -134,14 +152,14 @@ export default function RegisterPage() {
       <div className="inline-flex p-1.5 bg-white border border-gray-border rounded-2xl shadow-sm mb-6 z-10">
         <button
           onClick={() => {
-            setActiveTab('worker');
-            setError('');
+            setActiveTab("worker");
+            setError("");
             setFormErrors({});
           }}
           className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
-            activeTab === 'worker'
-              ? 'bg-brand text-white shadow-md glow-orange'
-              : 'text-gray-500 hover:text-foreground'
+            activeTab === "worker"
+              ? "bg-brand text-white shadow-md glow-orange"
+              : "text-gray-500 hover:text-foreground"
           }`}
         >
           <User className="w-4 h-4" />
@@ -149,14 +167,14 @@ export default function RegisterPage() {
         </button>
         <button
           onClick={() => {
-            setActiveTab('event_team');
-            setError('');
+            setActiveTab("eventTeam");
+            setError("");
             setFormErrors({});
           }}
           className={`flex items-center space-x-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all duration-300 ${
-            activeTab === 'event_team'
-              ? 'bg-brand text-white shadow-md glow-orange'
-              : 'text-gray-500 hover:text-foreground'
+            activeTab === "eventTeam"
+              ? "bg-brand text-white shadow-md glow-orange"
+              : "text-gray-500 hover:text-foreground"
           }`}
         >
           <Users className="w-4 h-4" />
@@ -167,7 +185,7 @@ export default function RegisterPage() {
       <Card className="w-full max-w-md bg-white border border-gray-border shadow-md z-10 overflow-hidden">
         <CardContent className="p-8">
           <AnimatePresence mode="wait">
-            {activeTab === 'worker' ? (
+            {activeTab === "worker" ? (
               <motion.div
                 key="worker"
                 initial={{ opacity: 0, x: -15 }}
@@ -323,8 +341,11 @@ export default function RegisterPage() {
           </AnimatePresence>
 
           <div className="mt-6 pt-6 border-t border-gray-subtle text-center text-xs">
-            <span className="text-gray-500">Already have an account?</span>{' '}
-            <Link href="/login" className="font-bold text-brand hover:text-brand-hover transition-colors">
+            <span className="text-gray-500">Already have an account?</span>{" "}
+            <Link
+              href="/login"
+              className="font-bold text-brand hover:text-brand-hover transition-colors"
+            >
               Log in instead
             </Link>
           </div>

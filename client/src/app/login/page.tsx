@@ -1,50 +1,58 @@
-'use client';
+"use client";
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import Link from 'next/link';
-import { Mail, Lock, ArrowRight, ShieldAlert, Eye, EyeOff } from 'lucide-react';
-import { useAuthStore } from '@/stores/authStore';
-import { api } from '@/lib/api';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Card, CardContent } from '@/components/ui/Card';
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+import { Mail, Lock, ArrowRight, ShieldAlert, Eye, EyeOff } from "lucide-react";
+import { useAuthStore } from "@/stores/authStore";
+import { api } from "@/lib/api";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Card, CardContent } from "@/components/ui/Card";
 
 export default function LoginPage() {
   const router = useRouter();
   const loginUser = useAuthStore((state) => state.login);
-  
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email || !password) {
-      setError('Please fill in all fields.');
+      setError("Please fill in all fields.");
       return;
     }
 
     setIsLoading(true);
-    setError('');
+    setError("");
 
     try {
       const response = await api.post<{
-        user: { id: string; email: string; role: 'worker' | 'event_team' | 'admin'; isProfileSetup: boolean; name: string };
+        user: {
+          id: string;
+          email: string;
+          role: "worker" | "eventTeam" | "admin";
+          isProfileSetup: boolean;
+          name: string;
+        };
         accessToken: string;
         refreshToken: string;
-      }>('/auth/login', { email, password });
+      }>("/auth/login", { email, password });
 
       // Save to Zustand and local storage
       loginUser(response.user, response.accessToken);
-      
+
       // Redirect to home or dash
-      router.push('/');
+      router.push("/");
     } catch (err: any) {
       console.error(err);
-      setError(err.info?.message || 'Login failed. Please verify your credentials.');
+      setError(
+        err.info?.message || "Login failed. Please verify your credentials.",
+      );
     } finally {
       setIsLoading(false);
     }
@@ -96,7 +104,7 @@ export default function LoginPage() {
               <div className="relative">
                 <Input
                   label="Password"
-                  type={showPassword ? 'text' : 'password'}
+                  type={showPassword ? "text" : "password"}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -107,7 +115,11 @@ export default function LoginPage() {
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute right-3.5 top-8.5 text-gray-400 hover:text-gray-600 focus:outline-none"
                 >
-                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  {showPassword ? (
+                    <EyeOff className="w-4 h-4" />
+                  ) : (
+                    <Eye className="w-4 h-4" />
+                  )}
                 </button>
               </div>
             </div>
@@ -120,7 +132,10 @@ export default function LoginPage() {
                   type="checkbox"
                   className="h-4 w-4 text-brand focus:ring-brand border-gray-border rounded"
                 />
-                <label htmlFor="remember-me" className="ml-2 text-gray-500 cursor-pointer">
+                <label
+                  htmlFor="remember-me"
+                  className="ml-2 text-gray-500 cursor-pointer"
+                >
                   Remember me
                 </label>
               </div>
@@ -142,8 +157,11 @@ export default function LoginPage() {
           </form>
 
           <div className="mt-6 pt-6 border-t border-gray-subtle text-center text-xs">
-            <span className="text-gray-500">Don't have an account yet?</span>{' '}
-            <Link href="/register" className="font-bold text-brand hover:text-brand-hover transition-colors">
+            <span className="text-gray-500">Don't have an account yet?</span>{" "}
+            <Link
+              href="/register"
+              className="font-bold text-brand hover:text-brand-hover transition-colors"
+            >
               Create an account
             </Link>
           </div>

@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/stores/authStore';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useAuthStore } from "@/stores/authStore";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRoles?: Array<'worker' | 'event_team' | 'admin'>;
+  allowedRoles?: Array<"worker" | "eventTeam" | "admin">;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
@@ -24,10 +24,10 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
   useEffect(() => {
     if (isMounted) {
       if (!isAuthenticated) {
-        router.push('/login');
+        router.push("/login");
       } else if (allowedRoles && user && !allowedRoles.includes(user.role)) {
         // Redirect to unauthorized or home if role doesn't match
-        router.push('/');
+        router.push("/");
       }
     }
   }, [isMounted, isAuthenticated, user, allowedRoles, router]);
@@ -38,7 +38,9 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
       <div className="min-h-screen bg-white flex justify-center items-center font-sans">
         <div className="flex flex-col items-center space-y-4">
           <div className="w-10 h-10 border-4 border-brand border-t-transparent rounded-full animate-spin" />
-          <p className="text-sm font-semibold text-gray-500">Checking credentials...</p>
+          <p className="text-sm font-semibold text-gray-500">
+            Checking credentials...
+          </p>
         </div>
       </div>
     );
