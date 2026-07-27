@@ -8,6 +8,7 @@ import User from "../../models/User";
 import { AppError } from "../../utils/AppError";
 
 import { updateApplicationStatusSchema } from "../../validators/application.validator";
+import notificationService from "../notification/notification.service";
 
 class ApplicationService {
   async applyForJob(workerId: string, jobId: string) {
@@ -44,6 +45,13 @@ class ApplicationService {
       job: job._id,
       worker: worker._id,
     });
+
+    await notificationService.createNotification(
+      job.createdBy.toString(),
+      "New Job Application",
+      `A new worker has applied for your job "${job.title}".`,
+      "APPLICATION",
+    );
 
     return {
       success: true,
@@ -140,6 +148,16 @@ class ApplicationService {
     application.status = data.status;
 
     await application.save();
+    await notificationService.createNotification(
+      application.worker.toString(),
+      data.status === "ACCEPTED"
+        ? "Application Accepted"
+        : "Application Rejected",
+      data.status === "ACCEPTED"
+        ? `Congratulations! Your application for "${job.title}" has been accepted.`
+        : `Unfortunately, your application for "${job.title}" has been rejected.`,
+      "APPLICATION",
+    );
 
     if (data.status === "ACCEPTED") {
       const acceptedCount = await Application.countDocuments({
@@ -151,16 +169,30 @@ class ApplicationService {
         job.status = "FILLED";
 
         await job.save();
-
-        await Application.updateMany(
-          {
-            job: job._id,
-            status: "PENDING",
-          },
-          {
-            status: "REJECTED",
-          },
+        await notificationService.createNotification(
+          eventTeamId,
+          "Job Filled",
+          `"${job.title}" has reached the required number of workers.`,
+          "JOB",
         );
+
+        const pendingApplications = await Application.find({
+          job: job._id,
+          status: "PENDING",
+        });
+
+        for (const pendingApplication of pendingApplications) {
+          pendingApplication.status = "REJECTED";
+
+          await pendingApplication.save();
+
+          await notificationService.createNotification(
+            pendingApplication.worker.toString(),
+            "Application Rejected",
+            `Your application for "${job.title}" has been rejected because all positions have been filled.`,
+            "APPLICATION",
+          );
+        }
       }
     }
 

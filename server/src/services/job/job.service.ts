@@ -9,6 +9,7 @@ import {
 import mongoose from "mongoose";
 import Application from "../../models/application.model";
 import WorkerProfile from "../../models/WorkerProfile";
+import notificationService from "../notification/notification.service";
 
 interface GetAllJobsQuery {
   page?: string;
@@ -371,6 +372,12 @@ class JobService {
 
     for (const application of attendedApplications) {
       await this.updateWorkerProfile(application.worker.toString());
+      await notificationService.createNotification(
+        application.worker.toString(),
+        "Job Completed",
+        `The job "${job.title}" has been marked as completed.`,
+        "JOB",
+      );
     }
 
     return {
