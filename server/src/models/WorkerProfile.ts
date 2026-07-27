@@ -1,110 +1,175 @@
-import mongoose, { Schema, Document } from 'mongoose';
+import mongoose, { Schema, Document } from "mongoose";
 
 export interface IWorkerProfile extends Document {
   user: mongoose.Types.ObjectId;
+
   name: string;
   phone: string;
   photo?: string;
+
   dob?: Date;
-  gender?: 'male' | 'female' | 'other';
+  gender?: "male" | "female" | "other";
+
   address?: string;
   district?: string;
+  currentLocation?: string;
   pincode?: string;
+
   languages: string[];
-  experienceLevel?: 'beginner' | 'intermediate' | 'expert';
   skills: string[];
+
   availability: boolean;
   bio?: string;
+
+  experienceLevel: "beginner" | "intermediate" | "expert";
+
   jobsCompleted: number;
+  cancelledJobs: number;
+
   rating: number;
   attendanceRate: number;
+
   experienceScore: number;
-  badge: 'Beginner' | 'Bronze' | 'Silver' | 'Gold' | 'Platinum';
+
+  badge: "Beginner" | "Bronze" | "Silver" | "Gold" | "Platinum";
+
+  isIdentityVerified: boolean;
+
+  lastSeen?: Date;
+
   createdAt: Date;
+  updatedAt: Date;
 }
 
-const WorkerProfileSchema: Schema = new Schema(
+const WorkerProfileSchema = new Schema(
   {
     user: {
       type: Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User",
       required: true,
       unique: true,
     },
+
     name: {
       type: String,
-      required: [true, 'Name is required'],
+      required: [true, "Name is required"],
       trim: true,
     },
+
     phone: {
       type: String,
-      required: [true, 'Phone number is required'],
+      required: [true, "Phone number is required"],
+      unique: true,
       trim: true,
     },
+
     photo: {
       type: String,
-      default: '',
+      default: "",
     },
+
     dob: {
       type: Date,
     },
+
     gender: {
       type: String,
-      enum: ['male', 'female', 'other'],
+      enum: ["male", "female", "other"],
     },
+
     address: {
       type: String,
       trim: true,
     },
+
     district: {
       type: String,
       trim: true,
     },
+
+    currentLocation: {
+      type: String,
+      trim: true,
+    },
+
     pincode: {
       type: String,
       trim: true,
     },
+
     languages: {
       type: [String],
       default: [],
     },
-    experienceLevel: {
-      type: String,
-      enum: ['beginner', 'intermediate', 'expert'],
-      default: 'beginner',
-    },
+
     skills: {
       type: [String],
       default: [],
     },
+
     availability: {
       type: Boolean,
       default: true,
     },
+
     bio: {
       type: String,
-      default: '',
+      default: "",
     },
+
+    experienceLevel: {
+      type: String,
+      enum: ["beginner", "intermediate", "expert"],
+      default: "beginner",
+    },
+
     jobsCompleted: {
       type: Number,
       default: 0,
+      min: 0,
     },
+
+    cancelledJobs: {
+      type: Number,
+      default: 0,
+      min: 0,
+    },
+
     rating: {
       type: Number,
-      default: 5.0,
+      default: 0,
+      min: 0,
+      max: 5,
     },
+
     attendanceRate: {
       type: Number,
-      default: 100, // percentage
+      default: 0,
+      min: 0,
+      max: 100,
     },
+
     experienceScore: {
       type: Number,
       default: 0,
+      min: 0,
+      max: 100,
     },
+
     badge: {
       type: String,
-      enum: ['Beginner', 'Bronze', 'Silver', 'Gold', 'Platinum'],
-      default: 'Beginner',
+      enum: ["Beginner", "Bronze", "Silver", "Gold", "Platinum"],
+      default: "Beginner",
+    },
+
+    isIdentityVerified: {
+      type: Boolean,
+      default: false,
+    },
+
+    lastSeen: {
+      type: Date,
+      default: Date.now,
     },
   },
   {
@@ -112,4 +177,9 @@ const WorkerProfileSchema: Schema = new Schema(
   }
 );
 
-export default mongoose.model<IWorkerProfile>('WorkerProfile', WorkerProfileSchema);
+
+const WorkerProfile =
+  mongoose.models.WorkerProfile ||
+  mongoose.model<IWorkerProfile>("WorkerProfile", WorkerProfileSchema);
+
+export default WorkerProfile;
