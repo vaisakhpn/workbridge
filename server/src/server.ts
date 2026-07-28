@@ -11,6 +11,7 @@ import jobRoutes from "./routes/job.routes";
 import applicationRoutes from "./routes/application.routes";
 import dashboardRoutes from "./routes/dashboard.routes";
 import notificationRoutes from "./routes/notification.routes";
+import adminRoutes from "./routes/admin.routes";
 
 // Load environment variables
 dotenv.config();
@@ -58,6 +59,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/applications", applicationRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/admin", adminRoutes);
 
 // ==============================
 // 404 Handler
