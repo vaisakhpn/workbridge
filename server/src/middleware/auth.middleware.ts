@@ -11,13 +11,11 @@ export const protect = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const authHeader = req.headers.authorization;
+    const token = req.cookies?.accessToken;
 
-    if (!authHeader?.startsWith("Bearer ")) {
+    if (!token) {
       throw new AppError("Authentication required", 401);
     }
-
-    const token = authHeader.split(" ")[1];
 
     const payload = JWTService.verifyAccessToken(token);
 

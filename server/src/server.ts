@@ -1,5 +1,6 @@
 import express from "express";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 
 import { connectDB } from "./config/db";
@@ -31,14 +32,14 @@ app.disable("x-powered-by");
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CLIENT_URL || "http://localhost:3000",
     credentials: true,
   }),
 );
 
 app.use(express.json());
-
 app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 // ==============================
 // Health Check

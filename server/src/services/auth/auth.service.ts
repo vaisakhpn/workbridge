@@ -159,9 +159,7 @@ class AuthService {
     const session = await mongoose.startSession();
 
     try {
-      let response;
-
-      await session.withTransaction(async () => {
+      const response = await session.withTransaction(async () => {
         const { email, password, companyName, ownerName, phone } = data;
 
         // Check email
@@ -201,7 +199,7 @@ class AuthService {
         // Save Refresh Token
         await this.saveRefreshToken(user, refreshToken, session);
 
-        response = {
+        return {
           message: "Event Team registered successfully",
 
           user: {

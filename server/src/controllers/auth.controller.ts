@@ -6,7 +6,7 @@ import {
 } from "../validators/authValidator";
 import AuthService from "../services/auth/auth.service";
 import { AppError } from "../utils/AppError";
-
+import { setAuthCookies, clearAuthCookies } from "../utils/cookie.utils";
 
 export const registerWorker = async (
   req: Request,
@@ -24,7 +24,13 @@ export const registerWorker = async (
 
     const response = await AuthService.registerWorker(result.data);
 
-    res.status(201).json(response);
+    setAuthCookies(res, response.accessToken, response.refreshToken);
+
+    res.status(201).json({
+      success: true,
+      message: response.message,
+      user: response.user,
+    });
   } catch (error) {
     next(error);
   }
@@ -46,7 +52,13 @@ export const registerEventTeam = async (
 
     const response = await AuthService.registerEventTeam(result.data);
 
-    res.status(201).json(response);
+    setAuthCookies(res, response.accessToken, response.refreshToken);
+
+    res.status(201).json({
+      success: true,
+      message: response.message,
+      user: response.user,
+    });
   } catch (error) {
     next(error);
   }
@@ -68,16 +80,23 @@ export const login = async (
 
     const response = await AuthService.login(result.data);
 
-    res.status(200).json(response);
+    setAuthCookies(res, response.accessToken, response.refreshToken);
+
+    res.status(200).json({
+      success: true,
+      message: response.message,
+      user: response.user,
+    });
   } catch (error) {
     next(error);
   }
 };
+
 export const getCurrentUser = async (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): Promise<void> => {
   try {
     const user = await AuthService.getCurrentUser(req.user!.id);
 
@@ -92,21 +111,28 @@ export const getCurrentUser = async (
     next(error);
   }
 };
+
 export const refresh = async (
   req: Request,
   res: Response,
   next: NextFunction
 ): Promise<void> => {
   try {
-    const { refreshToken } = req.body;
+    const refreshToken = req.cookies?.refreshToken;
 
     if (!refreshToken) {
-      return next(new AppError("Refresh token is required", 400));
+      return next(new AppError("Refresh token is required", 401));
     }
 
     const response = await AuthService.refresh(refreshToken);
 
-    res.status(200).json(response);
+    setAuthCookies(res, response.accessToken, response.refreshToken);
+
+    res.status(200).json({
+      success: true,
+      message: response.message,
+      user: response.user,
+    });
   } catch (error) {
     next(error);
   }
@@ -118,9 +144,16 @@ export const logout = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const response = await AuthService.logout(req.user!.id);
+    clearAuthCookies(res);
 
-    res.status(200).json(response);
+    if (req.user?.id) {
+      await AuthService.logout(req.user.id);
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Logged out successfully",
+    });
   } catch (error) {
     next(error);
   }
