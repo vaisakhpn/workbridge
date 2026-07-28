@@ -1,7 +1,7 @@
 "use client";
 
 import ProtectedRoute from "@/components/auth/ProtectedRoute";
-import {Button} from "@/components/ui/Button";
+import Button from "@/components/ui/Button";
 import { useLogout } from "@/hooks/useLogout";
 
 export default function WorkerDashboard() {
