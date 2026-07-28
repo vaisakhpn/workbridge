@@ -46,6 +46,22 @@ class AuthService {
 
     return user;
   }
+  public async getCurrentUser(userId: string) {
+  const user = await User.findById(userId).select(
+    "_id email role isProfileSetup"
+  );
+
+  if (!user) {
+    throw new AppError("User not found", 404);
+  }
+
+  return {
+    id: user._id,
+    email: user.email,
+    role: user.role,
+    isProfileSetup: user.isProfileSetup,
+  };
+}
   private async getUserProfile(user: UserDocument) {
     switch (user.role) {
       case "worker":

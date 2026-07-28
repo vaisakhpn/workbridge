@@ -7,6 +7,7 @@ import {
 import AuthService from "../services/auth/auth.service";
 import { AppError } from "../utils/AppError";
 
+
 export const registerWorker = async (
   req: Request,
   res: Response,
@@ -72,7 +73,25 @@ export const login = async (
     next(error);
   }
 };
+export const getCurrentUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const user = await AuthService.getCurrentUser(req.user!.id);
 
+    res.status(200).json({
+      success: true,
+      message: "User fetched successfully",
+      data: {
+        user,
+      },
+    });
+  } catch (error) {
+    next(error);
+  }
+};
 export const refresh = async (
   req: Request,
   res: Response,
