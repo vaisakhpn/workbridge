@@ -14,13 +14,14 @@ import {
 import { useWorkerProfile } from "@/hooks/useWorkerProfile";
 import { Button } from "@/components/ui/Button";
 
-import { ProfileHeader } from "./ProfileHeader";
+import { AddressForm } from "../shared/AddressForm";
+import { DescriptionForm } from "../shared/DescriptionForm";
+
+import { WorkerProfileHeader } from "./WorkerProfileHeader";
 import { PersonalInfoForm } from "./PersonalInfoForm";
-import { AddressForm } from "./AddressForm";
 import { SkillsSection } from "./SkillsSection";
 import { LanguagesSection } from "./LanguagesSection";
 import { AvailabilitySection } from "./AvailabilitySection";
-import { BioSection } from "./BioSection";
 
 type ProfileTab = "personal" | "location" | "skills" | "status";
 
@@ -56,7 +57,7 @@ const tabs: {
   },
 ];
 
-export function ProfileContainer() {
+export function WorkerProfileContainer() {
   const {
     profile,
     email,
@@ -107,13 +108,13 @@ export function ProfileContainer() {
   return (
     <div className="mx-auto max-w-5xl space-y-8 pb-12">
       {/* Header Banner */}
-      <ProfileHeader
+      <WorkerProfileHeader
         profile={profile}
         email={email || ""}
         onPhotoUpdate={(photoUrl) => updateProfile({ photo: photoUrl })}
       />
 
-      {/* Navigation Tab Bar - 4 Equal Columns filling 100% width with 0 right empty space */}
+      {/* Navigation Tab Bar */}
       <div className="border-border bg-card grid w-full grid-cols-4 gap-1 rounded-2xl border p-1.5 shadow-xs">
         {tabs.map((tab) => {
           const Icon = tab.icon;
@@ -152,7 +153,11 @@ export function ProfileContainer() {
       {activeTab === "location" && (
         <div className="max-w-3xl">
           <AddressForm
-            profile={profile}
+            initialValues={{
+              address: profile.address,
+              district: profile.district,
+              currentLocation: profile.currentLocation,
+            }}
             onSubmit={updateProfile}
             isLoading={isUpdating}
           />
@@ -183,9 +188,12 @@ export function ProfileContainer() {
             isLoading={isUpdating}
           />
 
-          <BioSection
-            profile={profile}
-            onSubmit={updateProfile}
+          <DescriptionForm
+            title="Bio / About Me"
+            subtitle="Write a brief introduction about your work experience."
+            placeholder="Tell organizers about your work experience..."
+            initialValue={profile.bio || ""}
+            onSubmit={(text) => updateProfile({ bio: text })}
             isLoading={isUpdating}
           />
         </div>
@@ -194,4 +202,4 @@ export function ProfileContainer() {
   );
 }
 
-export default ProfileContainer;
+export default WorkerProfileContainer;

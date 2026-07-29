@@ -1,5 +1,5 @@
-import ProfileContainer from "@/components/features/profile/ProfileContainer";
+import WorkerProfileContainer from "@/components/profile/worker/WorkerProfileContainer";
 
 export default function WorkerProfilePage() {
-  return <ProfileContainer />;
+  return <WorkerProfileContainer />;
 }
