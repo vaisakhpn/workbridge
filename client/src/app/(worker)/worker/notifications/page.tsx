@@ -1,5 +1,5 @@
-import NotificationsContainer from "@/components/features/notifications/NotificationsContainer";
+import WorkerNotificationsContainer from "@/components/notifications/worker/WorkerNotificationsContainer";
 
-export default function NotificationsPage() {
-  return <NotificationsContainer />;
+export default function WorkerNotificationsPage() {
+  return <WorkerNotificationsContainer />;
 }
