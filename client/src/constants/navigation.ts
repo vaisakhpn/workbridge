@@ -1,10 +1,12 @@
 import {
   Bell,
-  Briefcase,
+  BriefcaseBusiness,
+  Building2,
   FileText,
   LayoutDashboard,
-  Settings,
+  PlusCircle,
   User,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 
@@ -15,11 +17,6 @@ export interface NavigationItem {
   badge?: number;
 }
 
-export function getCurrentPageTitle(pathname: string): string {
-  const page = workerNavigation.find((item) => pathname.startsWith(item.href));
-
-  return page?.title ?? "WorkBridge";
-}
 export const workerNavigation: NavigationItem[] = [
   {
     title: "Dashboard",
@@ -43,3 +40,43 @@ export const workerNavigation: NavigationItem[] = [
     badge: 2,
   },
 ];
+
+export const eventTeamNavigation: NavigationItem[] = [
+  {
+    title: "Dashboard",
+    href: "/event-team/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Company Profile",
+    href: "/event-team/profile",
+    icon: Building2,
+  },
+  {
+    title: "Create Job",
+    href: "/event-team/jobs/create",
+    icon: PlusCircle,
+  },
+  {
+    title: "Manage Jobs",
+    href: "/event-team/jobs",
+    icon: BriefcaseBusiness,
+  },
+  {
+    title: "Applications",
+    href: "/event-team/applications",
+    icon: Users,
+  },
+  {
+    title: "Notifications",
+    href: "/event-team/notifications",
+    icon: Bell,
+  },
+];
+
+export function getCurrentPageTitle(pathname: string): string {
+  const allNavigation = [...workerNavigation, ...eventTeamNavigation];
+  const page = allNavigation.find((item) => pathname.startsWith(item.href));
+
+  return page?.title ?? "WorkBridge";
+}
