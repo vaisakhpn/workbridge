@@ -1,7 +1,7 @@
 "use client";
 
-import { useEffect } from "react";
-import { Loader2, AlertCircle } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Loader2, AlertCircle, User, MapPin, Wrench, Power, LucideIcon } from "lucide-react";
 
 import { useWorkerProfile } from "@/hooks/useWorkerProfile";
 import { Button } from "@/components/ui/Button";
@@ -14,6 +14,15 @@ import { LanguagesSection } from "./LanguagesSection";
 import { AvailabilitySection } from "./AvailabilitySection";
 import { BioSection } from "./BioSection";
 
+type ProfileTab = "personal" | "location" | "skills" | "status";
+
+const tabs: { id: ProfileTab; label: string; icon: LucideIcon }[] = [
+  { id: "personal", label: "Personal Details", icon: User },
+  { id: "location", label: "Location & Address", icon: MapPin },
+  { id: "skills", label: "Skills & Languages", icon: Wrench },
+  { id: "status", label: "Availability & Bio", icon: Power },
+];
+
 export function ProfileContainer() {
   const {
     profile,
@@ -24,6 +33,8 @@ export function ProfileContainer() {
     fetchProfile,
     updateProfile,
   } = useWorkerProfile();
+
+  const [activeTab, setActiveTab] = useState<ProfileTab>("personal");
 
   useEffect(() => {
     fetchProfile();
@@ -69,37 +80,53 @@ export function ProfileContainer() {
         onPhotoUpdate={(photoUrl) => updateProfile({ photo: photoUrl })}
       />
 
-      {/* Main Grid Layout */}
-      <div className="grid gap-8 lg:grid-cols-3">
-        {/* Left Column (2 Cols wide on desktop) */}
-        <div className="space-y-8 lg:col-span-2">
+      {/* Navigation Tab Bar */}
+      <div className="border-border bg-card flex flex-wrap items-center gap-1.5 rounded-2xl border p-1.5 shadow-xs">
+        {tabs.map((tab) => {
+          const Icon = tab.icon;
+          const isActive = activeTab === tab.id;
+
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+                isActive
+                  ? "bg-primary text-primary-foreground shadow-xs"
+                  : "text-muted-foreground hover:bg-accent hover:text-foreground"
+              }`}
+            >
+              <Icon className="h-4 w-4" />
+              {tab.label}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Tab Content Display */}
+      {activeTab === "personal" && (
+        <div className="max-w-3xl">
           <PersonalInfoForm
             profile={profile}
             onSubmit={updateProfile}
             isLoading={isUpdating}
           />
+        </div>
+      )}
 
+      {activeTab === "location" && (
+        <div className="max-w-3xl">
           <AddressForm
             profile={profile}
             onSubmit={updateProfile}
             isLoading={isUpdating}
           />
-
-          <BioSection
-            profile={profile}
-            onSubmit={updateProfile}
-            isLoading={isUpdating}
-          />
         </div>
+      )}
 
-        {/* Right Column (1 Col wide on desktop) */}
-        <div className="space-y-8">
-          <AvailabilitySection
-            profile={profile}
-            onSubmit={updateProfile}
-            isLoading={isUpdating}
-          />
-
+      {activeTab === "skills" && (
+        <div className="grid gap-8 md:grid-cols-2">
           <SkillsSection
             profile={profile}
             onSubmit={updateProfile}
@@ -112,7 +139,23 @@ export function ProfileContainer() {
             isLoading={isUpdating}
           />
         </div>
-      </div>
+      )}
+
+      {activeTab === "status" && (
+        <div className="grid gap-8 md:grid-cols-2">
+          <AvailabilitySection
+            profile={profile}
+            onSubmit={updateProfile}
+            isLoading={isUpdating}
+          />
+
+          <BioSection
+            profile={profile}
+            onSubmit={updateProfile}
+            isLoading={isUpdating}
+          />
+        </div>
+      )}
     </div>
   );
 }

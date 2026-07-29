@@ -9,7 +9,7 @@ interface WorkerLayoutProps {
 
 export function WorkerLayout({ children }: WorkerLayoutProps) {
   return (
-    <div className="bg-background flex min-h-screen">
+    <div className="bg-background flex h-screen overflow-hidden">
       {/* Desktop Sidebar */}
       <WorkerSidebar />
 

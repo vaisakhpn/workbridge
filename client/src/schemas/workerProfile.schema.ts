@@ -17,9 +17,6 @@ export const personalInfoSchema = z.object({
 
   gender: z
     .enum(["male", "female", "other"]),
-
-  experienceLevel: z
-    .enum(["beginner", "intermediate", "expert"]),
 });
 
 export const addressSchema = z.object({

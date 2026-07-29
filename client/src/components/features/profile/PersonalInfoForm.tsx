@@ -43,7 +43,6 @@ export function PersonalInfoForm({
       phone: profile.phone || "",
       dob: initialDob,
       gender: profile.gender || "male",
-      experienceLevel: profile.experienceLevel || "beginner",
     },
   });
 
@@ -55,7 +54,6 @@ export function PersonalInfoForm({
       phone: data.phone,
       dob: formattedDob,
       gender: data.gender,
-      experienceLevel: data.experienceLevel,
     });
   };
 
@@ -94,7 +92,7 @@ export function PersonalInfoForm({
           />
         </div>
 
-        <div className="grid gap-4 sm:grid-cols-3">
+        <div className="grid gap-4 sm:grid-cols-2">
           {/* DOB */}
           <Input
             label="Date of Birth"
@@ -116,21 +114,6 @@ export function PersonalInfoForm({
               <option value="male">Male</option>
               <option value="female">Female</option>
               <option value="other">Other</option>
-            </select>
-          </div>
-
-          {/* Experience Level */}
-          <div className="w-full">
-            <label className="text-foreground mb-2 block text-sm font-medium">
-              Experience Level
-            </label>
-            <select
-              {...register("experienceLevel")}
-              className="border-border bg-background focus:border-primary flex h-10 w-full rounded-md border px-3 text-sm transition-colors outline-hidden"
-            >
-              <option value="beginner">Beginner</option>
-              <option value="intermediate">Intermediate</option>
-              <option value="expert">Expert</option>
             </select>
           </div>
         </div>
