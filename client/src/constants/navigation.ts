@@ -76,7 +76,10 @@ export const eventTeamNavigation: NavigationItem[] = [
 
 export function getCurrentPageTitle(pathname: string): string {
   const allNavigation = [...workerNavigation, ...eventTeamNavigation];
-  const page = allNavigation.find((item) => pathname.startsWith(item.href));
+  const sortedNav = [...allNavigation].sort(
+    (a, b) => b.href.length - a.href.length
+  );
+  const page = sortedNav.find((item) => pathname.startsWith(item.href));
 
   return page?.title ?? "WorkBridge";
 }

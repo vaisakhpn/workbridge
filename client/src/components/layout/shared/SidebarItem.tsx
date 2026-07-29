@@ -3,16 +3,35 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-import type { NavigationItem } from "@/constants/navigation";
+import {
+  workerNavigation,
+  eventTeamNavigation,
+  type NavigationItem,
+} from "@/constants/navigation";
 
 interface SidebarItemProps {
   item: NavigationItem;
   onSelect?: () => void;
 }
 
+const allNavHrefs = [...workerNavigation, ...eventTeamNavigation].map(
+  (n) => n.href
+);
+
 export function SidebarItem({ item, onSelect }: SidebarItemProps) {
   const pathname = usePathname();
-  const isActive = pathname.startsWith(item.href);
+
+  const isExact = pathname === item.href;
+  const isParent =
+    pathname.startsWith(item.href + "/") &&
+    !allNavHrefs.some(
+      (otherHref) =>
+        otherHref !== item.href &&
+        otherHref.length > item.href.length &&
+        pathname.startsWith(otherHref)
+    );
+
+  const isActive = isExact || isParent;
 
   const Icon = item.icon;
 

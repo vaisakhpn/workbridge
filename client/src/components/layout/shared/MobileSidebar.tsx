@@ -28,7 +28,7 @@ export function MobileSidebar({
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent side="left" className="w-72 p-0">
         <SheetHeader className="sr-only">
-          <SheetTitle font-semibold>Navigation Menu</SheetTitle>
+          <SheetTitle className="font-semibold">Navigation Menu</SheetTitle>
         </SheetHeader>
 
         <div className="flex h-full flex-col">
