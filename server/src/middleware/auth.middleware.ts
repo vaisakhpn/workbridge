@@ -11,7 +11,11 @@ export const protect = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const token = req.cookies?.accessToken;
+    let token = req.cookies?.accessToken;
+
+    if (!token && req.headers.authorization?.startsWith("Bearer ")) {
+      token = req.headers.authorization.split(" ")[1];
+    }
 
     if (!token) {
       throw new AppError("Authentication required", 401);
