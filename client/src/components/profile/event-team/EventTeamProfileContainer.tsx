@@ -18,6 +18,7 @@ import { DescriptionForm } from "../shared/DescriptionForm";
 
 import { EventTeamProfileHeader } from "./EventTeamProfileHeader";
 import { CompanyInfoForm } from "./CompanyInfoForm";
+import { ProfileSkeleton } from "@/components/ui/skeletons";
 
 type CompanyProfileTab = "company" | "location" | "about";
 
@@ -47,6 +48,8 @@ const tabs: {
   },
 ];
 
+
+
 export function EventTeamProfileContainer() {
   const {
     profile,
@@ -65,12 +68,7 @@ export function EventTeamProfileContainer() {
   }, [fetchProfile]);
 
   if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading company profile...</p>
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (error || !profile) {

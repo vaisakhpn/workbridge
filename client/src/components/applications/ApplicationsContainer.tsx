@@ -19,9 +19,12 @@ import { ApplicationCard } from "./ApplicationCard";
 import { WorkerProfileModal } from "./WorkerProfileModal";
 import { EmptyApplications } from "./EmptyApplications";
 
+import { ApplicationsSkeleton } from "@/components/ui/skeletons";
+
 interface ApplicationsContainerProps {
   jobId: string;
 }
+
 
 export function ApplicationsContainer({ jobId }: ApplicationsContainerProps) {
   const {
@@ -41,12 +44,7 @@ export function ApplicationsContainer({ jobId }: ApplicationsContainerProps) {
   } = useJobApplications(jobId);
 
   if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading applicants...</p>
-      </div>
-    );
+    return <ApplicationsSkeleton />;
   }
 
   if (error || !job) {

@@ -9,6 +9,7 @@ import type { NotificationItem } from "@/types/notification.types";
 
 import { NotificationGroup } from "../shared/NotificationGroup";
 import { EmptyNotifications } from "../shared/EmptyNotifications";
+import { NotificationsSkeleton } from "@/components/ui/skeletons";
 
 export function EventTeamNotificationsContainer() {
   const {
@@ -55,12 +56,7 @@ export function EventTeamNotificationsContainer() {
     }, [notifications]);
 
   if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading notifications...</p>
-      </div>
-    );
+    return <NotificationsSkeleton />;
   }
 
   if (error) {

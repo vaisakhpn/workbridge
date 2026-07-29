@@ -22,6 +22,7 @@ import { PersonalInfoForm } from "./PersonalInfoForm";
 import { SkillsSection } from "./SkillsSection";
 import { LanguagesSection } from "./LanguagesSection";
 import { AvailabilitySection } from "./AvailabilitySection";
+import { ProfileSkeleton } from "@/components/ui/skeletons";
 
 type ProfileTab = "personal" | "location" | "skills" | "status";
 
@@ -57,6 +58,8 @@ const tabs: {
   },
 ];
 
+
+
 export function WorkerProfileContainer() {
   const {
     profile,
@@ -75,12 +78,7 @@ export function WorkerProfileContainer() {
   }, [fetchProfile]);
 
   if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading your profile...</p>
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   if (error || !profile) {

@@ -22,6 +22,8 @@ import type { StatItem } from "../shared/StatCard";
 import { RecentApplications } from "./RecentApplications";
 import { RecentJobs } from "./RecentJobs";
 
+import { DashboardSkeleton } from "@/components/ui/skeletons";
+
 export function EventTeamDashboardContainer() {
   const { user } = useAuthStore();
   const { dashboardData, isLoading, error, fetchDashboard } =
@@ -32,12 +34,7 @@ export function EventTeamDashboardContainer() {
   }, [fetchDashboard]);
 
   if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading your dashboard...</p>
-      </div>
-    );
+    return <DashboardSkeleton />;
   }
 
   if (error || !dashboardData) {

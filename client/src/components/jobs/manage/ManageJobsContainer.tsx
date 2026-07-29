@@ -11,6 +11,8 @@ import { JobFilters } from "./JobFilters";
 import { JobCard } from "./JobCard";
 import { EmptyState } from "./EmptyState";
 
+import { ManageJobsSkeleton } from "@/components/ui/skeletons";
+
 export function ManageJobsContainer() {
   const {
     jobs,
@@ -30,12 +32,7 @@ export function ManageJobsContainer() {
   }, [fetchJobs]);
 
   if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading your job postings...</p>
-      </div>
-    );
+    return <ManageJobsSkeleton />;
   }
 
   if (error) {

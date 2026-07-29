@@ -16,6 +16,7 @@ import { BasicInformationSection } from "../create/BasicInformationSection";
 import { ScheduleSection } from "../create/ScheduleSection";
 import { LocationSection } from "../create/LocationSection";
 import { WorkerSection } from "../create/WorkerSection";
+import { FormSkeleton } from "@/components/ui/skeletons";
 
 interface EditJobFormProps {
   jobId: string;
@@ -53,13 +54,9 @@ export function EditJobForm({ jobId }: EditJobFormProps) {
     await updateJob(data);
   };
 
+
   if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading job details...</p>
-      </div>
-    );
+    return <FormSkeleton />;
   }
 
   if (error) {
