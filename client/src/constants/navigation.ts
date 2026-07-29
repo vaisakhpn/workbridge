@@ -15,6 +15,11 @@ export interface NavigationItem {
   badge?: number;
 }
 
+export function getCurrentPageTitle(pathname: string): string {
+  const page = workerNavigation.find((item) => pathname.startsWith(item.href));
+
+  return page?.title ?? "WorkBridge";
+}
 export const workerNavigation: NavigationItem[] = [
   {
     title: "Dashboard",

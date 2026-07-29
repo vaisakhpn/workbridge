@@ -9,9 +9,10 @@ import type { NavigationItem } from "@/constants/navigation";
 
 interface SidebarItemProps {
   item: NavigationItem;
+  onNavigate?: () => void;
 }
 
-export function SidebarItem({ item }: SidebarItemProps) {
+export function SidebarItem({ item, onNavigate }: SidebarItemProps) {
   const pathname = usePathname();
 
   const active = pathname === item.href;
@@ -27,6 +28,7 @@ export function SidebarItem({ item }: SidebarItemProps) {
           ? "bg-primary text-primary-foreground shadow-sm"
           : "text-muted-foreground hover:bg-accent hover:text-foreground"
       )}
+      onClick={onNavigate}
     >
       <div className="flex items-center gap-3">
         <Icon className="h-5 w-5" />

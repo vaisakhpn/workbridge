@@ -4,7 +4,7 @@ import { Mail, Lock } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import Button from "@/components/ui/Button";
+import { Button } from "@/components/ui/Button";
 import Card from "@/components/ui/Card";
 import Container from "@/components/common/Container";
 import Input from "@/components/ui/Input";
@@ -34,7 +34,7 @@ export default function LoginForm() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const response = await authService.login(data);
-        
+
       setUser(response.user);
       switch (response.user.role) {
         case "worker":
