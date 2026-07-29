@@ -33,7 +33,7 @@ export function QuickActions() {
         Quick Actions
       </h3>
 
-      <div className="grid gap-4 md:grid-cols-3">
+      <div className="grid gap-4 grid-cols-2 md:grid-cols-3">
         {actions.map((action) => {
           const Icon = action.icon;
 

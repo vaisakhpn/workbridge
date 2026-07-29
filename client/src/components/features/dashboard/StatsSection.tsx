@@ -40,7 +40,7 @@ export function StatsSection({ profile, stats }: StatsSectionProps) {
   ];
 
   return (
-    <section className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <section className="grid gap-4 grid-cols-2 xl:grid-cols-4">
       {statItems.map((item) => (
         <StatCard key={item.title} {...item} />
       ))}
