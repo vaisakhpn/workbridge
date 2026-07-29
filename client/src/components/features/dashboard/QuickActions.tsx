@@ -8,19 +8,19 @@ import Card from "@/components/ui/Card";
 const actions = [
   {
     title: "Find Jobs",
-    description: "Browse available jobs",
+    description: "Browse available event opportunities",
     href: "/worker/jobs",
     icon: BriefcaseBusiness,
   },
   {
-    title: "Applications",
-    description: "Track your applications",
+    title: "My Applications",
+    description: "Track your pending & accepted applications",
     href: "/worker/applications",
     icon: FileText,
   },
   {
     title: "My Profile",
-    description: "Complete your profile",
+    description: "Update skills, location & availability",
     href: "/worker/profile",
     icon: User,
   },
@@ -29,7 +29,9 @@ const actions = [
 export function QuickActions() {
   return (
     <section className="space-y-4">
-      <h2 className="text-xl font-semibold">Quick Actions</h2>
+      <h3 className="text-lg font-semibold tracking-tight text-foreground">
+        Quick Actions
+      </h3>
 
       <div className="grid gap-4 md:grid-cols-3">
         {actions.map((action) => {
@@ -37,16 +39,18 @@ export function QuickActions() {
 
           return (
             <Link key={action.title} href={action.href}>
-              <Card className="cursor-pointer transition-all duration-200 hover:-translate-y-1 hover:shadow-lg">
-                <div className="space-y-4">
-                  <div className="bg-primary/10 flex h-12 w-12 items-center justify-center rounded-xl">
-                    <Icon className="text-primary h-6 w-6" />
+              <Card className="cursor-pointer p-5 transition-all duration-200 hover:-translate-y-1 hover:shadow-md">
+                <div className="space-y-3">
+                  <div className="bg-primary/10 flex h-11 w-11 items-center justify-center rounded-xl">
+                    <Icon className="text-primary h-5 w-5" />
                   </div>
 
                   <div>
-                    <h3 className="font-semibold">{action.title}</h3>
+                    <h4 className="font-semibold text-foreground">
+                      {action.title}
+                    </h4>
 
-                    <p className="text-muted-foreground mt-1 text-sm">
+                    <p className="mt-1 text-xs text-muted-foreground">
                       {action.description}
                     </p>
                   </div>
