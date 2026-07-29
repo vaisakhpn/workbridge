@@ -1,7 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Loader2, AlertCircle, User, MapPin, Wrench, Power, LucideIcon } from "lucide-react";
+import {
+  Loader2,
+  AlertCircle,
+  User,
+  MapPin,
+  Wrench,
+  Power,
+  LucideIcon,
+} from "lucide-react";
 
 import { useWorkerProfile } from "@/hooks/useWorkerProfile";
 import { Button } from "@/components/ui/Button";
@@ -16,11 +24,36 @@ import { BioSection } from "./BioSection";
 
 type ProfileTab = "personal" | "location" | "skills" | "status";
 
-const tabs: { id: ProfileTab; label: string; icon: LucideIcon }[] = [
-  { id: "personal", label: "Personal Details", icon: User },
-  { id: "location", label: "Location & Address", icon: MapPin },
-  { id: "skills", label: "Skills & Languages", icon: Wrench },
-  { id: "status", label: "Availability & Bio", icon: Power },
+const tabs: {
+  id: ProfileTab;
+  label: string;
+  shortLabel: string;
+  icon: LucideIcon;
+}[] = [
+  {
+    id: "personal",
+    label: "Personal Details",
+    shortLabel: "Personal",
+    icon: User,
+  },
+  {
+    id: "location",
+    label: "Location & Address",
+    shortLabel: "Location",
+    icon: MapPin,
+  },
+  {
+    id: "skills",
+    label: "Skills & Languages",
+    shortLabel: "Skills",
+    icon: Wrench,
+  },
+  {
+    id: "status",
+    label: "Availability & Bio",
+    shortLabel: "Status",
+    icon: Power,
+  },
 ];
 
 export function ProfileContainer() {
@@ -80,8 +113,8 @@ export function ProfileContainer() {
         onPhotoUpdate={(photoUrl) => updateProfile({ photo: photoUrl })}
       />
 
-      {/* Navigation Tab Bar */}
-      <div className="border-border bg-card flex flex-wrap items-center gap-1.5 rounded-2xl border p-1.5 shadow-xs">
+      {/* Navigation Tab Bar - 4 Equal Columns filling 100% width with 0 right empty space */}
+      <div className="border-border bg-card grid w-full grid-cols-4 gap-1 rounded-2xl border p-1.5 shadow-xs">
         {tabs.map((tab) => {
           const Icon = tab.icon;
           const isActive = activeTab === tab.id;
@@ -91,14 +124,15 @@ export function ProfileContainer() {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className={`flex items-center gap-2 rounded-xl px-4 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
+              className={`flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-xs font-semibold transition-all duration-200 sm:gap-2 sm:px-4 ${
                 isActive
                   ? "bg-primary text-primary-foreground shadow-xs"
                   : "text-muted-foreground hover:bg-accent hover:text-foreground"
               }`}
             >
-              <Icon className="h-4 w-4" />
-              {tab.label}
+              <Icon className="h-4 w-4 shrink-0" />
+              <span className="hidden md:inline">{tab.label}</span>
+              <span className="md:hidden">{tab.shortLabel}</span>
             </button>
           );
         })}
