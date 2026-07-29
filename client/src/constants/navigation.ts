@@ -32,11 +32,6 @@ export const workerNavigation: NavigationItem[] = [
     icon: User,
   },
   {
-    title: "Find Jobs",
-    href: "/worker/jobs",
-    icon: Briefcase,
-  },
-  {
     title: "Applications",
     href: "/worker/applications",
     icon: FileText,
