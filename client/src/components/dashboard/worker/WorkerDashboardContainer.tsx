@@ -1,18 +1,26 @@
 "use client";
 
 import { useEffect } from "react";
-import { Loader2, AlertCircle } from "lucide-react";
+import {
+  Loader2,
+  AlertCircle,
+  BriefcaseBusiness,
+  FileText,
+  User,
+} from "lucide-react";
 
 import { useWorkerDashboard } from "@/hooks/useWorkerDashboard";
 import { Button } from "@/components/ui/Button";
 
-import { DashboardGreeting } from "./DashboardGreeting";
-import { StatsSection } from "./StatsSection";
-import { QuickActions } from "./QuickActions";
+import { DashboardGreeting } from "../shared/DashboardGreeting";
+import { StatsSection } from "../shared/StatsSection";
+
+import type { StatItem } from "../shared/StatCard";
+
 import { UpcomingJobs } from "./UpcomingJobs";
 import { RecentNotifications } from "./RecentNotifications";
 
-export function DashboardContainer() {
+export function WorkerDashboardContainer() {
   const { dashboardData, isLoading, error, fetchDashboard } =
     useWorkerDashboard();
 
@@ -56,25 +64,48 @@ export function DashboardContainer() {
 
   const { profile, stats } = dashboardData;
 
+  const statItems: StatItem[] = [
+    {
+      title: "Jobs Applied",
+      value: stats.jobsApplied,
+      description: "Total applications submitted",
+      iconName: "applied",
+    },
+    {
+      title: "Pending Applications",
+      value: stats.pending,
+      description: "Under review by organizers",
+      iconName: "pending",
+    },
+    {
+      title: "Accepted Applications",
+      value: stats.accepted,
+      description: "Confirmed bookings",
+      iconName: "accepted",
+    },
+    {
+      title: "Completed Jobs",
+      value: profile.jobsCompleted,
+      description: `Rating: ${profile.rating ? profile.rating.toFixed(1) : "0.0"} / 5.0`,
+      iconName: "rating",
+    },
+  ];
+
   return (
     <div className="mx-auto max-w-7xl space-y-8 pb-12">
       {/* Greeting Banner */}
       <DashboardGreeting name={profile.name} />
 
       {/* Real Stats Metrics */}
-      <StatsSection profile={profile} stats={stats} />
-
-      {/* Quick Navigation Actions */}
-      <QuickActions />
+      <StatsSection items={statItems} columns={4} />
 
       {/* Bottom Grid: Upcoming Jobs & Notifications */}
       <div className="grid gap-6 lg:grid-cols-2">
         <UpcomingJobs />
-
         <RecentNotifications />
       </div>
     </div>
   );
 }
 
-export default DashboardContainer;
+export default WorkerDashboardContainer;

@@ -1,10 +1,14 @@
 "use client";
 
 interface DashboardGreetingProps {
-  name: string;
+  name?: string;
+  roleDescription?: string;
 }
 
-export function DashboardGreeting({ name }: DashboardGreetingProps) {
+export function DashboardGreeting({
+  name,
+  roleDescription = "Welcome back! Here is your latest work activity summary.",
+}: DashboardGreetingProps) {
   const hour = new Date().getHours();
 
   const greeting =
@@ -17,12 +21,10 @@ export function DashboardGreeting({ name }: DashboardGreetingProps) {
   return (
     <section className="space-y-1">
       <h2 className="text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
-        👋 {greeting}, {name || "Worker"}
+        👋 {greeting}, {name || "User"}
       </h2>
 
-      <p className="text-sm text-muted-foreground">
-        Welcome back! Here is your latest work activity summary.
-      </p>
+      <p className="text-sm text-muted-foreground">{roleDescription}</p>
     </section>
   );
 }

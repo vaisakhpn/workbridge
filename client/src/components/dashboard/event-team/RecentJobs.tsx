@@ -1,45 +1,45 @@
 "use client";
 
 import Link from "next/link";
-import { CalendarDays, Clock, MapPin, Briefcase } from "lucide-react";
+import { Briefcase, MapPin, Users } from "lucide-react";
 
 import Card from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
 
-interface UpcomingJobItem {
+interface JobItem {
   id: string | number;
   title: string;
   location: string;
-  date: string;
-  time: string;
-  status?: string;
+  workersNeeded: number;
+  applicantsCount: number;
+  status: "OPEN" | "FILLED" | "COMPLETED";
 }
 
-interface UpcomingJobsProps {
-  jobs?: UpcomingJobItem[];
+interface RecentJobsProps {
+  jobs?: JobItem[];
 }
 
-const defaultUpcomingJobs: UpcomingJobItem[] = [
+const defaultJobs: JobItem[] = [
   {
     id: "1",
-    title: "Wedding Catering Assistant",
+    title: "Grand Wedding Catering Setup",
     location: "Kozhikode",
-    date: "Tomorrow",
-    time: "9:00 AM",
-    status: "Confirmed",
+    workersNeeded: 8,
+    applicantsCount: 12,
+    status: "OPEN",
   },
   {
     id: "2",
-    title: "Birthday Event Setup",
-    location: "Malappuram",
-    date: "Friday",
-    time: "11:30 AM",
-    status: "Confirmed",
+    title: "Corporate Expo Hospitality",
+    location: "Kochi",
+    workersNeeded: 5,
+    applicantsCount: 5,
+    status: "FILLED",
   },
 ];
 
-export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) {
+export function RecentJobs({ jobs = defaultJobs }: RecentJobsProps) {
   return (
     <Card className="p-6">
       <div className="mb-6 flex items-center justify-between">
@@ -48,22 +48,22 @@ export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) 
             <Briefcase className="h-4 w-4" />
           </div>
           <h3 className="text-base font-semibold text-foreground">
-            Upcoming Jobs
+            Active Job Listings
           </h3>
         </div>
 
         <Button variant="ghost" size="sm" asChild>
-          <Link href="/worker/jobs">View All</Link>
+          <Link href="/event-team/jobs">Manage All</Link>
         </Button>
       </div>
 
       {jobs.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-8 text-center border border-dashed border-border rounded-xl">
           <p className="text-sm font-medium text-muted-foreground">
-            No upcoming jobs scheduled
+            No active job listings
           </p>
           <Button variant="outline" size="xs" className="mt-3" asChild>
-            <Link href="/worker/jobs">Find Work Now</Link>
+            <Link href="/event-team/jobs/create">Post a Job</Link>
           </Button>
         </div>
       ) : (
@@ -74,12 +74,20 @@ export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) 
               className="border-border hover:bg-muted/40 rounded-xl border p-4 transition-colors"
             >
               <div className="flex items-start justify-between gap-2">
-                <h4 className="font-semibold text-foreground text-sm">{job.title}</h4>
-                {job.status && (
-                  <Badge variant="secondary" className="bg-emerald-500/10 text-emerald-600 border-emerald-200 text-[10px]">
-                    {job.status}
-                  </Badge>
-                )}
+                <h4 className="font-semibold text-foreground text-sm">
+                  {job.title}
+                </h4>
+
+                <Badge
+                  variant="secondary"
+                  className={
+                    job.status === "OPEN"
+                      ? "bg-emerald-500/10 text-emerald-600 border-emerald-200 text-[10px]"
+                      : "bg-indigo-500/10 text-indigo-600 border-indigo-200 text-[10px]"
+                  }
+                >
+                  {job.status}
+                </Badge>
               </div>
 
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
@@ -89,13 +97,10 @@ export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) 
                 </div>
 
                 <div className="flex items-center gap-1.5">
-                  <CalendarDays className="text-primary h-3.5 w-3.5" />
-                  {job.date}
-                </div>
-
-                <div className="flex items-center gap-1.5">
-                  <Clock className="text-primary h-3.5 w-3.5" />
-                  {job.time}
+                  <Users className="text-primary h-3.5 w-3.5" />
+                  <span>
+                    {job.applicantsCount} / {job.workersNeeded} Applicants
+                  </span>
                 </div>
               </div>
             </div>

@@ -1,5 +1,5 @@
-import DashboardContainer from "@/components/features/dashboard/DashboardContainer";
+import { WorkerDashboardContainer } from "@/components/dashboard/worker/WorkerDashboardContainer";
 
 export default function DashboardPage() {
-  return <DashboardContainer />;
+  return <WorkerDashboardContainer />;
 }

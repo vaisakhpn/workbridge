@@ -6,45 +6,62 @@ import {
   CheckCircle2,
   XCircle,
   Star,
+  Users,
+  UserCheck,
+  Hourglass,
+  CheckCheck,
+  Briefcase,
   LucideIcon,
 } from "lucide-react";
 
 import Card from "@/components/ui/Card";
 
-export type DashboardStatIconName =
+export type StatIconName =
   | "applied"
   | "pending"
   | "accepted"
   | "rejected"
   | "completed"
-  | "rating";
+  | "rating"
+  | "posted"
+  | "open"
+  | "filled"
+  | "applicants";
 
-const iconMap: Record<DashboardStatIconName, LucideIcon> = {
+const iconMap: Record<StatIconName, LucideIcon> = {
   applied: BriefcaseBusiness,
-  pending: Clock,
+  pending: Hourglass,
   accepted: CheckCircle2,
   rejected: XCircle,
-  completed: CheckCircle2,
+  completed: CheckCheck,
   rating: Star,
+  posted: Briefcase,
+  open: Clock,
+  filled: UserCheck,
+  applicants: Users,
 };
 
 const iconStyleMap: Record<
-  DashboardStatIconName,
+  StatIconName,
   { bg: string; iconColor: string }
 > = {
   applied: { bg: "bg-blue-500/10", iconColor: "text-blue-600" },
   pending: { bg: "bg-amber-500/10", iconColor: "text-amber-600" },
   accepted: { bg: "bg-emerald-500/10", iconColor: "text-emerald-600" },
   rejected: { bg: "bg-rose-500/10", iconColor: "text-rose-600" },
-  completed: { bg: "bg-emerald-500/10", iconColor: "text-emerald-600" },
+  completed: { bg: "bg-purple-500/10", iconColor: "text-purple-600" },
   rating: { bg: "bg-amber-500/15", iconColor: "text-amber-500 fill-amber-500" },
+  posted: { bg: "bg-blue-500/10", iconColor: "text-blue-600" },
+  open: { bg: "bg-emerald-500/10", iconColor: "text-emerald-600" },
+  filled: { bg: "bg-indigo-500/10", iconColor: "text-indigo-600" },
+  applicants: { bg: "bg-sky-500/10", iconColor: "text-sky-600" },
 };
 
 export interface StatItem {
   title: string;
   value: string | number;
   description?: string;
-  iconName: DashboardStatIconName;
+  iconName: StatIconName;
 }
 
 export function StatCard({ title, value, description, iconName }: StatItem) {
