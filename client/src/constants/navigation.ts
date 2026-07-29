@@ -42,9 +42,4 @@ export const workerNavigation: NavigationItem[] = [
     icon: Bell,
     badge: 2,
   },
-  {
-    title: "Settings",
-    href: "/worker/settings",
-    icon: Settings,
-  },
 ];
