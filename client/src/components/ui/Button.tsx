@@ -73,6 +73,21 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot.Root : "button";
 
+    const content = loading ? (
+      <>
+        <Spinner size="sm" />
+        {loadingText || "Loading..."}
+      </>
+    ) : leftIcon || rightIcon ? (
+      <>
+        {leftIcon}
+        {children}
+        {rightIcon}
+      </>
+    ) : (
+      children
+    );
+
     return (
       <Comp
         ref={ref as any}
@@ -83,18 +98,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         {...props}
       >
-        {loading ? (
-          <>
-            <Spinner size="sm" />
-            {loadingText || "Loading..."}
-          </>
-        ) : (
-          <>
-            {leftIcon}
-            {children}
-            {rightIcon}
-          </>
-        )}
+        {content}
       </Comp>
     );
   }
