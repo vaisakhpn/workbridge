@@ -5,9 +5,17 @@ import {
   LayoutDashboard,
   Settings,
   User,
+  type LucideIcon,
 } from "lucide-react";
 
-export const workerNavigation = [
+export interface NavigationItem {
+  title: string;
+  href: string;
+  icon: LucideIcon;
+  badge?: number;
+}
+
+export const workerNavigation: NavigationItem[] = [
   {
     title: "Dashboard",
     href: "/worker/dashboard",
@@ -32,10 +40,11 @@ export const workerNavigation = [
     title: "Notifications",
     href: "/worker/notifications",
     icon: Bell,
+    badge: 2,
   },
   {
     title: "Settings",
     href: "/worker/settings",
     icon: Settings,
   },
-] as const;
+];
