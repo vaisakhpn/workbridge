@@ -13,25 +13,29 @@ interface AuthProviderProps {
 export default function AuthProvider({
   children,
 }: AuthProviderProps) {
-  const setUser = useAuthStore((state) => state.setUser);
+  const { setUser, logout } = useAuthStore();
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const initializeAuth = async () => {
       try {
-        const response = await authService.getCurrentUser();
+        const response: any = await authService.getCurrentUser();
+        const fetchedUser = response?.user || response?.data?.user;
 
-        setUser(response.user);
-      } catch {
-        // No active session.
+        if (fetchedUser) {
+          setUser(fetchedUser);
+        }
+      } catch (error) {
+        // No active or valid session - logout to sync local state
+        logout();
       } finally {
         setLoading(false);
       }
     };
 
     initializeAuth();
-  }, [setUser]);
+  }, [setUser, logout]);
 
   if (loading) {
     return (

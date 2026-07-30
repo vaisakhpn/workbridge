@@ -66,11 +66,6 @@ export function UserMenu() {
     router.push(dashboardPath);
   };
 
-  // Temporary profile image placeholder as requested
-  const tempProfileImage =
-    user.avatar ||
-    "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80";
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -80,13 +75,15 @@ export function UserMenu() {
           className="relative h-10 w-10 rounded-full border-2 border-orange-500/40 p-0.5 hover:border-orange-500 transition-all cursor-pointer focus:outline-none"
         >
           <Avatar className="h-full w-full rounded-full">
-            <AvatarImage
-              src={tempProfileImage}
-              alt={displayName}
-              className="object-cover rounded-full"
-            />
-            <AvatarFallback className="bg-orange-100 text-orange-700 font-bold">
-              {initials}
+            {user.avatar && (
+              <AvatarImage
+                src={user.avatar}
+                alt={displayName}
+                className="object-cover rounded-full"
+              />
+            )}
+            <AvatarFallback className="bg-orange-500/10 text-orange-600 font-bold flex items-center justify-center">
+              <UserIcon className="h-5 w-5 text-orange-600" />
             </AvatarFallback>
           </Avatar>
         </Button>

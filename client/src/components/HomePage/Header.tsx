@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Menu, X, ArrowRight } from "lucide-react";
 
@@ -16,7 +16,14 @@ const navLinks = [
 
 export function LandingHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const { user, isAuthenticated } = useAuthStore();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isUserLoggedIn = mounted && isAuthenticated && Boolean(user);
 
   return (
     <header className="border-border/40 bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md transition-all">
@@ -50,10 +57,10 @@ export function LandingHeader() {
         </nav>
 
         {/* Desktop Action Buttons / User Menu */}
-        <div className="hidden shrink-0 items-center gap-3 md:flex">
-          {isAuthenticated && user ? (
+        <div className="hidden shrink-0 items-center gap-3 md:flex min-h-[40px]">
+          {isUserLoggedIn ? (
             <UserMenu />
-          ) : (
+          ) : mounted ? (
             <>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/login" className="text-sm font-semibold">
@@ -73,12 +80,12 @@ export function LandingHeader() {
                 </Link>
               </Button>
             </>
-          )}
+          ) : null}
         </div>
 
         {/* Mobile Menu Trigger Button */}
         <div className="flex items-center gap-2 md:hidden">
-          {isAuthenticated && user && (
+          {isUserLoggedIn && (
             <div className="mr-1">
               <UserMenu />
             </div>
@@ -113,7 +120,7 @@ export function LandingHeader() {
             ))}
           </nav>
 
-          {!(isAuthenticated && user) && (
+          {!isUserLoggedIn && mounted && (
             <div className="flex flex-col gap-2 pt-2">
               <Button
                 variant="outline"

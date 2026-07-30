@@ -2,9 +2,11 @@
 
 import { useState } from "react";
 import { usePathname } from "next/navigation";
-import { Menu } from "lucide-react";
+import Link from "next/link";
+import { Menu, Home } from "lucide-react";
 
 import { getCurrentPageTitle, type NavigationItem } from "@/constants/navigation";
+import { Button } from "@/components/ui/Button";
 
 import { UserMenu } from "./UserMenu";
 import { MobileSidebar } from "./MobileSidebar";
@@ -38,8 +40,22 @@ export function AppHeader({ navigationItems }: AppHeaderProps) {
           </h1>
         </div>
 
-        {/* User Menu */}
-        <UserMenu />
+        {/* Header Actions: Home Button & User Menu */}
+        <div className="flex items-center gap-3">
+          <Button
+            variant="ghost"
+            size="sm"
+            asChild
+            className="gap-1.5 font-semibold text-muted-foreground hover:text-orange-600 hover:bg-orange-50 dark:hover:bg-orange-950/20"
+          >
+            <Link href="/">
+              <Home className="h-4 w-4 text-orange-600" />
+              <span className="hidden sm:inline">Home</span>
+            </Link>
+          </Button>
+
+          <UserMenu />
+        </div>
       </header>
 
       <MobileSidebar
