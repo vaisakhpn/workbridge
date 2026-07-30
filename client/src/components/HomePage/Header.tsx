@@ -6,6 +6,8 @@ import { Menu, X, ArrowRight } from "lucide-react";
 
 import { Button } from "@/components/ui/Button";
 import { HeaderSearchBar } from "./HeaderSearchBar";
+import { UserMenu } from "@/components/layout/shared/UserMenu";
+import { useAuthStore } from "@/store/auth.store";
 
 const navLinks = [
   { label: "Home", href: "/" },
@@ -14,6 +16,7 @@ const navLinks = [
 
 export function LandingHeader() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, isAuthenticated } = useAuthStore();
 
   return (
     <header className="border-border/40 bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md transition-all">
@@ -46,29 +49,40 @@ export function LandingHeader() {
           ))}
         </nav>
 
-        {/* Desktop Action Buttons */}
+        {/* Desktop Action Buttons / User Menu */}
         <div className="hidden shrink-0 items-center gap-3 md:flex">
-          <Button variant="ghost" size="sm" asChild>
-            <Link href="/login" className="text-sm font-semibold">
-              Login
-            </Link>
-          </Button>
+          {isAuthenticated && user ? (
+            <UserMenu />
+          ) : (
+            <>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/login" className="text-sm font-semibold">
+                  Login
+                </Link>
+              </Button>
 
-          <Button
-            variant="primary"
-            size="sm"
-            asChild
-            className="gap-1 rounded-full bg-orange-600 px-5 font-semibold text-white shadow-xs hover:bg-orange-700"
-          >
-            <Link href="/signup">
-              <span>Register Now</span>
-              <ArrowRight size={16} />
-            </Link>
-          </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                asChild
+                className="gap-1 rounded-full bg-orange-600 px-5 font-semibold text-white shadow-xs hover:bg-orange-700"
+              >
+                <Link href="/signup">
+                  <span>Register Now</span>
+                  <ArrowRight size={16} />
+                </Link>
+              </Button>
+            </>
+          )}
         </div>
 
         {/* Mobile Menu Trigger Button */}
         <div className="flex items-center gap-2 md:hidden">
+          {isAuthenticated && user && (
+            <div className="mr-1">
+              <UserMenu />
+            </div>
+          )}
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -99,27 +113,29 @@ export function LandingHeader() {
             ))}
           </nav>
 
-          <div className="flex flex-col gap-2 pt-2">
-            <Button
-              variant="outline"
-              size="sm"
-              asChild
-              className="w-full justify-center"
-            >
-              <Link href="/auth/login">Login</Link>
-            </Button>
-            <Button
-              variant="primary"
-              size="sm"
-              asChild
-              className="w-full justify-center rounded-full bg-orange-600 text-white hover:bg-orange-700"
-            >
-              <Link href="/auth/register">
-                <span>Register Now</span>
-                <ArrowRight size={16} className="ml-1" />
-              </Link>
-            </Button>
-          </div>
+          {!(isAuthenticated && user) && (
+            <div className="flex flex-col gap-2 pt-2">
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="w-full justify-center"
+              >
+                <Link href="/login">Login</Link>
+              </Button>
+              <Button
+                variant="primary"
+                size="sm"
+                asChild
+                className="w-full justify-center rounded-full bg-orange-600 text-white hover:bg-orange-700"
+              >
+                <Link href="/signup">
+                  <span>Register Now</span>
+                  <ArrowRight size={16} className="ml-1" />
+                </Link>
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </header>

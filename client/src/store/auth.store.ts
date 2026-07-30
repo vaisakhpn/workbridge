@@ -4,7 +4,11 @@ export interface User {
   id: string;
   email: string;
   role: "worker" | "eventTeam" | "admin";
-  isProfileSetup: boolean;
+  isProfileSetup?: boolean;
+  name?: string;
+  companyName?: string;
+  phone?: string;
+  avatar?: string;
 }
 
 interface AuthState {

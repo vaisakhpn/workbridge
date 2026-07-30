@@ -39,7 +39,7 @@ export default function WorkerSignupForm() {
       const response = await authService.registerWorker(data);
       if (response.user) {
         setUser(response.user);
-        router.push("/worker/dashboard");
+        router.push("/");
       }
       toast.success(response.message || "Worker registered successfully!");
     } catch (error: any) {

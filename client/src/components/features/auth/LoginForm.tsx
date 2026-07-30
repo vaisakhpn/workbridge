@@ -37,21 +37,8 @@ export default function LoginForm() {
       const response = await authService.login(data);
 
       setUser(response.user);
-      switch (response.user.role) {
-        case "worker":
-          router.push("/worker/dashboard");
-          break;
-
-        case "eventTeam":
-          router.push("/event-team/dashboard");
-          break;
-
-        case "admin":
-          router.push("/admin/dashboard");
-          break;
-      }
-
       toast.success(response.message || "Logged in successfully!");
+      router.push("/");
     } catch (error: any) {
       console.error(error);
       const errorMessage =

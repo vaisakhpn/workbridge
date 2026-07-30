@@ -40,7 +40,7 @@ export default function CompanySignupForm() {
       const response = await authService.registerCompany(data);
       if (response.user) {
         setUser(response.user);
-        router.push("/event-team/dashboard");
+        router.push("/");
       }
       toast.success(response.message || "Company registered successfully!");
     } catch (error: any) {
