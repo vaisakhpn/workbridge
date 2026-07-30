@@ -11,7 +11,7 @@ import { useAuthStore } from "@/store/auth.store";
 
 const navLinks = [
   { label: "Home", href: "/" },
-  { label: "Jobs", href: "#latest-jobs" },
+  { label: "Jobs", href: "/jobs/search" },
 ];
 
 export function LandingHeader() {
@@ -27,19 +27,19 @@ export function LandingHeader() {
 
   return (
     <header className="border-border/40 bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md transition-all">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 sm:gap-4 px-3 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="group flex shrink-0 items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white shadow-xs transition-transform group-hover:scale-105">
             W
           </div>
-          <span className="text-foreground text-lg sm:text-xl font-bold tracking-tight hidden xs:inline">
+          <span className="text-foreground xs:inline hidden text-lg font-bold tracking-tight sm:text-xl">
             Work<span className="text-orange-600">Bridge</span>
           </span>
         </Link>
 
         {/* Reusable Header Search Bar Component - Visible on Mobile & Desktop */}
-        <div className="mx-1.5 flex flex-1 items-center max-w-[220px] sm:max-w-xs md:max-w-sm md:mx-4">
+        <div className="mx-1.5 flex max-w-[220px] flex-1 items-center sm:max-w-xs md:mx-4 md:max-w-sm">
           <HeaderSearchBar />
         </div>
 
@@ -57,7 +57,7 @@ export function LandingHeader() {
         </nav>
 
         {/* Desktop Action Buttons / User Menu */}
-        <div className="hidden shrink-0 items-center gap-3 md:flex min-h-[40px]">
+        <div className="hidden min-h-[40px] shrink-0 items-center gap-3 md:flex">
           {isUserLoggedIn ? (
             <UserMenu />
           ) : mounted ? (
@@ -84,7 +84,7 @@ export function LandingHeader() {
         </div>
 
         {/* Mobile Menu Trigger Button & User Menu */}
-        <div className="flex items-center gap-2 md:hidden shrink-0">
+        <div className="flex shrink-0 items-center gap-2 md:hidden">
           {isUserLoggedIn && (
             <div className="mr-0.5">
               <UserMenu />
