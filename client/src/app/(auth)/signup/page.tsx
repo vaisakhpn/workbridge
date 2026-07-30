@@ -1,7 +1,5 @@
-import React from "react";
+import SignupForm from "@/components/features/auth/SignupForm";
 
-const page = () => {
-  return <div>page</div>;
-};
-
-export default page;
+export default function SignupPage() {
+  return <SignupForm />;
+}

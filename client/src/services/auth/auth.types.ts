@@ -3,6 +3,21 @@ export interface LoginRequest {
   password: string;
 }
 
+export interface WorkerSignupRequest {
+  name: string;
+  email: string;
+  phone: string;
+  password: string;
+}
+
+export interface CompanySignupRequest {
+  companyName: string;
+  ownerName: string;
+  email: string;
+  phone: string;
+  password: string;
+}
+
 export interface User {
   id: string;
   email: string;
