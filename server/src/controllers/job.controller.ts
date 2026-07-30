@@ -222,3 +222,16 @@ export const getPublicLatestJobs = async (
     next(error);
   }
 };
+
+export const searchPublicJobs = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const response = await JobService.searchJobs(req.query);
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};

@@ -27,19 +27,19 @@ export function LandingHeader() {
 
   return (
     <header className="border-border/40 bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md transition-all">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 sm:gap-4 px-3 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="group flex shrink-0 items-center gap-2.5">
+        <Link href="/" className="group flex shrink-0 items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white shadow-xs transition-transform group-hover:scale-105">
             W
           </div>
-          <span className="text-foreground text-xl font-bold tracking-tight">
+          <span className="text-foreground text-lg sm:text-xl font-bold tracking-tight hidden xs:inline">
             Work<span className="text-orange-600">Bridge</span>
           </span>
         </Link>
 
-        {/* Reusable Header Search Bar Component */}
-        <div className="mx-2 hidden max-w-xs flex-1 items-center sm:flex md:mx-4 md:max-w-sm">
+        {/* Reusable Header Search Bar Component - Visible on Mobile & Desktop */}
+        <div className="mx-1.5 flex flex-1 items-center max-w-[220px] sm:max-w-xs md:max-w-sm md:mx-4">
           <HeaderSearchBar />
         </div>
 
@@ -83,10 +83,10 @@ export function LandingHeader() {
           ) : null}
         </div>
 
-        {/* Mobile Menu Trigger Button */}
-        <div className="flex items-center gap-2 md:hidden">
+        {/* Mobile Menu Trigger Button & User Menu */}
+        <div className="flex items-center gap-2 md:hidden shrink-0">
           {isUserLoggedIn && (
-            <div className="mr-1">
+            <div className="mr-0.5">
               <UserMenu />
             </div>
           )}
@@ -104,9 +104,6 @@ export function LandingHeader() {
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div className="border-border bg-background animate-in slide-in-from-top-2 space-y-4 border-b px-4 pt-3 pb-6 shadow-lg duration-200 md:hidden">
-          {/* Mobile Search Bar */}
-          <HeaderSearchBar />
-
           <nav className="flex flex-col space-y-3">
             {navLinks.map((link) => (
               <a

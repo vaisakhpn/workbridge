@@ -9,6 +9,7 @@ import {
 import mongoose from "mongoose";
 import Application from "../../models/application.model";
 import WorkerProfile from "../../models/WorkerProfile";
+import EventTeamProfile from "../../models/EventTeamProfile";
 import notificationService from "../notification/notification.service";
 
 interface GetAllJobsQuery {
@@ -521,6 +522,131 @@ class JobService {
       message: "Latest public jobs fetched successfully",
       results: jobs.length,
       data: jobs,
+    };
+  }
+
+  async searchJobs(query: GetAllJobsQuery) {
+    const {
+      page = "1",
+      limit = "12",
+      search,
+      district,
+      category,
+      salaryMin,
+      salaryMax,
+      sort = "latest",
+    } = query;
+
+    const pageNumber = Math.max(Number(page) || 1, 1);
+    const limitNumber = Math.max(Number(limit) || 12, 1);
+    const skip = (pageNumber - 1) * limitNumber;
+
+    const filter: any = {
+      status: "OPEN",
+    };
+
+    if (district && district.trim()) {
+      filter.district = { $regex: new RegExp(district.trim(), "i") };
+    }
+
+    if (category && category.trim()) {
+      filter.category = { $regex: new RegExp(category.trim(), "i") };
+    }
+
+    if (salaryMin || salaryMax) {
+      filter.salary = {};
+      if (salaryMin) filter.salary.$gte = Number(salaryMin);
+      if (salaryMax) filter.salary.$lte = Number(salaryMax);
+    }
+
+    if (search && search.trim()) {
+      const terms = search
+        .trim()
+        .split(/\s+/)
+        .filter((t) => t.length > 0);
+
+      const matchingProfiles = await EventTeamProfile.find({
+        $or: terms.flatMap((term) => [
+          { companyName: { $regex: term, $options: "i" } },
+          { ownerName: { $regex: term, $options: "i" } },
+        ]),
+      }).select("user");
+
+      const matchingUserIds = matchingProfiles.map((p) => p.user);
+
+      const termConditions = terms.map((term) => ({
+        $or: [
+          { title: { $regex: term, $options: "i" } },
+          { category: { $regex: term, $options: "i" } },
+          { district: { $regex: term, $options: "i" } },
+          { location: { $regex: term, $options: "i" } },
+          { description: { $regex: term, $options: "i" } },
+          { createdBy: { $in: matchingUserIds } },
+        ],
+      }));
+
+      filter.$and = termConditions;
+    }
+
+    let sortOption = {};
+    switch (sort) {
+      case "salary_asc":
+        sortOption = { salary: 1 };
+        break;
+      case "salary_desc":
+        sortOption = { salary: -1 };
+        break;
+      default:
+        sortOption = { createdAt: -1 };
+    }
+
+    const totalJobs = await Job.countDocuments(filter);
+
+    const jobs = await Job.find(filter)
+      .populate("createdBy", "email")
+      .sort(sortOption)
+      .skip(skip)
+      .limit(limitNumber)
+      .lean();
+
+    const userIds = jobs
+      .map((j: any) => j.createdBy?._id || j.createdBy)
+      .filter(Boolean);
+
+    const profiles = await EventTeamProfile.find({
+      user: { $in: userIds },
+    }).lean();
+
+    const profileMap = new Map(
+      profiles.map((p: any) => [p.user.toString(), p])
+    );
+
+    const enrichedJobs = jobs.map((job: any) => {
+      const uid = (job.createdBy?._id || job.createdBy)?.toString();
+      const profile: any = profileMap.get(uid);
+      return {
+        ...job,
+        eventTeam: profile
+          ? {
+              companyName: profile.companyName,
+              ownerName: profile.ownerName,
+              logo: profile.logo,
+              district: profile.district,
+              rating: profile.rating,
+            }
+          : null,
+      };
+    });
+
+    return {
+      success: true,
+      message: "Search completed successfully",
+      page: pageNumber,
+      limit: limitNumber,
+      totalJobs,
+      totalPages: Math.ceil(totalJobs / limitNumber),
+      results: enrichedJobs.length,
+      data: enrichedJobs,
     };
   }
 }

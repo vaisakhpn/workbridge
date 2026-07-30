@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Search, X } from "lucide-react";
 
 interface HeaderSearchBarProps {
@@ -15,11 +16,18 @@ export function HeaderSearchBar({
   onSearch,
 }: HeaderSearchBarProps) {
   const [query, setQuery] = useState("");
+  const router = useRouter();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const trimmed = query.trim();
     if (onSearch) {
-      onSearch(query);
+      onSearch(trimmed);
+    }
+    if (trimmed) {
+      router.push(`/jobs/search?q=${encodeURIComponent(trimmed)}`);
+    } else {
+      router.push("/jobs/search");
     }
   };
 
@@ -41,7 +49,7 @@ export function HeaderSearchBar({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-full bg-white pl-9 pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground/70 border border-orange-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all shadow-2xs"
+        className="w-full rounded-full bg-white pl-9 pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground/70 placeholder:truncate border border-orange-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all shadow-2xs"
       />
       {query && (
         <button

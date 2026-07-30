@@ -11,6 +11,7 @@ import {
   completeJob,
   rateWorkers,
   getPublicLatestJobs,
+  searchPublicJobs,
 } from "../controllers/job.controller";
 import { protect, restrictTo } from "../middleware/auth.middleware";
 
@@ -18,6 +19,7 @@ const router = Router();
 
 // Public Routes (No Authentication Required)
 router.get("/public/latest", getPublicLatestJobs);
+router.get("/public/search", searchPublicJobs);
 
 // Event Team Routes
 router.post("/", protect, restrictTo("eventTeam"), createJob);

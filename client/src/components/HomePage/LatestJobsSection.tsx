@@ -201,7 +201,7 @@ export function LatestJobsSection() {
           asChild
           className="gap-1.5 rounded-full border-orange-200 hover:border-orange-500 hover:bg-orange-50/50"
         >
-          <Link href="/register?role=worker">
+          <Link href="/jobs/search">
             <span>View All Jobs</span>
             <ArrowRight size={16} className="text-orange-600" />
           </Link>
