@@ -16,7 +16,10 @@ import {
   SlidersHorizontal,
   Building2,
   Clock,
+  CheckCircle2,
+  Loader2,
 } from "lucide-react";
+import { toast } from "sonner";
 
 import Card from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -27,6 +30,7 @@ import LandingHeader from "@/components/HomePage/Header";
 import Footer from "@/components/HomePage/Footer";
 
 import { jobService } from "@/services/event-team/job.service";
+import { applicationService } from "@/services/worker/application.service";
 import type { Job } from "@/types/job.types";
 import { useAuthStore } from "@/store/auth.store";
 
@@ -80,6 +84,58 @@ export function JobSearchContainer() {
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+
+  const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
+  const [appliedJobIds, setAppliedJobIds] = useState<Set<string>>(new Set());
+
+  // Fetch existing worker applications
+  useEffect(() => {
+    if (isAuthenticated && user?.role === "worker") {
+      applicationService
+        .getMyApplications()
+        .then((res) => {
+          if (res.success && res.data) {
+            const ids = new Set(
+              res.data.map((app: any) =>
+                typeof app.job === "string" ? app.job : app.job?._id
+              )
+            );
+            setAppliedJobIds(ids);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isAuthenticated, user]);
+
+  const handleApply = async (jobId: string) => {
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+
+    if (user?.role !== "worker") {
+      toast.error("Event Team accounts cannot apply for worker jobs.");
+      return;
+    }
+
+    try {
+      setApplyingJobId(jobId);
+      const res = await applicationService.applyForJob(jobId);
+      if (res.success) {
+        toast.success(res.message || "Application submitted successfully!");
+        setAppliedJobIds((prev) => new Set(prev).add(jobId));
+      }
+    } catch (err: any) {
+      const errMsg =
+        err.response?.data?.message || "Failed to submit application";
+      if (errMsg.includes("already applied")) {
+        setAppliedJobIds((prev) => new Set(prev).add(jobId));
+      }
+      toast.error(errMsg);
+    } finally {
+      setApplyingJobId(null);
+    }
+  };
 
   // Sync state with URL params on param change
   useEffect(() => {
@@ -413,34 +469,47 @@ export function JobSearchContainer() {
                       </div>
                     </div>
 
-                    {/* Apply / View Button */}
-                    <div>
-                      {isAuthenticated ? (
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          asChild
-                          className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm"
-                        >
-                          <Link href={user?.role === "worker" ? "/worker/dashboard" : "/event-team/dashboard"}>
-                            <span>View & Apply</span>
-                            <ArrowRight className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                      ) : (
-                        <Button
-                          variant="primary"
-                          size="sm"
-                          asChild
-                          className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm"
-                        >
-                          <Link href="/login">
-                            <span>Login to Apply</span>
-                            <ArrowRight className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                      )}
-                    </div>
+                    {/* Apply / View Button - Hidden for Event Team accounts */}
+                    {user?.role === "eventTeam" ? null : (
+                      <div>
+                        {appliedJobIds.has(job._id) ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled
+                            className="w-full border-emerald-500/50 bg-emerald-50 text-emerald-600 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
+                          >
+                            <CheckCircle2 className="h-4 w-4" />
+                            <span>Applied</span>
+                          </Button>
+                        ) : (
+                          <Button
+                            variant="primary"
+                            size="sm"
+                            onClick={() => handleApply(job._id)}
+                            disabled={applyingJobId === job._id}
+                            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm cursor-pointer"
+                          >
+                            {applyingJobId === job._id ? (
+                              <>
+                                <Loader2 className="h-4 w-4 animate-spin" />
+                                <span>Applying...</span>
+                              </>
+                            ) : isAuthenticated ? (
+                              <>
+                                <span>Apply Now</span>
+                                <ArrowRight className="h-4 w-4" />
+                              </>
+                            ) : (
+                              <>
+                                <span>Login to Apply</span>
+                                <ArrowRight className="h-4 w-4" />
+                              </>
+                            )}
+                          </Button>
+                        )}
+                      </div>
+                    )}
                   </Card>
                 );
               })}

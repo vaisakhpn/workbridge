@@ -42,7 +42,7 @@ const jobSchema = new Schema<IJob>(
 
     description: {
       type: String,
-      required: true,
+      default: "",
       trim: true,
       maxlength: 1000,
     },

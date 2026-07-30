@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   Calendar,
   MapPin,
@@ -9,18 +10,28 @@ import {
   IndianRupee,
   Briefcase,
   ArrowRight,
+  CheckCircle2,
+  Loader2,
 } from "lucide-react";
+import { toast } from "sonner";
 
 import Card from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/badge";
 import Skeleton from "@/components/ui/Skeleton";
 import { jobService } from "@/services/event-team/job.service";
+import { applicationService } from "@/services/worker/application.service";
+import { useAuthStore } from "@/store/auth.store";
 import type { Job } from "@/types/job.types";
 
 export function LatestJobsSection() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
+  const [appliedJobIds, setAppliedJobIds] = useState<Set<string>>(new Set());
+
+  const { user, isAuthenticated } = useAuthStore();
+  const router = useRouter();
 
   useEffect(() => {
     let isMounted = true;
@@ -47,6 +58,55 @@ export function LatestJobsSection() {
       isMounted = false;
     };
   }, []);
+
+  // Fetch existing applied jobs if logged in as worker
+  useEffect(() => {
+    if (isAuthenticated && user?.role === "worker") {
+      applicationService
+        .getMyApplications()
+        .then((res) => {
+          if (res.success && res.data) {
+            const ids = new Set(
+              res.data.map((app: any) =>
+                typeof app.job === "string" ? app.job : app.job?._id
+              )
+            );
+            setAppliedJobIds(ids);
+          }
+        })
+        .catch(() => {});
+    }
+  }, [isAuthenticated, user]);
+
+  const handleApply = async (jobId: string) => {
+    if (!isAuthenticated) {
+      router.push("/login");
+      return;
+    }
+
+    if (user?.role !== "worker") {
+      toast.error("Event Team accounts cannot apply for worker jobs.");
+      return;
+    }
+
+    try {
+      setApplyingJobId(jobId);
+      const res = await applicationService.applyForJob(jobId);
+      if (res.success) {
+        toast.success(res.message || "Application submitted successfully!");
+        setAppliedJobIds((prev) => new Set(prev).add(jobId));
+      }
+    } catch (err: any) {
+      const errMsg =
+        err.response?.data?.message || "Failed to submit application";
+      if (errMsg.includes("already applied")) {
+        setAppliedJobIds((prev) => new Set(prev).add(jobId));
+      }
+      toast.error(errMsg);
+    } finally {
+      setApplyingJobId(null);
+    }
+  };
 
   return (
     <section
@@ -176,18 +236,40 @@ export function LatestJobsSection() {
                     </div>
                   </div>
 
-                  {/* Apply Action Button */}
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    asChild
-                    className="w-full gap-1.5 rounded-xl bg-orange-600 font-semibold text-white shadow-xs transition-all hover:bg-orange-700"
-                  >
-                    <Link href="/login">
-                      <span>Apply For Job</span>
-                      <ArrowRight size={14} />
-                    </Link>
-                  </Button>
+                  {/* Apply Action Button - Hidden for Event Team accounts */}
+                  {user?.role === "eventTeam" ? null : appliedJobIds.has(
+                    job._id
+                  ) ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled
+                      className="w-full gap-1.5 rounded-xl border-emerald-500/50 bg-emerald-50 text-emerald-600 font-semibold cursor-not-allowed"
+                    >
+                      <CheckCircle2 size={15} />
+                      <span>Applied</span>
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={() => handleApply(job._id)}
+                      disabled={applyingJobId === job._id}
+                      className="w-full gap-1.5 rounded-xl bg-orange-600 font-semibold text-white shadow-xs transition-all hover:bg-orange-700 cursor-pointer"
+                    >
+                      {applyingJobId === job._id ? (
+                        <>
+                          <Loader2 size={14} className="animate-spin" />
+                          <span>Applying...</span>
+                        </>
+                      ) : (
+                        <>
+                          <span>Apply For Job</span>
+                          <ArrowRight size={14} />
+                        </>
+                      )}
+                    </Button>
+                  )}
                 </Card>
               );
             })}

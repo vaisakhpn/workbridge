@@ -7,6 +7,7 @@ import { Menu, X, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { HeaderSearchBar } from "./HeaderSearchBar";
 import { UserMenu } from "@/components/layout/shared/UserMenu";
+import { WorkerNotificationMenu } from "@/components/layout/shared/WorkerNotificationMenu";
 import { useAuthStore } from "@/store/auth.store";
 
 const navLinks = [
@@ -59,7 +60,10 @@ export function LandingHeader() {
         {/* Desktop Action Buttons / User Menu */}
         <div className="hidden min-h-[40px] shrink-0 items-center gap-3 md:flex">
           {isUserLoggedIn ? (
-            <UserMenu />
+            <>
+              <WorkerNotificationMenu />
+              <UserMenu />
+            </>
           ) : mounted ? (
             <>
               <Button variant="ghost" size="sm" asChild>
@@ -86,7 +90,8 @@ export function LandingHeader() {
         {/* Mobile Menu Trigger Button & User Menu */}
         <div className="flex shrink-0 items-center gap-2 md:hidden">
           {isUserLoggedIn && (
-            <div className="mr-0.5">
+            <div className="flex items-center gap-2 mr-0.5">
+              <WorkerNotificationMenu />
               <UserMenu />
             </div>
           )}

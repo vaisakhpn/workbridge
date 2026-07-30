@@ -58,11 +58,10 @@ export function BasicInformationSection({
           {...register("category")}
         />
 
-        {/* Description Textarea */}
+        {/* Description Textarea (Optional) */}
         <Textarea
-          label="Description"
-          required
-          placeholder="Describe the job duties, requirements, dress code, etc."
+          label="Description (Optional)"
+          placeholder="Describe the job duties, requirements, dress code, etc. (Optional)"
           rows={4}
           maxLength={1000}
           currentLength={descriptionValue.length}

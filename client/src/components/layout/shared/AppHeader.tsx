@@ -9,6 +9,7 @@ import { getCurrentPageTitle, type NavigationItem } from "@/constants/navigation
 import { Button } from "@/components/ui/Button";
 
 import { UserMenu } from "./UserMenu";
+import { WorkerNotificationMenu } from "./WorkerNotificationMenu";
 import { MobileSidebar } from "./MobileSidebar";
 
 interface AppHeaderProps {
@@ -54,6 +55,7 @@ export function AppHeader({ navigationItems }: AppHeaderProps) {
             </Link>
           </Button>
 
+          <WorkerNotificationMenu />
           <UserMenu />
         </div>
       </header>
