@@ -45,16 +45,16 @@ const iconStyleMap: Record<
   StatIconName,
   { bg: string; iconColor: string }
 > = {
-  applied: { bg: "bg-blue-500/10", iconColor: "text-blue-600" },
-  pending: { bg: "bg-amber-500/10", iconColor: "text-amber-600" },
-  accepted: { bg: "bg-emerald-500/10", iconColor: "text-emerald-600" },
-  rejected: { bg: "bg-rose-500/10", iconColor: "text-rose-600" },
-  completed: { bg: "bg-purple-500/10", iconColor: "text-purple-600" },
-  rating: { bg: "bg-amber-500/15", iconColor: "text-amber-500 fill-amber-500" },
-  posted: { bg: "bg-blue-500/10", iconColor: "text-blue-600" },
-  open: { bg: "bg-emerald-500/10", iconColor: "text-emerald-600" },
-  filled: { bg: "bg-indigo-500/10", iconColor: "text-indigo-600" },
-  applicants: { bg: "bg-sky-500/10", iconColor: "text-sky-600" },
+  applied: { bg: "bg-orange-500/10", iconColor: "text-orange-600" },
+  pending: { bg: "bg-orange-500/15", iconColor: "text-orange-600" },
+  accepted: { bg: "bg-orange-500/10", iconColor: "text-orange-600" },
+  rejected: { bg: "bg-orange-500/15", iconColor: "text-orange-700" },
+  completed: { bg: "bg-orange-500/10", iconColor: "text-orange-600" },
+  rating: { bg: "bg-orange-500/20", iconColor: "text-orange-500 fill-orange-500" },
+  posted: { bg: "bg-orange-500/10", iconColor: "text-orange-600" },
+  open: { bg: "bg-orange-500/10", iconColor: "text-orange-600" },
+  filled: { bg: "bg-orange-500/15", iconColor: "text-orange-600" },
+  applicants: { bg: "bg-orange-500/10", iconColor: "text-orange-600" },
 };
 
 export interface StatItem {
@@ -67,12 +67,12 @@ export interface StatItem {
 export function StatCard({ title, value, description, iconName }: StatItem) {
   const Icon = iconMap[iconName] || BriefcaseBusiness;
   const style = iconStyleMap[iconName] || {
-    bg: "bg-primary/10",
-    iconColor: "text-primary",
+    bg: "bg-orange-500/10",
+    iconColor: "text-orange-600",
   };
 
   return (
-    <Card className="flex items-start justify-between p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md border-border/80">
+    <Card className="border-orange-200/80 dark:border-orange-900/40 bg-orange-50/60 dark:bg-orange-950/20 flex items-start justify-between p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-md">
       <div className="space-y-1">
         <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
           {title}
