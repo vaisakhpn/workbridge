@@ -65,11 +65,11 @@ export default function AboutContainer() {
             </Badge>
 
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-              Empowering Kerala&apos;s Event Workforce Marketplace
+              Empowering World&apos;s Event Workforce Marketplace
             </h1>
 
             <p className="text-muted-foreground text-sm sm:text-lg leading-relaxed">
-              WorkBridge is Kerala&apos;s leading platform connecting verified event management teams, caterers, and hospitality organizers with reliable temporary staff.
+              WorkBridge is World&apos;s leading platform connecting verified event management teams, caterers, and hospitality organizers with reliable temporary staff.
             </p>
           </div>
 
@@ -163,29 +163,9 @@ export default function AboutContainer() {
               Ready to Work or Hire Event Staff?
             </h2>
             <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto">
-              Join thousands of workers and organizers across Kerala already using WorkBridge today.
+              Join thousands of workers and organizers across World already using WorkBridge today.
             </p>
-            <div className="flex flex-wrap items-center justify-center gap-4 pt-2">
-              <Button
-                variant="primary"
-                size="lg"
-                asChild
-                className="bg-white text-orange-600 hover:bg-orange-50 rounded-full font-bold px-8"
-              >
-                <Link href="/signup">
-                  <span>Create Free Account</span>
-                  <ArrowRight className="h-4 w-4 ml-1" />
-                </Link>
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                asChild
-                className="border-2 border-white text-white hover:bg-white/10 rounded-full font-bold px-8"
-              >
-                <Link href="/jobs/search">Explore Jobs</Link>
-              </Button>
-            </div>
+            
           </Card>
         </Container>
       </main>

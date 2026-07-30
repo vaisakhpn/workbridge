@@ -18,7 +18,7 @@ export function LandingFooter() {
               </span>
             </Link>
             <p className="text-xs text-zinc-400 leading-relaxed">
-              Connecting event organizers with reliable temporary staff across Kerala.
+              Connecting event organizers with reliable temporary staff across World.
             </p>
           </div>
 

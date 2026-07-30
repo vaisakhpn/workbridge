@@ -63,7 +63,7 @@ export function LatestJobsSection() {
           </div>
 
           <h2 className="text-foreground text-3xl font-extrabold sm:text-4xl">
-            Latest Event Opportunities Across Kerala
+            Latest Event Opportunities Across World
           </h2>
 
           <p className="text-muted-foreground mx-auto max-w-xl text-sm sm:text-base">
