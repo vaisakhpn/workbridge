@@ -10,10 +10,14 @@ import {
   markAttendance,
   completeJob,
   rateWorkers,
+  getPublicLatestJobs,
 } from "../controllers/job.controller";
 import { protect, restrictTo } from "../middleware/auth.middleware";
 
 const router = Router();
+
+// Public Routes (No Authentication Required)
+router.get("/public/latest", getPublicLatestJobs);
 
 // Event Team Routes
 router.post("/", protect, restrictTo("eventTeam"), createJob);
@@ -35,6 +39,7 @@ router.patch(
 );
 router.patch("/:jobId/complete", protect, restrictTo("eventTeam"), completeJob);
 router.patch("/:jobId/rate", protect, restrictTo("eventTeam"), rateWorkers);
+
 // Keep this LAST among GET routes
 router.get("/:id", protect, restrictTo("worker", "eventTeam"), getJobById);
 

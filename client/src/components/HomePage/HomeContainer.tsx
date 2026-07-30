@@ -3,10 +3,10 @@
 import { LandingHeader } from "./Header";
 import { HeroSection } from "./HeroSection";
 import { MetricsSection } from "./MetricsSection";
-import { FeaturesSection } from "./FeaturesSection";
+import { LatestJobsSection } from "./LatestJobsSection";
 import { HowItWorksSection } from "./HowItWorksSection";
-import { RankingAlgorithmSection } from "./RankingAlgorithmSection";
-import { ExpansionPlanSection } from "./ExpansionPlanSection";
+
+
 import { LandingFooter } from "./Footer";
 
 export function LandingContainer() {
@@ -16,10 +16,8 @@ export function LandingContainer() {
       <main className="flex-1">
         <HeroSection />
         <MetricsSection />
-        <FeaturesSection />
+        <LatestJobsSection />
         <HowItWorksSection />
-        <RankingAlgorithmSection />
-        <ExpansionPlanSection />
       </main>
       <LandingFooter />
     </div>

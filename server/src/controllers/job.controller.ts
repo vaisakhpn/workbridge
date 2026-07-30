@@ -208,3 +208,17 @@ export const rateWorkers = async (
     next(error);
   }
 };
+
+export const getPublicLatestJobs = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const limit = Number(req.query.limit) || 6;
+    const response = await JobService.getPublicLatestJobs(limit);
+    res.status(200).json(response);
+  } catch (error) {
+    next(error);
+  }
+};

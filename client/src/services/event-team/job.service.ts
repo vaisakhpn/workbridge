@@ -7,6 +7,16 @@ import type {
 } from "@/types/job.types";
 
 export const jobService = {
+  getPublicLatestJobs: async (
+    limit: number = 4
+  ): Promise<{ success: boolean; data: Job[] }> => {
+    const response = await axiosInstance.get<{
+      success: boolean;
+      data: Job[];
+    }>(`/jobs/public/latest?limit=${limit}`);
+    return response.data;
+  },
+
   createJob: async (data: CreateJobInput): Promise<CreateJobApiResponse> => {
     const response = await axiosInstance.post<CreateJobApiResponse>(
       "/jobs",

@@ -509,6 +509,20 @@ class JobService {
 
     await profile.save();
   }
+
+  async getPublicLatestJobs(limit: number = 6) {
+    const jobs = await Job.find({ status: "OPEN" })
+      .populate("createdBy", "companyName logo district currentLocation ownerName")
+      .sort({ createdAt: -1 })
+      .limit(limit);
+
+    return {
+      success: true,
+      message: "Latest public jobs fetched successfully",
+      results: jobs.length,
+      data: jobs,
+    };
+  }
 }
 
 export default new JobService();
