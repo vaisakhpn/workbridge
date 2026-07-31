@@ -57,6 +57,10 @@ const applicationSchema = new Schema<IApplication>(
   },
 );
 
+applicationSchema.index({ job: 1, worker: 1 }, { unique: true });
+applicationSchema.index({ worker: 1, createdAt: -1 });
+applicationSchema.index({ job: 1, status: 1 });
+
 const Application = mongoose.model<IApplication, ApplicationModel>(
   "Application",
   applicationSchema,

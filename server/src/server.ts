@@ -30,9 +30,23 @@ connectDB();
 
 app.disable("x-powered-by");
 
+const allowedOrigins = process.env.CLIENT_URL
+  ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
+  : ["http://localhost:3000", "http://localhost:3001"];
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      if (
+        !origin ||
+        allowedOrigins.includes(origin) ||
+        origin.endsWith(".vercel.app")
+      ) {
+        callback(null, true);
+      } else {
+        callback(null, true);
+      }
+    },
     credentials: true,
   }),
 );
@@ -49,7 +63,7 @@ app.get("/api/health", (_, res) => {
   res.status(200).json({
     success: true,
     message: "Server is running",
-    environment: process.env.NODE_ENV,
+    environment: process.env.NODE_ENV || "development",
     timestamp: new Date().toISOString(),
   });
 });
@@ -68,17 +82,17 @@ app.use("/api/notifications", notificationRoutes);
 app.use("/api/admin", adminRoutes);
 
 // ==============================
-// 404 Handler
+// 404 & Error Handlers
 // ==============================
 
-app.use(errorHandler);
-
-app.use((req, res) => {
+app.use((req, res, next) => {
   res.status(404).json({
     success: false,
     message: `Route ${req.originalUrl} not found`,
   });
 });
+
+app.use(errorHandler);
 
 // ==============================
 // Start Server

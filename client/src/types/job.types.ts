@@ -30,7 +30,7 @@ export interface Job {
 
 export interface CreateJobInput {
   title: string;
-  description: string;
+  description?: string;
   category: string;
   date: string;
   startTime: string;

@@ -108,6 +108,10 @@ const jobSchema = new Schema<IJob>(
   }
 );
 
+jobSchema.index({ status: 1, createdAt: -1 });
+jobSchema.index({ createdBy: 1, createdAt: -1 });
+jobSchema.index({ district: 1, category: 1 });
+
 const Job = model<IJob>("Job", jobSchema);
 
 export default Job;
