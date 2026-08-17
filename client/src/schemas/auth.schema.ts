@@ -29,7 +29,7 @@ export const workerSignupSchema = z.object({
     .trim(),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters")
+    .min(8, "Password must be at least 8 characters")
     .trim(),
 });
 
@@ -54,7 +54,7 @@ export const companySignupSchema = z.object({
     .trim(),
   password: z
     .string()
-    .min(6, "Password must be at least 6 characters")
+    .min(8, "Password must be at least 8 characters")
     .trim(),
 });
 

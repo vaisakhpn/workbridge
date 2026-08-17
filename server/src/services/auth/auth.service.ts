@@ -90,52 +90,56 @@ class AuthService {
     await user.save({ session });
   }
   async registerWorker(data: RegisterWorkerDTO) {
-    const session = await mongoose.startSession();
+    const { email, password, name, phone } = data;
+
+    let session: ClientSession | null = null;
+    try {
+      session = await mongoose.startSession();
+      session.startTransaction();
+    } catch {
+      session = null;
+    }
 
     try {
-      session.startTransaction();
-
-      const { email, password, name, phone } = data;
-
       // Check email
-      await this.ensureEmailAvailable(email, session);
-      // Check phone
-      const existingPhone = await WorkerProfile.findOne({ phone }).session(
-        session,
-      );
+      const existingUser = await User.findOne({ email }).session(session);
+      if (existingUser) {
+        throw new AppError("User with this email already exists", 409);
+      }
 
+      // Check phone
+      const existingPhone = await WorkerProfile.findOne({ phone }).session(session);
       if (existingPhone) {
         throw new AppError("Phone number already registered", 409);
       }
+
       // Create User
       const user = new User({
         email,
         password,
         role: "worker",
       });
-
-      await user.save({ session });
+      await user.save({ session: session || undefined });
 
       const profile = new WorkerProfile({
         user: user._id,
         name,
         phone,
       });
-
-      await profile.save({ session });
+      await profile.save({ session: session || undefined });
 
       // Generate Tokens
       const { accessToken, refreshToken } = this.generateTokens(user);
 
       // Save Refresh Token
-      await this.saveRefreshToken(user, refreshToken, session);
+      await this.saveRefreshToken(user, refreshToken, session || undefined);
 
-      // Commit transaction
-      await session.commitTransaction();
+      if (session && session.inTransaction()) {
+        await session.commitTransaction();
+      }
 
       return {
         message: "Worker registered successfully",
-
         user: {
           id: user._id,
           email: user.email,
@@ -143,82 +147,94 @@ class AuthService {
           isProfileSetup: user.isProfileSetup,
           name: profile.name,
         },
-
         accessToken,
         refreshToken,
       };
     } catch (error) {
-      await session.abortTransaction();
+      if (session && session.inTransaction()) {
+        await session.abortTransaction();
+      }
       throw error;
     } finally {
-      session.endSession();
+      if (session) {
+        await session.endSession();
+      }
     }
   }
 
   async registerEventTeam(data: RegisterEventTeamDTO) {
-    const session = await mongoose.startSession();
+    const { email, password, companyName, ownerName, phone } = data;
+
+    let session: ClientSession | null = null;
+    try {
+      session = await mongoose.startSession();
+      session.startTransaction();
+    } catch {
+      session = null;
+    }
 
     try {
-      const response = await session.withTransaction(async () => {
-        const { email, password, companyName, ownerName, phone } = data;
+      // Check email
+      const existingUser = await User.findOne({ email }).session(session);
+      if (existingUser) {
+        throw new AppError("User with this email already exists", 409);
+      }
 
-        // Check email
-        await this.ensureEmailAvailable(email, session);
+      // Check phone
+      const existingPhone = await EventTeamProfile.findOne({ phone }).session(session);
+      if (existingPhone) {
+        throw new AppError("Phone number already registered", 409);
+      }
 
-        // Check phone
-        const existingPhone = await EventTeamProfile.findOne({
-          phone,
-        }).session(session);
-
-        if (existingPhone) {
-          throw new AppError("Phone number already registered", 409);
-        }
-
-        // Create User
-        const user = new User({
-          email,
-          password,
-          role: "eventTeam",
-        });
-
-        await user.save({ session });
-
-        // Create Event Team Profile
-        const profile = new EventTeamProfile({
-          user: user._id,
-          companyName,
-          ownerName,
-          phone,
-        });
-
-        await profile.save({ session });
-
-        // Generate Tokens
-        const { accessToken, refreshToken } = this.generateTokens(user);
-
-        // Save Refresh Token
-        await this.saveRefreshToken(user, refreshToken, session);
-
-        return {
-          message: "Event Team registered successfully",
-
-          user: {
-            id: user._id,
-            email: user.email,
-            role: user.role,
-            isProfileSetup: user.isProfileSetup,
-            companyName: profile.companyName,
-            ownerName: profile.ownerName,
-          },
-
-          accessToken,
-          refreshToken,
-        };
+      // Create User
+      const user = new User({
+        email,
+        password,
+        role: "eventTeam",
       });
+      await user.save({ session: session || undefined });
 
-      return response;
+      // Create Event Team Profile
+      const profile = new EventTeamProfile({
+        user: user._id,
+        companyName,
+        ownerName,
+        phone,
+      });
+      await profile.save({ session: session || undefined });
+
+      // Generate Tokens
+      const { accessToken, refreshToken } = this.generateTokens(user);
+
+      // Save Refresh Token
+      await this.saveRefreshToken(user, refreshToken, session || undefined);
+
+      if (session && session.inTransaction()) {
+        await session.commitTransaction();
+      }
+
+      return {
+        message: "Event Team registered successfully",
+        user: {
+          id: user._id,
+          email: user.email,
+          role: user.role,
+          isProfileSetup: user.isProfileSetup,
+          companyName: profile.companyName,
+          ownerName: profile.ownerName,
+        },
+        accessToken,
+        refreshToken,
+      };
+    } catch (error) {
+      if (session && session.inTransaction()) {
+        await session.abortTransaction();
+      }
+      throw error;
     } finally {
-      await session.endSession();
+      if (session) {
+        await session.endSession();
+      }
     }
   }
 
