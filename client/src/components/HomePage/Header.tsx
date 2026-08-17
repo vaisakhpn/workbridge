@@ -34,7 +34,7 @@ export function LandingHeader() {
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white shadow-xs transition-transform group-hover:scale-105">
             J
           </div>
-          <span className="text-foreground xs:inline hidden text-lg font-bold tracking-tight sm:text-xl">
+          <span className="text-foreground text-lg font-bold tracking-tight sm:text-xl">
             Job<span className="text-orange-600">ora</span>
           </span>
         </Link>
