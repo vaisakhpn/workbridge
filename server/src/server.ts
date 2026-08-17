@@ -59,6 +59,15 @@ app.use(cookieParser());
 // Health Check
 // ==============================
 
+app.get("/", (_, res) => {
+  res.status(200).json({
+    success: true,
+    message: "Jobora Backend API Service is Running",
+    healthCheck: "/api/health",
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.get("/api/health", (_, res) => {
   res.status(200).json({
     success: true,
