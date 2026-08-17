@@ -7,8 +7,8 @@ import Card from "@/components/ui/Card";
 const metrics = [
   {
     icon: MapPin,
-    title: "Any Event",
-    subtitle: "Weddings, parties, corporate events & more",
+    title: "Any Job",
+    subtitle: "Part-time shifts, retail, events, catering & more",
   },
   {
     icon: ShieldCheck,
@@ -92,7 +92,7 @@ export function MetricsSection() {
           </span>
 
           <p className="text-muted-foreground font-medium">
-            Event teams and workers trust{" "}
+            Employers and part-time workers trust{" "}
             <span className="font-bold text-orange-600">Jobora</span>
           </p>
         </div>

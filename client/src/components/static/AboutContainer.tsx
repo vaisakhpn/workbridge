@@ -65,11 +65,11 @@ export default function AboutContainer() {
             </Badge>
 
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
-              Empowering World&apos;s Event Workforce Marketplace
+              Empowering World&apos;s Part-Time & Temporary Workforce Marketplace
             </h1>
 
             <p className="text-muted-foreground text-sm sm:text-lg leading-relaxed">
-              Jobora is World&apos;s leading platform connecting verified event management teams, caterers, and hospitality organizers with reliable temporary staff.
+              Jobora is World&apos;s leading platform connecting verified employers, businesses, caterers, and organizers with reliable part-time staff.
             </p>
           </div>
 
@@ -103,10 +103,10 @@ export default function AboutContainer() {
                 <Users className="h-6 w-6" />
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                For Event Staff & Workers
+                For Part-Time Staff & Workers
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Whether you are a catering assistant, receptionist, setup crew member, or hospitality coordinator, Jobora provides flexible access to daily gigs in your district with transparent wages and badge progression.
+                Whether you are a retail assistant, receptionist, catering crew member, delivery staff, or event coordinator, Jobora provides flexible access to part-time jobs in your district with transparent wages and badge progression.
               </p>
             </Card>
 
@@ -115,10 +115,10 @@ export default function AboutContainer() {
                 <Building2 className="h-6 w-6" />
               </div>
               <h2 className="text-xl sm:text-2xl font-bold text-foreground">
-                For Event Teams & Caterers
+                For Employers & Businesses
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Streamline your event staffing operations. Post job requirements in seconds, review worker profiles with past ratings, track attendance digitally, and build your trusted workforce network.
+                Streamline your part-time staffing operations. Post job requirements in seconds, review worker profiles with past ratings, track attendance digitally, and build your trusted workforce network.
               </p>
             </Card>
           </div>

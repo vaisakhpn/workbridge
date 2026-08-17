@@ -6,20 +6,20 @@ import Card from "@/components/ui/Card";
 const organizerSteps = [
   {
     step: "01",
-    title: "Post Your Event Job",
+    title: "Post Your Part-Time Job",
     desc: "Specify date, time, location, worker count & salary per worker in under 2 minutes.",
     icon: UserPlus,
   },
   {
     step: "02",
     title: "Review Verified Applicants",
-    desc: "Browse worker ratings, attendance records, and past event history before accepting.",
+    desc: "Browse worker ratings, attendance records, and past work history before accepting.",
     icon: Search,
   },
   {
     step: "03",
     title: "Hire & Track Attendance",
-    desc: "Confirm your team, mark attendance on event day, and rate performance transparently.",
+    desc: "Confirm your team, mark attendance on shift day, and rate performance transparently.",
     icon: CheckCircle,
   },
 ];
@@ -37,7 +37,7 @@ export function HowItWorksSection() {
             How Jobora Works
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base">
-            Empowering event teams to find reliable staff in 3 quick steps.
+            Empowering businesses, organizers & employers to find reliable part-time staff in 3 quick steps.
           </p>
         </div>
 

@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jobora - Event Workforce Marketplace",
-  description: "Jobora connects verified event management teams with reliable temporary staff.",
+  title: "Jobora - Part-Time Jobs & Workforce Marketplace",
+  description: "Jobora connects verified employers and businesses with reliable part-time workers and temporary staff.",
 };
 
 export default function RootLayout({

@@ -26,12 +26,12 @@ export function HeroSection() {
         <div className="mx-auto max-w-4xl space-y-4">
           <h1 className="text-3xl leading-[1.15] font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
             The Smarter Way To <br className="hidden sm:inline" />
-            <span className="mt-1 block sm:mt-0 sm:inline">Hire Workers</span>
+            <span className="mt-1 block sm:mt-0 sm:inline">Hire Part-Time Staff</span>
           </h1>
 
           <p className="mx-auto max-w-2xl pt-1 text-sm leading-relaxed font-medium text-white/95 sm:text-lg">
-            Find verified catering, decoration, and hospitality staff for events
-            of any size. Build a trusted network. Get work. Grow together.
+            Find verified staff for part-time jobs, events, retail, catering, and daily gigs.
+            Build a trusted network. Get work. Grow together.
           </p>
         </div>
 
@@ -45,7 +45,7 @@ export function HeroSection() {
           >
             <Link href="/signup?role=worker">
               <MapPin size={18} className="shrink-0 text-orange-600" />
-              <span>Find Jobs Nearby</span>
+              <span>Find Part-Time Jobs</span>
             </Link>
           </Button>
 
@@ -57,7 +57,7 @@ export function HeroSection() {
           >
             <Link href="/signup?role=eventTeam">
               <Users size={18} className="shrink-0 text-orange-600" />
-              <span>Hire Reliable Staff</span>
+              <span>Hire Part-Time Staff</span>
             </Link>
           </Button>
         </div>

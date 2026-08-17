@@ -159,11 +159,11 @@ export function LatestJobsSection() {
               <Briefcase size={32} />
             </div>
             <h3 className="text-foreground text-lg font-bold">
-              New event jobs arriving daily
+              New part-time jobs arriving daily
             </h3>
             <p className="text-muted-foreground mt-1 max-w-sm text-sm">
-              Register as a worker or event organizer to post and find verified
-              event gigs across Kerala.
+              Register as a worker or employer to post and find verified
+              part-time jobs across Kerala.
             </p>
             <Button
               variant="primary"

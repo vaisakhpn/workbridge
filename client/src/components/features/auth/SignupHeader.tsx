@@ -9,7 +9,7 @@ interface SignupHeaderProps {
 
 export default function SignupHeader({
   title = "Create an Account",
-  description = "Join Kerala's leading event workforce marketplace.",
+  description = "Join Kerala's leading part-time workforce marketplace.",
 }: SignupHeaderProps) {
   return (
     <div className="flex flex-col items-center justify-center text-center space-y-2 mb-6">
