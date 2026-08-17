@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: workbridge-backend
+    name: jobora-backend
     env: node
     region: singapore
     buildCommand: npm install && npm run build

@@ -93,7 +93,7 @@ export function MetricsSection() {
 
           <p className="text-muted-foreground font-medium">
             Event teams and workers trust{" "}
-            <span className="font-bold text-orange-600">WorkBridge</span>
+            <span className="font-bold text-orange-600">Jobora</span>
           </p>
         </div>
       </Card>

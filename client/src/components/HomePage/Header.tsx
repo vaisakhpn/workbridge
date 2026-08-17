@@ -32,10 +32,10 @@ export function LandingHeader() {
         {/* Brand Logo */}
         <Link href="/" className="group flex shrink-0 items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white shadow-xs transition-transform group-hover:scale-105">
-            W
+            J
           </div>
           <span className="text-foreground xs:inline hidden text-lg font-bold tracking-tight sm:text-xl">
-            Work<span className="text-orange-600">Bridge</span>
+            Job<span className="text-orange-600">ora</span>
           </span>
         </Link>
 

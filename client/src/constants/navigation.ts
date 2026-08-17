@@ -81,5 +81,5 @@ export function getCurrentPageTitle(pathname: string): string {
   );
   const page = sortedNav.find((item) => pathname.startsWith(item.href));
 
-  return page?.title ?? "WorkBridge";
+  return page?.title ?? "Jobora";
 }

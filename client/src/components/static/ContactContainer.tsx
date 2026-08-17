@@ -76,7 +76,7 @@ export default function ContactContainer() {
             </h1>
 
             <p className="text-muted-foreground text-sm sm:text-base">
-              Have questions, feedback, or need assistance? Reach out to the WorkBridge support team.
+              Have questions, feedback, or need assistance? Reach out to the Jobora support team.
             </p>
           </div>
 
@@ -111,8 +111,8 @@ export default function ContactContainer() {
                     </div>
                     <div>
                       <div className="font-semibold text-foreground">Email Address</div>
-                      <div className="text-muted-foreground">support@workbridge.in</div>
-                      <div className="text-muted-foreground">info@workbridge.in</div>
+                      <div className="text-muted-foreground">support@jobora.in</div>
+                      <div className="text-muted-foreground">info@jobora.in</div>
                     </div>
                   </div>
 
@@ -124,7 +124,7 @@ export default function ContactContainer() {
                     <div>
                       <div className="font-semibold text-foreground">Head Office</div>
                       <div className="text-muted-foreground leading-relaxed">
-                        WorkBridge Technologies<br />
+                        Jobora Technologies<br />
                         Cyberpark Campus, Nellikode<br />
                         Kozhikode, Kerala 673016
                       </div>
@@ -159,7 +159,7 @@ export default function ContactContainer() {
                       Message Received!
                     </h3>
                     <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                      Thank you for contacting WorkBridge. Our team will review your message and get back to you within 24 hours.
+                      Thank you for contacting Jobora. Our team will review your message and get back to you within 24 hours.
                     </p>
                     <Button
                       variant="outline"

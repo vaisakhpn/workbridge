@@ -171,7 +171,7 @@ export function LatestJobsSection() {
               asChild
               className="mt-5 rounded-full bg-orange-600 px-6 text-white shadow-xs hover:bg-orange-700"
             >
-              <Link href="/auth/register">Join WorkBridge Today</Link>
+              <Link href="/auth/register">Join Jobora Today</Link>
             </Button>
           </Card>
         ) : (

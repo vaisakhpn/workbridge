@@ -39,7 +39,7 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: "workbridge-auth-storage",
+      name: "jobora-auth-storage",
       storage: createJSONStorage(() => localStorage),
     }
   )

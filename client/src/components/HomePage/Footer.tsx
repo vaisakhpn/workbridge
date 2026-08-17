@@ -11,10 +11,10 @@ export function LandingFooter() {
           <div className="space-y-3 max-w-xs">
             <Link href="/" className="flex items-center gap-2.5">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white">
-                W
+                J
               </div>
               <span className="text-xl font-bold tracking-tight text-white">
-                Work<span className="text-orange-600">Bridge</span>
+                Job<span className="text-orange-600">ora</span>
               </span>
             </Link>
             <p className="text-xs text-zinc-400 leading-relaxed">
@@ -49,7 +49,7 @@ export function LandingFooter() {
 
         {/* Bottom Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400 text-center sm:text-left">
-          <p>© {new Date().getFullYear()} WorkBridge. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Jobora. All rights reserved.</p>
         </div>
       </div>
     </footer>

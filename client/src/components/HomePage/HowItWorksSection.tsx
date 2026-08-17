@@ -34,7 +34,7 @@ export function HowItWorksSection() {
             Simple & Transparent
           </span>
           <h2 className="text-3xl font-extrabold text-foreground sm:text-4xl">
-            How WorkBridge Works
+            How Jobora Works
           </h2>
           <p className="text-muted-foreground text-sm sm:text-base">
             Empowering event teams to find reliable staff in 3 quick steps.
