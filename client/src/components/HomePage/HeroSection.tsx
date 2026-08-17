@@ -43,7 +43,7 @@ export function HeroSection() {
             asChild
             className="w-full gap-2 rounded-full bg-white px-8 py-3.5 text-base font-bold text-orange-600 shadow-lg transition-all hover:bg-white/95 hover:shadow-xl sm:w-auto"
           >
-            <Link href="/auth/register?role=worker">
+            <Link href="/signup?role=worker">
               <MapPin size={18} className="shrink-0 text-orange-600" />
               <span>Find Jobs Nearby</span>
             </Link>
@@ -55,7 +55,7 @@ export function HeroSection() {
             asChild
             className="w-full gap-2 rounded-full border-2 border-orange-600 bg-white/95 px-8 py-3.5 text-base font-bold text-orange-600 shadow-lg backdrop-blur-xs transition-all hover:border-orange-700 hover:bg-orange-50 sm:w-auto"
           >
-            <Link href="/auth/register?role=eventTeam">
+            <Link href="/signup?role=eventTeam">
               <Users size={18} className="shrink-0 text-orange-600" />
               <span>Hire Reliable Staff</span>
             </Link>
