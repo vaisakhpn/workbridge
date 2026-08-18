@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/Button";
 
 import { ApplicationsFilter } from "./ApplicationsFilter";
 import { ApplicationsGrid } from "./ApplicationsGrid";
+import { ApplicationsSkeleton } from "@/components/ui/skeletons";
 
 export function ApplicationsContainer() {
   const {
@@ -24,13 +25,8 @@ export function ApplicationsContainer() {
     fetchApplications();
   }, [fetchApplications]);
 
-  if (isLoading) {
-    return (
-      <div className="text-muted-foreground flex min-h-[60vh] flex-col items-center justify-center gap-3">
-        <Loader2 className="text-primary h-8 w-8 animate-spin" />
-        <p className="text-sm font-medium">Loading your applications...</p>
-      </div>
-    );
+  if (isLoading || (!filteredApplications && !error)) {
+    return <ApplicationsSkeleton />;
   }
 
   if (error) {

@@ -67,7 +67,7 @@ export function EventTeamProfileContainer() {
     fetchProfile();
   }, [fetchProfile]);
 
-  if (isLoading) {
+  if (isLoading || (!profile && !error)) {
     return <ProfileSkeleton />;
   }
 

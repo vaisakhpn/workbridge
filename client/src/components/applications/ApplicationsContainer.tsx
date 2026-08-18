@@ -43,7 +43,7 @@ export function ApplicationsContainer({ jobId }: ApplicationsContainerProps) {
     setSelectedWorkerModal,
   } = useJobApplications(jobId);
 
-  if (isLoading) {
+  if (isLoading || (!job && !error)) {
     return <ApplicationsSkeleton />;
   }
 

@@ -31,7 +31,7 @@ export function ManageJobsContainer() {
     fetchJobs();
   }, [fetchJobs]);
 
-  if (isLoading) {
+  if (isLoading || (!jobs && !error)) {
     return <ManageJobsSkeleton />;
   }
 

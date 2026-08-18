@@ -55,7 +55,7 @@ export function EventTeamNotificationsContainer() {
       };
     }, [notifications]);
 
-  if (isLoading) {
+  if (isLoading || (!notifications && !error)) {
     return <NotificationsSkeleton />;
   }
 
