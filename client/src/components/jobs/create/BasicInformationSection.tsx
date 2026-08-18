@@ -24,6 +24,7 @@ export function BasicInformationSection({
   watch,
 }: BasicInformationSectionProps) {
   const descriptionValue = watch("description") || "";
+  const selectedCategory = watch("category");
 
   return (
     <Card className="p-6 space-y-6">
@@ -32,7 +33,7 @@ export function BasicInformationSection({
           Basic Information
         </h2>
         <p className="text-xs text-muted-foreground">
-          Provide key details about the event role requirement.
+          Provide key details about the role requirement.
         </p>
       </div>
 
@@ -41,7 +42,7 @@ export function BasicInformationSection({
         <Input
           label="Job Title"
           required
-          placeholder="e.g. Wedding Catering Staff"
+          placeholder="e.g. Retail Assistant / Catering Staff"
           leftIcon={<FileText size={18} />}
           error={errors.title?.message}
           {...register("title")}
@@ -57,6 +58,18 @@ export function BasicInformationSection({
           error={errors.category?.message}
           {...register("category")}
         />
+
+        {/* Custom Category Input (Shown when 'Others' is selected) */}
+        {selectedCategory === "Others" && (
+          <Input
+            label="Specify Custom Category"
+            required
+            placeholder="e.g. Pet Care, Gardening, Tutor..."
+            leftIcon={<Layers size={18} />}
+            error={errors.customCategory?.message}
+            {...register("customCategory")}
+          />
+        )}
 
         {/* Description Textarea (Optional) */}
         <Textarea

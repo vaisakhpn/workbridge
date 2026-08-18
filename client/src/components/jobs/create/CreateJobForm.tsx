@@ -42,7 +42,17 @@ export function CreateJobForm() {
   });
 
   const onSubmit = async (data: CreateJobFormData) => {
-    await createJob(data);
+    const finalCategory =
+      data.category === "Others" && data.customCategory
+        ? data.customCategory.trim()
+        : data.category;
+
+    const payload = {
+      ...data,
+      category: finalCategory,
+    };
+
+    await createJob(payload);
   };
 
   return (

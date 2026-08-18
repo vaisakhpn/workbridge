@@ -55,13 +55,17 @@ const KERALA_DISTRICTS = [
 
 const JOB_CATEGORIES = [
   "All Categories",
-  "Catering",
-  "Stage Setup",
-  "Hospitality",
-  "Security",
-  "Sound & Lighting",
-  "Decoration",
-  "Event Coordination",
+  "Catering & Restaurant",
+  "Shop & Retail",
+  "Delivery & Logistics",
+  "Construction & Labour",
+  "Electrical & Plumbing",
+  "Driving & Transport",
+  "Cleaning & Housekeeping",
+  "Events & Promotion",
+  "Factory & Warehouse",
+  "Office & Customer Service",
+  "Others",
 ];
 
 export function JobSearchContainer() {

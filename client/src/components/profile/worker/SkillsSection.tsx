@@ -19,14 +19,16 @@ interface SkillsSectionProps {
 }
 
 const suggestedSkills = [
-  "Catering",
-  "Event Setup",
-  "Cooking",
-  "Decorating",
-  "Sound Systems",
-  "Photography Assistant",
-  "Cleaning",
-  "Driving",
+  "Catering & Restaurant",
+  "Shop & Retail",
+  "Delivery & Logistics",
+  "Construction & Labour",
+  "Electrical & Plumbing",
+  "Driving & Transport",
+  "Cleaning & Housekeeping",
+  "Events & Promotion",
+  "Factory & Warehouse",
+  "Office & Customer Service",
 ];
 
 export function SkillsSection({
