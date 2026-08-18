@@ -439,7 +439,9 @@ export function JobSearchContainer() {
                         <div className="flex items-center gap-1.5 truncate">
                           <MapPin className="h-3.5 w-3.5 text-orange-600 shrink-0" />
                           <span className="truncate">
-                            {job.district} ({job.location})
+                            {job.location && job.district
+                              ? `${job.location}, ${job.district}`
+                              : job.location || job.district}
                           </span>
                         </div>
 

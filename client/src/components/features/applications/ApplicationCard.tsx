@@ -55,7 +55,9 @@ export function ApplicationCard({ application }: ApplicationCardProps) {
           <div className="flex items-center gap-2">
             <MapPin className="text-primary h-4 w-4 shrink-0" />
             <span className="font-medium text-foreground">
-              {job.location || job.district}
+              {job.location && job.district
+                ? `${job.location}, ${job.district}`
+                : job.location || job.district}
             </span>
           </div>
 

@@ -11,6 +11,7 @@ interface JobItem {
   id: string | number;
   title: string;
   location: string;
+  district?: string;
   workersNeeded: number;
   applicantsCount: number;
   status: "OPEN" | "FILLED" | "COMPLETED";
@@ -93,7 +94,11 @@ export function RecentJobs({ jobs = defaultJobs }: RecentJobsProps) {
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="text-orange-600 h-3.5 w-3.5" />
-                  {job.location}
+                  <span>
+                    {job.location && job.district
+                      ? `${job.location}, ${job.district}`
+                      : job.location || job.district}
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-1.5">

@@ -11,6 +11,7 @@ interface UpcomingJobItem {
   id: string | number;
   title: string;
   location: string;
+  district?: string;
   date: string;
   time: string;
   status?: string;
@@ -90,7 +91,11 @@ export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) 
               <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="text-primary h-3.5 w-3.5" />
-                  {job.location}
+                  <span>
+                    {job.location && job.district
+                      ? `${job.location}, ${job.district}`
+                      : job.location || job.district}
+                  </span>
                 </div>
 
                 <div className="flex items-center gap-1.5">

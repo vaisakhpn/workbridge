@@ -221,7 +221,11 @@ export function LatestJobsSection() {
                           size={14}
                           className="shrink-0 text-orange-600"
                         />
-                        <span className="truncate">{job.district}</span>
+                        <span className="truncate">
+                          {job.location && job.district
+                            ? `${job.location}, ${job.district}`
+                            : job.location || job.district}
+                        </span>
                       </div>
 
                       <div className="flex items-center gap-1.5 truncate">
