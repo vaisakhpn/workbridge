@@ -488,6 +488,16 @@ export function JobSearchContainer() {
                             <CheckCircle2 className="h-4 w-4" />
                             <span>Applied</span>
                           </Button>
+                        ) : (job.activeApplicationsCount ?? job.applicationsCount ?? 0) >= (job.workersNeeded || 1) + 4 ? (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            disabled
+                            className="w-full border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
+                          >
+                            <Users className="h-4 w-4" />
+                            <span>Applicants Full</span>
+                          </Button>
                         ) : (
                           <Button
                             variant="primary"

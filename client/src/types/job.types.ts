@@ -23,6 +23,7 @@ export interface Job {
   salary: number;
   status: JobStatus;
   applicationsCount: number;
+  activeApplicationsCount?: number;
   createdAt: string;
   updatedAt: string;
   eventTeam?: EventTeamInfo | null;

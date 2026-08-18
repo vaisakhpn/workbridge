@@ -253,6 +253,16 @@ export function LatestJobsSection() {
                       <CheckCircle2 size={15} />
                       <span>Applied</span>
                     </Button>
+                  ) : (job.activeApplicationsCount ?? job.applicationsCount ?? 0) >= (job.workersNeeded || 1) + 4 ? (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      disabled
+                      className="w-full gap-1.5 rounded-xl border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300 font-semibold cursor-not-allowed"
+                    >
+                      <Users size={15} />
+                      <span>Applicants Full</span>
+                    </Button>
                   ) : (
                     <Button
                       variant="primary"

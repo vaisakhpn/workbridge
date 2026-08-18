@@ -44,12 +44,28 @@ class ApplicationService {
       throw new AppError("You have already applied for this job", 409);
     }
 
+    const activeApplicationsCount = await Application.countDocuments({
+      job: job._id,
+      status: { $in: ["PENDING", "ACCEPTED"] },
+    });
+
+    const maxAllowedApplications = (job.workersNeeded || 1) + 4;
+
+    if (activeApplicationsCount >= maxAllowedApplications) {
+      throw new AppError(
+        `Applicants limit reached for this job. Position is currently full.`,
+        400
+      );
+    }
+
     const application = await Application.create({
       job: job._id,
       worker: worker._id,
     });
 
-    await Job.findByIdAndUpdate(job._id, { $inc: { applicationsCount: 1 } });
+    await Job.findByIdAndUpdate(job._id, {
+      applicationsCount: activeApplicationsCount + 1,
+    });
 
     await notificationService.createNotification(
       job.createdBy.toString(),
@@ -199,6 +215,15 @@ class ApplicationService {
     application.status = data.status;
 
     await application.save();
+
+    // Recalculate active (PENDING + ACCEPTED) count for the job
+    const activeApplicationsCount = await Application.countDocuments({
+      job: job._id,
+      status: { $in: ["PENDING", "ACCEPTED"] },
+    });
+    job.applicationsCount = activeApplicationsCount;
+    await job.save();
+
     await notificationService.createNotification(
       application.worker.toString(),
       data.status === "ACCEPTED"

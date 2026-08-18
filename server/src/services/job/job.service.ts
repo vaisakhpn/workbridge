@@ -37,6 +37,42 @@ class JobService {
     return "Beginner";
   }
 
+  private async enrichJobsWithActiveCounts(jobs: any[]) {
+    if (!jobs || jobs.length === 0) return jobs;
+
+    const jobIds = jobs.map((j) => j._id || j.id).filter(Boolean);
+
+    const activeCounts = await Application.aggregate([
+      {
+        $match: {
+          job: { $in: jobIds },
+          status: { $in: ["PENDING", "ACCEPTED"] },
+        },
+      },
+      {
+        $group: {
+          _id: "$job",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    const countMap = new Map<string, number>();
+    activeCounts.forEach((item: any) => {
+      countMap.set(item._id.toString(), item.count);
+    });
+
+    return jobs.map((job) => {
+      const jobObj = job.toObject ? job.toObject() : { ...job };
+      const activeCount = countMap.get(jobObj._id.toString()) || 0;
+      return {
+        ...jobObj,
+        applicationsCount: activeCount,
+        activeApplicationsCount: activeCount,
+      };
+    });
+  }
+
   async createJob(userId: string, data: z.infer<typeof createJobSchema>) {
     const user = await User.findById(userId);
 
@@ -69,11 +105,13 @@ class JobService {
       createdAt: -1,
     });
 
+    const enrichedJobs = await this.enrichJobsWithActiveCounts(jobs);
+
     return {
       success: true,
       message: "Jobs fetched successfully",
-      results: jobs.length,
-      data: jobs,
+      results: enrichedJobs.length,
+      data: enrichedJobs,
     };
   }
 
@@ -84,10 +122,12 @@ class JobService {
       throw new AppError("Job not found", 404);
     }
 
+    const [enrichedJob] = await this.enrichJobsWithActiveCounts([job]);
+
     return {
       success: true,
       message: "Job fetched successfully",
-      data: job,
+      data: enrichedJob,
     };
   }
 
@@ -218,6 +258,8 @@ class JobService {
       .limit(limitNumber)
       .lean();
 
+    const enrichedJobs = await this.enrichJobsWithActiveCounts(jobs);
+
     return {
       success: true,
       message: "Jobs fetched successfully",
@@ -230,9 +272,9 @@ class JobService {
 
       totalPages: Math.ceil(totalJobs / limitNumber),
 
-      results: jobs.length,
+      results: enrichedJobs.length,
 
-      data: jobs,
+      data: enrichedJobs,
     };
   }
   async getAttendanceList(jobId: string, userId: string) {
@@ -517,11 +559,13 @@ class JobService {
       .sort({ createdAt: -1 })
       .limit(limit);
 
+    const enrichedJobs = await this.enrichJobsWithActiveCounts(jobs);
+
     return {
       success: true,
       message: "Latest public jobs fetched successfully",
-      results: jobs.length,
-      data: jobs,
+      results: enrichedJobs.length,
+      data: enrichedJobs,
     };
   }
 
@@ -638,6 +682,8 @@ class JobService {
       };
     });
 
+    const finalEnrichedJobs = await this.enrichJobsWithActiveCounts(enrichedJobs);
+
     return {
       success: true,
       message: "Search completed successfully",
@@ -645,8 +691,8 @@ class JobService {
       limit: limitNumber,
       totalJobs,
       totalPages: Math.ceil(totalJobs / limitNumber),
-      results: enrichedJobs.length,
-      data: enrichedJobs,
+      results: finalEnrichedJobs.length,
+      data: finalEnrichedJobs,
     };
   }
 }
