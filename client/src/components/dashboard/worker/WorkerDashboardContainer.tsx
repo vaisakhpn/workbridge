@@ -30,7 +30,7 @@ export function WorkerDashboardContainer() {
     fetchDashboard();
   }, [fetchDashboard]);
 
-  if (isLoading) {
+  if (isLoading || (!dashboardData && !error)) {
     return <DashboardSkeleton />;
   }
 

@@ -33,7 +33,7 @@ export function EventTeamDashboardContainer() {
     fetchDashboard();
   }, [fetchDashboard]);
 
-  if (isLoading) {
+  if (isLoading || (!dashboardData && !error)) {
     return <DashboardSkeleton />;
   }
 

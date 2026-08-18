@@ -38,7 +38,7 @@ export const useWorkerDashboardStore = create<WorkerDashboardState>((set) => ({
   clearDashboard: () =>
     set({
       dashboardData: null,
-      isLoading: false,
+      isLoading: true,
       error: null,
     }),
 }));
