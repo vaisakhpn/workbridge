@@ -22,7 +22,7 @@ import LandingFooter from "@/components/HomePage/Footer";
 
 const stats = [
   { label: "Districts Covered", value: "14", icon: MapPin },
-  { label: "Verified Event Teams", value: "500+", icon: Building2 },
+  { label: "Verified Employers", value: "500+", icon: Building2 },
   { label: "Gigs Completed", value: "10,000+", icon: Award },
   { label: "Worker Rating Avg", value: "4.9/5", icon: Sparkles },
 ];
@@ -32,13 +32,13 @@ const values = [
     icon: ShieldCheck,
     title: "Verified Identity & Trust",
     description:
-      "Every worker profile and event team listing is verified for authenticity, ensuring safety, reliability, and peace of mind.",
+      "Every worker profile and employer listing is verified for authenticity, ensuring safety, reliability, and peace of mind.",
   },
   {
     icon: Clock,
     title: "Instant Staff Matching",
     description:
-      "Event organizers can post urgent staffing needs and find qualified catering, decoration, or hospitality crews within minutes.",
+      "Employers, businesses, and organizers can post urgent staffing needs and find qualified retail, catering, decoration, or hospitality crews within minutes.",
   },
   {
     icon: HeartHandshake,

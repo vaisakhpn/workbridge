@@ -47,7 +47,7 @@ export function EventTeamDashboardContainer() {
         <h2 className="text-xl font-bold">Unable to load dashboard</h2>
 
         <p className="text-muted-foreground mt-1 text-sm">
-          {error || "Event team dashboard data could not be retrieved."}
+          {error || "Employer dashboard data could not be retrieved."}
         </p>
 
         <Button
@@ -84,9 +84,9 @@ export function EventTeamDashboardContainer() {
       iconName: "filled",
     },
     {
-      title: "Completed Events",
+      title: "Completed Jobs",
       value: stats.completedJobs,
-      description: "Finished work events",
+      description: "Finished shifts & gigs",
       iconName: "completed",
     },
     {
@@ -122,7 +122,7 @@ export function EventTeamDashboardContainer() {
       {/* Greeting Header */}
       <DashboardGreeting
         name={displayName}
-        roleDescription="Welcome to your Event Team command center. Manage your listings & job applications."
+        roleDescription="Welcome to your Employer command center. Manage your job listings & worker applications."
       />
 
       {/* Real Stats Metrics Grid */}

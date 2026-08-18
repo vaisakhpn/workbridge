@@ -114,7 +114,7 @@ export function JobSearchContainer() {
     }
 
     if (user?.role !== "worker") {
-      toast.error("Event Team accounts cannot apply for worker jobs.");
+      toast.error("Employer accounts cannot apply for worker jobs.");
       return;
     }
 
@@ -402,7 +402,7 @@ export function JobSearchContainer() {
                 );
 
                 const companyName =
-                  job.eventTeam?.companyName || "Event Organizer";
+                  job.eventTeam?.companyName || "Employer / Business";
 
                 return (
                   <Card

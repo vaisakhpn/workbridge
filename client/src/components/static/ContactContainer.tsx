@@ -228,7 +228,7 @@ export default function ContactContainer() {
                         >
                           <option value="General Inquiry">General Inquiry</option>
                           <option value="Worker Support">Worker Support</option>
-                          <option value="Event Team Partnership">Event Team Partnership</option>
+                          <option value="Employer / Business Partnership">Employer / Business Partnership</option>
                           <option value="Technical Issue">Technical Issue</option>
                         </select>
                       </div>

@@ -23,8 +23,10 @@ export function SidebarFooter() {
           </p>
           <p className="text-muted-foreground text-[11px] capitalize">
             {user?.role === "eventTeam"
-              ? "Event Organizer"
-              : user?.role || "User"}
+              ? "Employer / Business"
+              : user?.role === "admin"
+              ? "Admin"
+              : "Worker"}
           </p>
         </div>
       </div>

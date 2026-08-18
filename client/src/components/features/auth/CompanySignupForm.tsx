@@ -54,15 +54,15 @@ export default function CompanySignupForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
       <Input
-        label="Company Name"
+        label="Company / Business Name"
         type="text"
-        placeholder="e.g. Kerala Caterers Association"
+        placeholder="e.g. Malabar Retail & Catering Services"
         error={errors.companyName?.message}
         {...register("companyName")}
       />
 
       <Input
-        label="Owner / Representative Name"
+        label="Owner / Manager / Representative Name"
         type="text"
         placeholder="e.g. Antony Joseph"
         error={errors.ownerName?.message}
@@ -70,7 +70,7 @@ export default function CompanySignupForm() {
       />
 
       <Input
-        label="Company Email"
+        label="Work / Business Email"
         type="email"
         placeholder="info@company.com"
         error={errors.email?.message}
@@ -78,9 +78,9 @@ export default function CompanySignupForm() {
       />
 
       <Input
-        label="Company Contact Number"
+        label="Contact / Phone Number"
         type="tel"
-        placeholder="10-digit office number"
+        placeholder="10-digit mobile or office number"
         error={errors.phone?.message}
         {...register("phone")}
       />
@@ -101,7 +101,7 @@ export default function CompanySignupForm() {
         className="bg-orange-600 hover:bg-orange-700 text-white font-semibold py-3 rounded-xl transition-colors w-full flex items-center justify-center gap-2 text-sm sm:text-base mt-2"
         rightIcon={<ArrowRight className="h-4 w-4" />}
       >
-        Register Company
+        Register Employer Account
       </Button>
     </form>
   );

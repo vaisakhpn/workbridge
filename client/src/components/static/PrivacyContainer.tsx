@@ -40,7 +40,7 @@ export default function PrivacyContainer() {
                 <h2>1. Overview & Commitment</h2>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                FindNearJob (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) operates the workforce marketplace connecting temporary event staff and verified event organizers across Kerala. We respect your privacy and are committed to protecting the personal data you share with us.
+                FindNearJob (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) operates the workforce marketplace connecting temporary staff and verified employers, businesses, and organizers across Kerala. We respect your privacy and are committed to protecting the personal data you share with us.
               </p>
             </section>
 
@@ -71,7 +71,7 @@ export default function PrivacyContainer() {
                 <p>Your information is used strictly for legitimate platform purposes:</p>
                 <ul className="list-disc pl-5 space-y-1">
                   <li>Connecting workers with relevant event job opportunities in their district.</li>
-                  <li>Displaying applicant profiles to event organizers for job selection.</li>
+                  <li>Displaying applicant profiles to employers and organizers for job selection.</li>
                   <li>Calculating experience scores, attendance percentages, and worker badges.</li>
                   <li>Sending notifications regarding job applications, shift updates, and attendance alerts.</li>
                   <li>Preventing fraudulent accounts and enforcing platform safety policies.</li>
@@ -90,7 +90,7 @@ export default function PrivacyContainer() {
                   We implement industry-standard encryption, password hashing, and secure token mechanisms to safeguard your data.
                 </p>
                 <p>
-                  We do <strong>NOT</strong> sell, rent, or trade your personal information to third-party advertisers. Information is only shared between applicants and event organizers as required to complete job engagements.
+                  We do <strong>NOT</strong> sell, rent, or trade your personal information to third-party advertisers. Information is only shared between applicants and employers/organizers as required to complete job engagements.
                 </p>
               </div>
             </section>

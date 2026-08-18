@@ -38,7 +38,7 @@ export function UserMenu() {
 
   const roleLabel =
     user.role === "eventTeam"
-      ? "Event Organizer"
+      ? "Employer / Business"
       : user.role === "admin"
       ? "Admin"
       : "Worker";

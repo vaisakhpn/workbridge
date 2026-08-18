@@ -85,7 +85,7 @@ export function LatestJobsSection() {
     }
 
     if (user?.role !== "worker") {
-      toast.error("Event Team accounts cannot apply for worker jobs.");
+      toast.error("Employer accounts cannot apply for worker jobs.");
       return;
     }
 
