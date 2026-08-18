@@ -26,9 +26,11 @@ export default function AuthProvider({
         if (fetchedUser) {
           setUser(fetchedUser);
         }
-      } catch (error) {
-        // No active or valid session - logout to sync local state
-        logout();
+      } catch (error: any) {
+        // Clear session if server explicitly returns 401 Unauthorized
+        if (error.response?.status === 401) {
+          logout();
+        }
       } finally {
         setLoading(false);
       }

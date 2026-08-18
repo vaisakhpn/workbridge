@@ -36,7 +36,7 @@ export default function LoginForm() {
     try {
       const response = await authService.login(data);
 
-      setUser(response.user);
+      setUser(response.user, response.accessToken);
       toast.success(response.message || "Logged in successfully!");
       router.push("/");
     } catch (error: any) {

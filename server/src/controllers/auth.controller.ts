@@ -30,6 +30,7 @@ export const registerWorker = async (
       success: true,
       message: response.message,
       user: response.user,
+      accessToken: response.accessToken,
     });
   } catch (error) {
     next(error);
@@ -58,6 +59,7 @@ export const registerEventTeam = async (
       success: true,
       message: response.message,
       user: response.user,
+      accessToken: response.accessToken,
     });
   } catch (error) {
     next(error);
@@ -86,6 +88,7 @@ export const login = async (
       success: true,
       message: response.message,
       user: response.user,
+      accessToken: response.accessToken,
     });
   } catch (error) {
     next(error);
@@ -132,6 +135,7 @@ export const refresh = async (
       success: true,
       message: response.message,
       user: response.user,
+      accessToken: response.accessToken,
     });
   } catch (error) {
     next(error);

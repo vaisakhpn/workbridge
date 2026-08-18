@@ -19,6 +19,24 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+axiosInstance.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    try {
+      const raw = localStorage.getItem("findnearjob-auth-storage");
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        const token = parsed?.state?.token;
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+      }
+    } catch {
+      // ignore JSON parse errors
+    }
+  }
+  return config;
+});
+
 axiosInstance.interceptors.response.use(
   (response) => response,
   (error) => {
