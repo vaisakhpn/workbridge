@@ -20,6 +20,28 @@ export default function AuthProvider({
   useEffect(() => {
     const initializeAuth = async () => {
       try {
+        // Check if token exists in localStorage before making network request
+        let hasToken = false;
+        if (typeof window !== "undefined") {
+          const raw = localStorage.getItem("findnearjob-auth-storage");
+          if (raw) {
+            try {
+              const parsed = JSON.parse(raw);
+              if (parsed?.state?.token) {
+                hasToken = true;
+              }
+            } catch {
+              // ignore JSON parse errors
+            }
+          }
+        }
+
+        // If user is not logged in (no token), don't block page render with backend call
+        if (!hasToken) {
+          setLoading(false);
+          return;
+        }
+
         const response: any = await authService.getCurrentUser();
         const fetchedUser = response?.user || response?.data?.user;
 
