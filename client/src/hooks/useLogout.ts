@@ -12,14 +12,12 @@ export function useLogout() {
   const logout = async () => {
     try {
       await authService.logout();
-
+    } catch (err) {
+      console.error("Logout error:", err);
+    } finally {
       logoutStore();
-
       toast.success("Logged out successfully");
-
-      router.replace("/login");
-    } catch {
-      toast.error("Failed to logout");
+      router.push("/");
     }
   };
 
