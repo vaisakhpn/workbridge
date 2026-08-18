@@ -22,7 +22,7 @@ export default function Logo({ className = "", showText = true }: LogoProps) {
       </div>
 
       {showText && (
-        <div className="flex flex-col">
+        <div className="hidden sm:flex flex-col">
           <span className="text-foreground text-lg font-bold tracking-tight">
             FindNear<span className="text-orange-600">Job</span>
           </span>
