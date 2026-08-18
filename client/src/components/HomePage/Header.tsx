@@ -10,6 +10,8 @@ import { UserMenu } from "@/components/layout/shared/UserMenu";
 import { WorkerNotificationMenu } from "@/components/layout/shared/WorkerNotificationMenu";
 import { useAuthStore } from "@/store/auth.store";
 
+import Logo from "@/components/layout/shared/Logo";
+
 const navLinks = [
   { label: "Home", href: "/" },
   { label: "Jobs", href: "/jobs/search" },
@@ -30,14 +32,7 @@ export function LandingHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md transition-all">
       <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1.5 px-3 sm:gap-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="group flex shrink-0 items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white shadow-xs transition-transform group-hover:scale-105">
-            F
-          </div>
-          <span className="hidden sm:inline-block text-foreground text-lg font-bold tracking-tight sm:text-xl">
-            FindNear<span className="text-orange-600">Job</span>
-          </span>
-        </Link>
+        <Logo />
 
         {/* Reusable Header Search Bar Component - Flexible & Clamped */}
         <div className="flex flex-1 min-w-0 items-center max-w-[150px] xs:max-w-[200px] sm:max-w-xs md:max-w-sm mx-1 sm:mx-4">

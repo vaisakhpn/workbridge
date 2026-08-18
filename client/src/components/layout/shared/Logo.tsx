@@ -1,18 +1,36 @@
 import Link from "next/link";
+import Image from "next/image";
+import logo from "@/assets/logo.png";
 
-export default function Logo() {
+interface LogoProps {
+  className?: string;
+  showText?: boolean;
+}
+
+export default function Logo({ className = "", showText = true }: LogoProps) {
   return (
-    <Link href="/" className="flex items-center gap-2.5 group">
-      <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white text-lg shadow-xs transition-transform group-hover:scale-105">
-        F
+    <Link href="/" className={`flex items-center gap-2.5 group ${className}`}>
+      <div className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl transition-transform group-hover:scale-105">
+        <Image
+          src={logo}
+          alt="FindNearJob Logo"
+          fill
+          className="object-contain"
+          sizes="36px"
+          priority
+        />
       </div>
 
-      <div className="flex flex-col">
-        <span className="text-foreground text-lg font-bold tracking-tight">
-          FindNear<span className="text-orange-600">Job</span>
-        </span>
-        <span className="text-muted-foreground text-[10px] font-medium leading-none">Find Work Faster</span>
-      </div>
+      {showText && (
+        <div className="flex flex-col">
+          <span className="text-foreground text-lg font-bold tracking-tight">
+            FindNear<span className="text-orange-600">Job</span>
+          </span>
+          <span className="text-muted-foreground text-[10px] font-medium leading-none">
+            Find Work Faster
+          </span>
+        </div>
+      )}
     </Link>
   );
 }

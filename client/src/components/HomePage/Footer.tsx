@@ -1,6 +1,5 @@
-"use client";
-
 import Link from "next/link";
+import Logo from "@/components/layout/shared/Logo";
 
 export function LandingFooter() {
   return (
@@ -9,14 +8,7 @@ export function LandingFooter() {
         <div className="flex flex-col md:flex-row items-start justify-between gap-8 border-b border-zinc-800 pb-8">
           {/* Brand Logo & Tagline */}
           <div className="space-y-3 max-w-xs">
-            <Link href="/" className="flex items-center gap-2.5">
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white">
-                F
-              </div>
-              <span className="text-xl font-bold tracking-tight text-white">
-                FindNear<span className="text-orange-600">Job</span>
-              </span>
-            </Link>
+            <Logo />
             <p className="text-xs text-zinc-400 leading-relaxed">
               Connecting businesses, employers, and organizers with reliable part-time staff across World.
             </p>

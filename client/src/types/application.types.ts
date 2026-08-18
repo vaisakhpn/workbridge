@@ -34,6 +34,12 @@ export interface JobApplication {
   updatedAt: string;
 }
 
+export interface EmployerContact {
+  companyName?: string;
+  ownerName?: string;
+  phone?: string;
+}
+
 export interface WorkerApplication {
   _id: string;
   id?: string;
@@ -43,6 +49,7 @@ export interface WorkerApplication {
   worker: any;
   status: ApplicationStatus;
   attendance?: boolean;
+  employerContact?: EmployerContact | null;
   createdAt: string;
   updatedAt: string;
 }

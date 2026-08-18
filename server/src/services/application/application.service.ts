@@ -11,6 +11,8 @@ import { AppError } from "../../utils/AppError";
 import { updateApplicationStatusSchema } from "../../validators/application.validator";
 import notificationService from "../notification/notification.service";
 
+import EventTeamProfile from "../../models/EventTeamProfile";
+
 class ApplicationService {
   async applyForJob(workerId: string, jobId: string) {
     if (!mongoose.Types.ObjectId.isValid(jobId)) {
@@ -76,11 +78,57 @@ class ApplicationService {
       .populate("job")
       .sort({ createdAt: -1 });
 
+    const creatorIds = Array.from(
+      new Set(
+        applications
+          .map(
+            (app: any) =>
+              app.job?.createdBy?._id?.toString() ||
+              app.job?.createdBy?.toString()
+          )
+          .filter(Boolean)
+      )
+    );
+
+    const eventTeamProfiles = await EventTeamProfile.find({
+      user: { $in: creatorIds },
+    }).lean();
+
+    const profileMap = new Map<string, any>();
+    eventTeamProfiles.forEach((profile: any) => {
+      profileMap.set(profile.user.toString(), profile);
+    });
+
+    const sanitizedApplications = applications.map((app: any) => {
+      const appObj = app.toObject ? app.toObject() : app;
+      const creatorId = (
+        appObj.job?.createdBy?._id || appObj.job?.createdBy
+      )?.toString();
+      const profile = creatorId ? profileMap.get(creatorId) : null;
+
+      const isAcceptedOrCompleted =
+        appObj.status === "ACCEPTED" ||
+        appObj.job?.status === "COMPLETED" ||
+        Boolean(appObj.attendance);
+
+      if (isAcceptedOrCompleted && profile) {
+        appObj.employerContact = {
+          companyName: profile.companyName || "",
+          ownerName: profile.ownerName || "",
+          phone: profile.phone || "",
+        };
+      } else {
+        appObj.employerContact = null;
+      }
+
+      return appObj;
+    });
+
     return {
       success: true,
       message: "Applications fetched successfully",
-      results: applications.length,
-      data: applications,
+      results: sanitizedApplications.length,
+      data: sanitizedApplications,
     };
   }
 
