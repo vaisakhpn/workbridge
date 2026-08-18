@@ -23,7 +23,7 @@ export function ApplicationsFilter({
   onFilterChange,
 }: ApplicationsFilterProps) {
   return (
-    <div className="border-border bg-card grid w-full grid-cols-5 gap-1 overflow-x-auto rounded-2xl border p-1.5 shadow-xs whitespace-nowrap scrollbar-none">
+    <div className="border-border bg-card flex w-full max-w-full items-center gap-1.5 overflow-x-auto rounded-2xl border p-1.5 shadow-xs whitespace-nowrap scrollbar-none">
       {filterOptions.map((option) => {
         const isActive = currentFilter === option.id;
         const count = counts[option.id] || 0;
@@ -33,18 +33,18 @@ export function ApplicationsFilter({
             key={option.id}
             type="button"
             onClick={() => onFilterChange(option.id)}
-            className={`flex w-full cursor-pointer items-center justify-center gap-1.5 rounded-xl px-2 py-2.5 text-xs font-semibold transition-all duration-200 sm:px-3 ${
+            className={`flex shrink-0 items-center justify-center gap-1.5 rounded-xl px-3.5 py-2 text-xs font-semibold transition-all duration-200 cursor-pointer ${
               isActive
-                ? "bg-primary text-primary-foreground shadow-xs"
+                ? "bg-orange-600 text-white shadow-xs font-bold"
                 : "text-muted-foreground hover:bg-accent hover:text-foreground"
             }`}
           >
             <span>{option.label}</span>
             <Badge
               variant="secondary"
-              className={`ml-0.5 rounded-full px-1.5 py-0 text-[10px] ${
+              className={`rounded-full px-1.5 py-0.5 text-[10px] font-bold ${
                 isActive
-                  ? "bg-primary-foreground/20 text-primary-foreground"
+                  ? "bg-white/20 text-white"
                   : "bg-muted text-muted-foreground"
               }`}
             >
