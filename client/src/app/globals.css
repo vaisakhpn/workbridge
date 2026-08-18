@@ -144,13 +144,16 @@ html {
   max-width: 100vw;
 }
 
-body {
+body,
+body[data-scroll-locked] {
   background: var(--color-background);
   color: var(--color-foreground);
   font-family: var(--font-sans), sans-serif;
   min-height: 100vh;
-  overflow-x: hidden;
-  max-width: 100vw;
+  overflow-x: hidden !important;
+  max-width: 100vw !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
 }
 
 /* Remove default button styles */
