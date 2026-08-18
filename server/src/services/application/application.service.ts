@@ -41,6 +41,12 @@ class ApplicationService {
     });
 
     if (existingApplication) {
+      if (existingApplication.status === "REJECTED") {
+        throw new AppError(
+          "Your application for this job was previously rejected. You cannot re-apply for the same job.",
+          400
+        );
+      }
       throw new AppError("You have already applied for this job", 409);
     }
 

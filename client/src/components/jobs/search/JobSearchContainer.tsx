@@ -17,6 +17,7 @@ import {
   Building2,
   Clock,
   CheckCircle2,
+  XCircle,
   Loader2,
 } from "lucide-react";
 import { toast } from "sonner";
@@ -91,6 +92,7 @@ export function JobSearchContainer() {
 
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
   const [appliedJobIds, setAppliedJobIds] = useState<Set<string>>(new Set());
+  const [appliedStatusMap, setAppliedStatusMap] = useState<Map<string, string>>(new Map());
 
   // Fetch existing worker applications
   useEffect(() => {
@@ -99,12 +101,17 @@ export function JobSearchContainer() {
         .getMyApplications()
         .then((res) => {
           if (res.success && res.data) {
-            const ids = new Set(
-              res.data.map((app: any) =>
-                typeof app.job === "string" ? app.job : app.job?._id
-              )
-            );
+            const ids = new Set<string>();
+            const statusMap = new Map<string, string>();
+            res.data.forEach((app: any) => {
+              const jId = typeof app.job === "string" ? app.job : app.job?._id;
+              if (jId) {
+                ids.add(jId);
+                statusMap.set(jId, app.status);
+              }
+            });
             setAppliedJobIds(ids);
+            setAppliedStatusMap(statusMap);
           }
         })
         .catch(() => {});
@@ -479,15 +486,27 @@ export function JobSearchContainer() {
                     {user?.role === "eventTeam" ? null : (
                       <div>
                         {appliedJobIds.has(job._id) ? (
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            disabled
-                            className="w-full border-emerald-500/50 bg-emerald-50 text-emerald-600 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
-                          >
-                            <CheckCircle2 className="h-4 w-4" />
-                            <span>Applied</span>
-                          </Button>
+                          appliedStatusMap.get(job._id) === "REJECTED" ? (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled
+                              className="w-full border-rose-500/50 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
+                            >
+                              <XCircle className="h-4 w-4" />
+                              <span>Rejected</span>
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              disabled
+                              className="w-full border-emerald-500/50 bg-emerald-50 text-emerald-600 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
+                            >
+                              <CheckCircle2 className="h-4 w-4" />
+                              <span>Applied</span>
+                            </Button>
+                          )
                         ) : (job.activeApplicationsCount ?? job.applicationsCount ?? 0) >= (job.workersNeeded || 1) + 4 ? (
                           <Button
                             variant="outline"
