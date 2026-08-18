@@ -44,7 +44,7 @@ app.use(
       ) {
         callback(null, true);
       } else {
-        callback(null, true);
+        callback(new Error("CORS policy violation: Access from this origin is prohibited"));
       }
     },
     credentials: true,

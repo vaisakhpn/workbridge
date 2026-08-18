@@ -4,6 +4,7 @@ import { z } from "zod";
 import Application from "../../models/application.model";
 import Job from "../../models/job.model";
 import User from "../../models/User";
+import { Notification } from "../../models/notification.model";
 
 import { AppError } from "../../utils/AppError";
 
@@ -45,6 +46,8 @@ class ApplicationService {
       job: job._id,
       worker: worker._id,
     });
+
+    await Job.findByIdAndUpdate(job._id, { $inc: { applicationsCount: 1 } });
 
     await notificationService.createNotification(
       job.createdBy.toString(),
@@ -167,8 +170,8 @@ class ApplicationService {
 
       if (acceptedCount >= job.workersNeeded) {
         job.status = "FILLED";
-
         await job.save();
+
         await notificationService.createNotification(
           eventTeamId,
           "Job Filled",
@@ -179,19 +182,23 @@ class ApplicationService {
         const pendingApplications = await Application.find({
           job: job._id,
           status: "PENDING",
-        });
+        }).select("_id worker");
 
-        for (const pendingApplication of pendingApplications) {
-          pendingApplication.status = "REJECTED";
-
-          await pendingApplication.save();
-
-          await notificationService.createNotification(
-            pendingApplication.worker.toString(),
-            "Application Rejected",
-            `Your application for "${job.title}" has been rejected because all positions have been filled.`,
-            "APPLICATION",
+        if (pendingApplications.length > 0) {
+          await Application.updateMany(
+            { job: job._id, status: "PENDING" },
+            { $set: { status: "REJECTED" } }
           );
+
+          const rejectionNotifications = pendingApplications.map((pending) => ({
+            user: pending.worker,
+            title: "Application Rejected",
+            message: `Your application for "${job.title}" has been rejected because all positions have been filled.`,
+            type: "APPLICATION" as const,
+            isRead: false,
+          }));
+
+          await Notification.insertMany(rejectionNotifications);
         }
       }
     }

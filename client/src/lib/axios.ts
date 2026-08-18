@@ -19,4 +19,17 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Clear persistent auth storage on token expiration if running in browser
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("findnearjob-auth-storage");
+      }
+    }
+    return Promise.reject(error);
+  }
+);
+
 export default axiosInstance;

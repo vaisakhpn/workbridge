@@ -178,6 +178,10 @@ const WorkerProfileSchema = new Schema(
 );
 
 
+WorkerProfileSchema.index({ district: 1, skills: 1 });
+WorkerProfileSchema.index({ experienceScore: -1 });
+WorkerProfileSchema.index({ availability: 1, district: 1 });
+
 const WorkerProfile =
   mongoose.models.WorkerProfile ||
   mongoose.model<IWorkerProfile>("WorkerProfile", WorkerProfileSchema);

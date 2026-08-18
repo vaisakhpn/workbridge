@@ -128,6 +128,8 @@ const EventTeamProfileSchema = new Schema(
   }
 );
 
+EventTeamProfileSchema.index({ district: 1, isVerified: 1 });
+
 const EventTeamProfile =
   mongoose.models.EventTeamProfile ||
   mongoose.model<IEventTeamProfile>(
