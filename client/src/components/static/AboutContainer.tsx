@@ -61,7 +61,7 @@ export default function AboutContainer() {
               variant="secondary"
               className="bg-orange-500/10 text-orange-600 border-orange-200 text-xs font-semibold px-3 py-1 rounded-full"
             >
-              About Jobora
+              About FindNearJob
             </Badge>
 
             <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-foreground">
@@ -69,7 +69,7 @@ export default function AboutContainer() {
             </h1>
 
             <p className="text-muted-foreground text-sm sm:text-lg leading-relaxed">
-              Jobora is World&apos;s leading platform connecting verified employers, businesses, caterers, and organizers with reliable part-time staff.
+              FindNearJob is World&apos;s leading platform connecting verified employers, businesses, caterers, and organizers with reliable part-time staff.
             </p>
           </div>
 
@@ -106,7 +106,7 @@ export default function AboutContainer() {
                 For Part-Time Staff & Workers
               </h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Whether you are a retail assistant, receptionist, catering crew member, delivery staff, or event coordinator, Jobora provides flexible access to part-time jobs in your district with transparent wages and badge progression.
+                Whether you are a retail assistant, receptionist, catering crew member, delivery staff, or event coordinator, FindNearJob provides flexible access to part-time jobs in your district with transparent wages and badge progression.
               </p>
             </Card>
 
@@ -127,7 +127,7 @@ export default function AboutContainer() {
           <div className="space-y-8">
             <div className="text-center space-y-2">
               <h2 className="text-2xl sm:text-3xl font-bold text-foreground">
-                Why Choose Jobora
+                Why Choose FindNearJob
               </h2>
               <p className="text-sm text-muted-foreground">
                 Built on transparency, speed, and trusted performance.
@@ -163,7 +163,7 @@ export default function AboutContainer() {
               Ready to Work or Hire Event Staff?
             </h2>
             <p className="text-sm sm:text-base text-white/90 max-w-xl mx-auto">
-              Join thousands of workers and organizers across World already using Jobora today.
+              Join thousands of workers and organizers across World already using FindNearJob today.
             </p>
             
           </Card>

@@ -93,7 +93,7 @@ export function MetricsSection() {
 
           <p className="text-muted-foreground font-medium">
             Employers and part-time workers trust{" "}
-            <span className="font-bold text-orange-600">Jobora</span>
+            <span className="font-bold text-orange-600">FindNearJob</span>
           </p>
         </div>
       </Card>

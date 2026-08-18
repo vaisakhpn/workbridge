@@ -27,21 +27,21 @@ export function LandingHeader() {
   const isUserLoggedIn = mounted && isAuthenticated && Boolean(user);
 
   return (
-    <header className="border-border/40 bg-background/80 sticky top-0 z-50 w-full border-b backdrop-blur-md transition-all">
-      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-2 px-3 sm:gap-4 sm:px-6 lg:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-md transition-all">
+      <div className="mx-auto flex h-16 w-full max-w-7xl items-center justify-between gap-1.5 px-3 sm:gap-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="group flex shrink-0 items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white shadow-xs transition-transform group-hover:scale-105">
-            J
+            F
           </div>
-          <span className="text-foreground text-lg font-bold tracking-tight sm:text-xl">
-            Job<span className="text-orange-600">ora</span>
+          <span className="hidden sm:inline-block text-foreground text-lg font-bold tracking-tight sm:text-xl">
+            FindNear<span className="text-orange-600">Job</span>
           </span>
         </Link>
 
-        {/* Reusable Header Search Bar Component - Visible on Mobile & Desktop */}
-        <div className="mx-1.5 flex max-w-[220px] flex-1 items-center sm:max-w-xs md:mx-4 md:max-w-sm">
-          <HeaderSearchBar />
+        {/* Reusable Header Search Bar Component - Flexible & Clamped */}
+        <div className="flex flex-1 min-w-0 items-center max-w-[150px] xs:max-w-[200px] sm:max-w-xs md:max-w-sm mx-1 sm:mx-4">
+          <HeaderSearchBar placeholder="Search jobs..." />
         </div>
 
         {/* Desktop Navigation Links (Home, Jobs) */}
@@ -88,9 +88,9 @@ export function LandingHeader() {
         </div>
 
         {/* Mobile Menu Trigger Button & User Menu */}
-        <div className="flex shrink-0 items-center gap-2 md:hidden">
+        <div className="flex shrink-0 items-center gap-1.5 md:hidden">
           {isUserLoggedIn && (
-            <div className="flex items-center gap-2 mr-0.5">
+            <div className="flex items-center gap-1 shrink-0">
               <WorkerNotificationMenu />
               <UserMenu />
             </div>
@@ -98,10 +98,10 @@ export function LandingHeader() {
           <button
             type="button"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-muted-foreground hover:text-foreground cursor-pointer rounded-lg p-2 transition-colors"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-border/60 bg-muted/40 text-foreground hover:bg-muted cursor-pointer transition-colors"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
+            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
       </div>

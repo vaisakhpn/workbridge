@@ -11,7 +11,7 @@ import { LandingFooter } from "./Footer";
 
 export function LandingContainer() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-orange-500/20 selection:text-orange-600">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans selection:bg-orange-500/20 selection:text-orange-600 overflow-x-hidden w-full max-w-[100vw]">
       <LandingHeader />
       <main className="flex-1">
         <HeroSection />

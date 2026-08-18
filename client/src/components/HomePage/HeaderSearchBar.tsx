@@ -39,17 +39,17 @@ export function HeaderSearchBar({
   };
 
   return (
-    <form onSubmit={handleSubmit} className={`relative w-full ${className}`}>
+    <form onSubmit={handleSubmit} className={`relative w-full min-w-0 ${className}`}>
       <Search
-        size={16}
-        className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none"
+        size={15}
+        className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground pointer-events-none shrink-0"
       />
       <input
         type="text"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-full bg-white pl-9 pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground/70 placeholder:truncate border border-orange-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all shadow-2xs"
+        className="w-full min-w-0 rounded-full bg-white pl-8 pr-7 sm:pl-9 sm:pr-8 py-1.5 text-xs text-foreground placeholder:text-muted-foreground/70 placeholder:truncate border border-orange-500 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all shadow-2xs"
       />
       {query && (
         <button

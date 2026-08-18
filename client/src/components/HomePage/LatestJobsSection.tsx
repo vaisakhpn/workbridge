@@ -171,12 +171,12 @@ export function LatestJobsSection() {
               asChild
               className="mt-5 rounded-full bg-orange-600 px-6 text-white shadow-xs hover:bg-orange-700"
             >
-              <Link href="/signup">Join Jobora Today</Link>
+              <Link href="/signup">Join FindNearJob Today</Link>
             </Button>
           </Card>
         ) : (
           /* Job Cards Grid */
-          <div className="grid grid-cols-2 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {jobs.map((job) => {
               const formattedDate = new Date(job.date).toLocaleDateString(
                 "en-GB",

@@ -1,7 +1,7 @@
 {
-  "name": "jobora-server",
+  "name": "findnearjob-server",
   "version": "1.0.0",
-  "description": "Backend server for Jobora - Connecting Event Teams with Reliable Workers",
+  "description": "Backend server for FindNearJob - Connecting Event Teams with Reliable Workers",
   "main": "dist/server.js",
   "scripts": {
     "build": "tsc",

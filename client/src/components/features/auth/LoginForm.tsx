@@ -52,7 +52,7 @@ export default function LoginForm() {
       {/* Brand Logo, Title & Description Header */}
       <AuthHeader
         title="Welcome Back"
-        description="Sign in to continue to Jobora."
+        description="Sign in to continue to FindNearJob."
       />
 
       {/* Main Login Form Card using standard UI Card */}

@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Jobora - Part-Time Jobs & Workforce Marketplace",
-  description: "Jobora connects verified employers and businesses with reliable part-time workers and temporary staff.",
+  title: "FindNearJob - Part-Time Jobs & Workforce Marketplace",
+  description: "FindNearJob connects verified employers and businesses with reliable part-time workers and temporary staff.",
 };
 
 export default function RootLayout({
@@ -27,9 +27,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased overflow-x-hidden`}
     >
-      <body className="flex min-h-screen flex-col">
+      <body className="flex min-h-screen flex-col overflow-x-hidden max-w-[100vw]">
         <AuthProvider>{children}</AuthProvider>
         <Toaster richColors position="top-right" />
       </body>

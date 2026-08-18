@@ -16,10 +16,10 @@ export default function AuthHeader({
       {/* Brand Logo */}
       <Link href="/" className="inline-flex items-center gap-2 mb-2 group">
         <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-orange-600 font-extrabold text-white text-lg shadow-xs transition-transform group-hover:scale-105">
-          J
+          F
         </div>
         <span className="text-xl font-bold tracking-tight text-foreground">
-          Job<span className="text-orange-600">ora</span>
+          FindNear<span className="text-orange-600">Job</span>
         </span>
       </Link>
 
