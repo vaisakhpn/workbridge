@@ -22,7 +22,7 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.request.use((config) => {
   if (typeof window !== "undefined") {
     try {
-      const raw = localStorage.getItem("findnearjob-auth-storage");
+      const raw = localStorage.getItem("bincoz-auth-storage");
       if (raw) {
         const parsed = JSON.parse(raw);
         const token = parsed?.state?.token;
@@ -43,7 +43,7 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Clear persistent auth storage on token expiration if running in browser
       if (typeof window !== "undefined") {
-        localStorage.removeItem("findnearjob-auth-storage");
+        localStorage.removeItem("bincoz-auth-storage");
       }
     }
     return Promise.reject(error);

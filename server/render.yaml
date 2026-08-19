@@ -1,6 +1,6 @@
 services:
   - type: web
-    name: findnearjob-backend
+    name: bincoz-backend
     env: node
     region: singapore
     buildCommand: npm install && npm run build

@@ -41,7 +41,7 @@ export function LandingFooter() {
 
         {/* Bottom Copyright */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-zinc-400 text-center sm:text-left">
-          <p>© {new Date().getFullYear()} FindNearJob. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Bincoz. All rights reserved.</p>
         </div>
       </div>
     </footer>

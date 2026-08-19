@@ -23,7 +23,7 @@ export default function AuthProvider({
         // Check if token exists in localStorage before making network request
         let hasToken = false;
         if (typeof window !== "undefined") {
-          const raw = localStorage.getItem("findnearjob-auth-storage");
+          const raw = localStorage.getItem("bincoz-auth-storage");
           if (raw) {
             try {
               const parsed = JSON.parse(raw);

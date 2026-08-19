@@ -28,7 +28,7 @@ export default function PrivacyContainer() {
             </h1>
 
             <p className="text-muted-foreground text-xs sm:text-sm">
-              Last Updated: July 30, 2026 | Effective for all FindNearJob users across Kerala
+              Last Updated: July 30, 2026 | Effective for all Bincoz users across Kerala
             </p>
           </div>
 
@@ -40,7 +40,7 @@ export default function PrivacyContainer() {
                 <h2>1. Overview & Commitment</h2>
               </div>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                FindNearJob (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) operates the workforce marketplace connecting temporary staff and verified employers, businesses, and organizers across Kerala. We respect your privacy and are committed to protecting the personal data you share with us.
+                Bincoz (&ldquo;we&rdquo;, &ldquo;our&rdquo;, or &ldquo;us&rdquo;) operates the workforce marketplace connecting temporary staff and verified employers, businesses, and organizers across Kerala. We respect your privacy and are committed to protecting the personal data you share with us.
               </p>
             </section>
 
@@ -99,7 +99,7 @@ export default function PrivacyContainer() {
             <section className="space-y-3 border-t border-orange-200/60 dark:border-orange-900/30 pt-6">
               <h2 className="text-orange-600 font-bold text-lg">5. Your Rights & Choices</h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                You have full control over your profile data. You may update your contact information, skill categories, or request account closure at any time by accessing your profile settings or contacting support@findnearjob.in.
+                You have full control over your profile data. You may update your contact information, skill categories, or request account closure at any time by accessing your profile settings or contacting support@bincoz.in.
               </p>
             </section>
 
@@ -107,7 +107,7 @@ export default function PrivacyContainer() {
             <section className="space-y-3 border-t border-orange-200/60 dark:border-orange-900/30 pt-6">
               <h2 className="text-orange-600 font-bold text-lg">6. Privacy Questions</h2>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                If you have any questions or concerns regarding this Privacy Policy, please email our Data Officer at <strong>privacy@findnearjob.in</strong>.
+                If you have any questions or concerns regarding this Privacy Policy, please email our Data Officer at <strong>privacy@bincoz.in</strong>.
               </p>
             </section>
           </Card>

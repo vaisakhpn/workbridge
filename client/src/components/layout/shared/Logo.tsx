@@ -13,7 +13,7 @@ export default function Logo({ className = "", showText = true }: LogoProps) {
       <div className="relative flex h-9 w-9 shrink-0 items-center justify-center overflow-hidden rounded-xl transition-transform group-hover:scale-105">
         <Image
           src={logo}
-          alt="FindNearJob Logo"
+          alt="Bincoz Logo"
           fill
           className="object-contain"
           sizes="36px"
@@ -24,7 +24,7 @@ export default function Logo({ className = "", showText = true }: LogoProps) {
       {showText && (
         <div className="hidden sm:flex flex-col">
           <span className="text-foreground text-lg font-bold tracking-tight">
-            FindNear<span className="text-orange-600">Job</span>
+            Bin<span className="text-orange-600">coz</span>
           </span>
           <span className="text-muted-foreground text-[10px] font-medium leading-none">
             Find Work Faster

@@ -178,7 +178,7 @@ export function LatestJobsSection() {
               asChild
               className="mt-5 rounded-full bg-orange-600 px-6 text-white shadow-xs hover:bg-orange-700"
             >
-              <Link href="/signup">Join FindNearJob Today</Link>
+              <Link href="/signup">Join Bincoz Today</Link>
             </Button>
           </Card>
         ) : (

@@ -43,7 +43,7 @@ export const useAuthStore = create<AuthState>()(
         }),
     }),
     {
-      name: "findnearjob-auth-storage",
+      name: "bincoz-auth-storage",
       storage: createJSONStorage(() => localStorage),
     }
   )

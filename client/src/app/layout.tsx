@@ -15,8 +15,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "FindNearJob - Part-Time Jobs & Workforce Marketplace",
-  description: "FindNearJob connects verified employers and businesses with reliable part-time workers and temporary staff.",
+  title: "Bincoz - Part-Time Jobs & Workforce Marketplace",
+  description: "Bincoz connects verified employers and businesses with reliable part-time workers and temporary staff.",
 };
 
 export default function RootLayout({

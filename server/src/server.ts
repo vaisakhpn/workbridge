@@ -63,7 +63,7 @@ app.use(cookieParser());
 app.get("/", (_, res) => {
   res.status(200).json({
     success: true,
-    message: "FindNearJob Backend API Service is Running",
+    message: "Bincoz Backend API Service is Running",
     healthCheck: "/api/health",
     timestamp: new Date().toISOString(),
   });
