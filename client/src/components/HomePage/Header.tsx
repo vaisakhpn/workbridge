@@ -35,7 +35,7 @@ export function LandingHeader() {
         <Logo />
 
         {/* Reusable Header Search Bar Component - Flexible & Clamped */}
-        <div className="flex flex-1 min-w-0 items-center max-w-[150px] xs:max-w-[200px] sm:max-w-xs md:max-w-sm mx-1 sm:mx-4">
+        <div className="flex flex-1 min-w-0 items-center max-w-[220px] xs:max-w-[280px] sm:max-w-xs md:max-w-md mx-1 sm:mx-4">
           <HeaderSearchBar placeholder="Search jobs..." />
         </div>
 

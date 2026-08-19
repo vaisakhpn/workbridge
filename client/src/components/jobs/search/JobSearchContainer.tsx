@@ -74,8 +74,8 @@ export function JobSearchContainer() {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
 
-  const initialQuery = searchParams.get("q") || searchParams.get("search") || "";
-  const initialDistrict = searchParams.get("district") || "All Districts";
+  const initialQuery = searchParams.get("q") || searchParams.get("search") || searchParams.get("keyword") || "";
+  const initialDistrict = searchParams.get("district") || searchParams.get("location") || "All Districts";
   const initialCategory = searchParams.get("category") || "All Categories";
   const initialSort = searchParams.get("sort") || "latest";
 
@@ -150,8 +150,8 @@ export function JobSearchContainer() {
 
   // Sync state with URL params on param change
   useEffect(() => {
-    setSearchQuery(searchParams.get("q") || searchParams.get("search") || "");
-    setSelectedDistrict(searchParams.get("district") || "All Districts");
+    setSearchQuery(searchParams.get("q") || searchParams.get("search") || searchParams.get("keyword") || "");
+    setSelectedDistrict(searchParams.get("district") || searchParams.get("location") || "All Districts");
     setSelectedCategory(searchParams.get("category") || "All Categories");
     setSelectedSort(searchParams.get("sort") || "latest");
   }, [searchParams]);
