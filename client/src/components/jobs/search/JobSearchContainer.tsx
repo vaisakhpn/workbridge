@@ -403,14 +403,13 @@ export function JobSearchContainer() {
             /* Cards Grid */
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {jobs.map((job) => {
-                const formattedDate = new Date(job.date).toLocaleDateString(
-                  "en-GB",
-                  {
-                    day: "numeric",
-                    month: "short",
-                    year: "numeric",
-                  }
-                );
+                const formattedDate = job.date
+                  ? new Date(job.date).toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })
+                  : null;
 
                 const companyName =
                   job.eventTeam?.companyName || "Employer / Business";
@@ -452,17 +451,22 @@ export function JobSearchContainer() {
                           </span>
                         </div>
 
-                        <div className="flex items-center gap-1.5 truncate">
-                          <Calendar className="h-3.5 w-3.5 text-orange-600 shrink-0" />
-                          <span>{formattedDate}</span>
-                        </div>
+                        {formattedDate && (
+                          <div className="flex items-center gap-1.5 truncate">
+                            <Calendar className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                            <span>{formattedDate}</span>
+                          </div>
+                        )}
 
-                        <div className="flex items-center gap-1.5 truncate">
-                          <Clock className="h-3.5 w-3.5 text-orange-600 shrink-0" />
-                          <span>
-                            {job.startTime} - {job.endTime}
-                          </span>
-                        </div>
+                        {job.startTime && job.endTime && (
+                          <div className="flex items-center gap-1.5 truncate">
+                            <Clock className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                            <span>
+                              {job.startTime} - {job.endTime}
+                            </span>
+                          </div>
+                        )}
+
 
                         <div className="flex items-center gap-1.5 truncate">
                           <Users className="h-3.5 w-3.5 text-orange-600 shrink-0" />

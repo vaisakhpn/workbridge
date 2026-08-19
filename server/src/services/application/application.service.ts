@@ -214,7 +214,11 @@ class ApplicationService {
       );
     }
 
-    if (job.status === "FILLED") {
+    if (
+      job.status === "FILLED" &&
+      data.status === "ACCEPTED" &&
+      application.status !== "ACCEPTED"
+    ) {
       throw new AppError("Job already filled", 400);
     }
 
@@ -241,13 +245,13 @@ class ApplicationService {
       "APPLICATION",
     );
 
-    if (data.status === "ACCEPTED") {
-      const acceptedCount = await Application.countDocuments({
-        job: job._id,
-        status: "ACCEPTED",
-      });
+    const acceptedCount = await Application.countDocuments({
+      job: job._id,
+      status: "ACCEPTED",
+    });
 
-      if (acceptedCount >= job.workersNeeded) {
+    if (acceptedCount >= job.workersNeeded) {
+      if (job.status !== "FILLED") {
         job.status = "FILLED";
         await job.save();
 
@@ -257,30 +261,37 @@ class ApplicationService {
           `"${job.title}" has reached the required number of workers.`,
           "JOB",
         );
+      }
 
-        const pendingApplications = await Application.find({
-          job: job._id,
-          status: "PENDING",
-        }).select("_id worker");
+      const pendingApplications = await Application.find({
+        job: job._id,
+        status: "PENDING",
+      }).select("_id worker");
 
-        if (pendingApplications.length > 0) {
-          await Application.updateMany(
-            { job: job._id, status: "PENDING" },
-            { $set: { status: "REJECTED" } }
-          );
+      if (pendingApplications.length > 0) {
+        await Application.updateMany(
+          { job: job._id, status: "PENDING" },
+          { $set: { status: "REJECTED" } }
+        );
 
-          const rejectionNotifications = pendingApplications.map((pending) => ({
-            user: pending.worker,
-            title: "Application Rejected",
-            message: `Your application for "${job.title}" has been rejected because all positions have been filled.`,
-            type: "APPLICATION" as const,
-            isRead: false,
-          }));
+        const rejectionNotifications = pendingApplications.map((pending) => ({
+          user: pending.worker,
+          title: "Application Rejected",
+          message: `Your application for "${job.title}" has been rejected because all positions have been filled.`,
+          type: "APPLICATION" as const,
+          isRead: false,
+        }));
 
-          await Notification.insertMany(rejectionNotifications);
-        }
+        await Notification.insertMany(rejectionNotifications);
+      }
+    } else {
+      // Re-open job if accepted count falls below workersNeeded
+      if (job.status === "FILLED") {
+        job.status = "OPEN";
+        await job.save();
       }
     }
+
 
     return {
       success: true,

@@ -203,9 +203,17 @@ class JobService {
     const pageNumber = Math.max(Number(page) || 1, 1);
     const limitNumber = Math.max(Number(limit) || 10, 1);
 
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+
     const skip = (pageNumber - 1) * limitNumber;
     const filter: any = {
       status: "OPEN",
+      $or: [
+        { date: { $exists: false } },
+        { date: null },
+        { date: { $gte: startOfToday } },
+      ],
     };
     if (search) {
       filter.title = {
@@ -554,7 +562,17 @@ class JobService {
   }
 
   async getPublicLatestJobs(limit: number = 6) {
-    const jobs = await Job.find({ status: "OPEN" })
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+
+    const jobs = await Job.find({
+      status: "OPEN",
+      $or: [
+        { date: { $exists: false } },
+        { date: null },
+        { date: { $gte: startOfToday } },
+      ],
+    })
       .populate("createdBy", "companyName logo district currentLocation ownerName")
       .sort({ createdAt: -1 })
       .limit(limit);
@@ -585,8 +603,16 @@ class JobService {
     const limitNumber = Math.max(Number(limit) || 12, 1);
     const skip = (pageNumber - 1) * limitNumber;
 
+    const startOfToday = new Date();
+    startOfToday.setHours(0, 0, 0, 0);
+
     const filter: any = {
       status: "OPEN",
+      $or: [
+        { date: { $exists: false } },
+        { date: null },
+        { date: { $gte: startOfToday } },
+      ],
     };
 
     if (district && district.trim()) {

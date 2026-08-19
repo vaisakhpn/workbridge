@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { useCreateJob } from "@/hooks/useCreateJob";
 import {
   createJobSchema,
+  isScheduleRequiredCategory,
   type CreateJobFormData,
 } from "@/schemas/job.schema";
 
@@ -40,6 +41,10 @@ export function CreateJobForm() {
       salary: 1000,
     },
   });
+
+  const selectedCategory = watch("category");
+  const customCategory = watch("customCategory");
+  const showSchedule = isScheduleRequiredCategory(selectedCategory, customCategory);
 
   const onSubmit = async (data: CreateJobFormData) => {
     const finalCategory =
@@ -86,8 +91,11 @@ export function CreateJobForm() {
           watch={watch}
         />
 
-        {/* Section 2: Schedule */}
-        <ScheduleSection register={register} errors={errors} />
+        {/* Section 2: Schedule (Shown only for Catering & Events) */}
+        {showSchedule && (
+          <ScheduleSection register={register} errors={errors} />
+        )}
+
 
         {/* Section 3: Location */}
         <LocationSection register={register} errors={errors} />

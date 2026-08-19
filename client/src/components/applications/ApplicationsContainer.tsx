@@ -4,15 +4,18 @@ import Link from "next/link";
 import {
   ArrowLeft,
   Calendar,
+  MapPin,
   Users,
   FileText,
   Loader2,
   AlertCircle,
+  Layers,
 } from "lucide-react";
 
 import Card from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { useJobApplications } from "@/hooks/useJobApplications";
+import { JobStatusBadge } from "@/components/jobs/manage/JobStatusBadge";
 
 import { ApplicationFilters } from "./ApplicationFilters";
 import { ApplicationCard } from "./ApplicationCard";
@@ -67,11 +70,13 @@ export function ApplicationsContainer({ jobId }: ApplicationsContainerProps) {
     );
   }
 
-  const formattedDate = new Date(job.date).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  const formattedDate = job?.date
+    ? new Date(job.date).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
 
   return (
     <div className="mx-auto max-w-7xl space-y-6 pb-16">
@@ -86,31 +91,46 @@ export function ApplicationsContainer({ jobId }: ApplicationsContainerProps) {
         </Link>
       </div>
 
-      {/* Job Summary Banner Card */}
-      <Card className="p-6 bg-card border-border/80 shadow-xs space-y-4">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-border/60 pb-4">
+      {/* Header Info Banner */}
+      <Card className="p-6 space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border pb-4">
           <div>
-            <div className="flex items-center gap-2">
-              <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-md">
+            <div className="flex items-center gap-2 mb-1">
+              <span className="text-xs font-semibold text-primary bg-primary/10 px-2 py-0.5 rounded-md flex items-center gap-1">
+                <Layers size={12} />
                 {job.category}
               </span>
             </div>
-
-            <h1 className="text-xl font-bold text-foreground sm:text-2xl mt-1">
-              {job.title}
+            <h1 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
+              Applications for {job.title}
             </h1>
+            <p className="text-xs text-muted-foreground mt-0.5">
+              Review and manage worker applications for this job position.
+            </p>
           </div>
+
+          <JobStatusBadge status={job.status} />
         </div>
 
-        {/* Details Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
+        {/* Quick Meta */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-xs">
           <div className="flex items-center gap-2 text-muted-foreground">
-            <Calendar size={16} className="text-primary shrink-0" />
+            <MapPin size={16} className="text-primary shrink-0" />
             <div>
-              <p className="font-medium text-foreground">{formattedDate}</p>
-              <p className="text-[11px]">Event Date</p>
+              <p className="font-medium text-foreground">{job.location}</p>
+              <p className="text-[11px]">{job.district}</p>
             </div>
           </div>
+
+          {formattedDate && (
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Calendar size={16} className="text-primary shrink-0" />
+              <div>
+                <p className="font-medium text-foreground">{formattedDate}</p>
+                <p className="text-[11px]">Event Date</p>
+              </div>
+            </div>
+          )}
 
           <div className="flex items-center gap-2 text-muted-foreground">
             <Users size={16} className="text-primary shrink-0" />

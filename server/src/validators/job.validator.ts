@@ -20,14 +20,15 @@ export const createJobSchema = z.object({
     .min(2, "Category is required")
     .max(50, "Category cannot exceed 50 characters"),
 
-  date: z.coerce.date({
-    invalid_type_error: "Please provide a valid date",
-    required_error: "Date is required",
-  }),
+  date: z.preprocess(
+    (arg) => (arg === "" || arg === null || arg === undefined ? undefined : arg),
+    z.coerce.date().optional()
+  ),
 
-  startTime: z.string().trim().min(1, "Start time is required"),
+  startTime: z.string().trim().optional(),
 
-  endTime: z.string().trim().min(1, "End time is required"),
+  endTime: z.string().trim().optional(),
+
 
   district: z
     .string()

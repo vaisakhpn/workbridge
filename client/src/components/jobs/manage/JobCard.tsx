@@ -14,11 +14,13 @@ interface JobCardProps {
 }
 
 export function JobCard({ job, onCloseJob }: JobCardProps) {
-  const formattedDate = new Date(job.date).toLocaleDateString("en-GB", {
-    day: "numeric",
-    month: "short",
-    year: "numeric",
-  });
+  const formattedDate = job.date
+    ? new Date(job.date).toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "short",
+        year: "numeric",
+      })
+    : null;
 
   const createdDate = new Date(job.createdAt).toLocaleDateString("en-GB", {
     day: "numeric",
@@ -47,10 +49,13 @@ export function JobCard({ job, onCloseJob }: JobCardProps) {
 
         {/* Details Grid */}
         <div className="grid grid-cols-2 gap-y-2 gap-x-4 text-xs text-muted-foreground pt-1">
-          <div className="flex items-center gap-1.5">
-            <Calendar size={14} className="text-primary shrink-0" />
-            <span>{formattedDate}</span>
-          </div>
+          {formattedDate && (
+            <div className="flex items-center gap-1.5">
+              <Calendar size={14} className="text-primary shrink-0" />
+              <span>{formattedDate}</span>
+            </div>
+          )}
+
 
           <div className="flex items-center gap-1.5 truncate">
             <MapPin size={14} className="text-primary shrink-0" />

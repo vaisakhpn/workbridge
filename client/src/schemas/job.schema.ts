@@ -31,6 +31,21 @@ export const JOB_CATEGORIES = [
   "Others",
 ];
 
+export function isScheduleRequiredCategory(
+  category?: string,
+  customCategory?: string
+): boolean {
+  const catToTest = category === "Others" && customCategory ? customCategory : category;
+  if (!catToTest) return false;
+  const cat = catToTest.toLowerCase();
+  return (
+    cat.includes("catering") ||
+    cat.includes("event") ||
+    cat.includes("decoration") ||
+    cat.includes("promotion")
+  );
+}
+
 export const createJobSchema = z
   .object({
     title: z
@@ -60,17 +75,18 @@ export const createJobSchema = z
 
     date: z
       .string()
-      .min(1, "Date is required"),
+      .optional()
+      .or(z.literal("")),
 
     startTime: z
       .string()
-      .trim()
-      .min(1, "Start time is required"),
+      .optional()
+      .or(z.literal("")),
 
     endTime: z
       .string()
-      .trim()
-      .min(1, "End time is required"),
+      .optional()
+      .or(z.literal("")),
 
     district: z
       .string()
@@ -92,17 +108,40 @@ export const createJobSchema = z
       .number()
       .positive("Salary must be greater than zero"),
   })
-  .refine(
-    (data) => {
-      if (data.category === "Others") {
-        return Boolean(data.customCategory && data.customCategory.trim().length >= 2);
+  .superRefine((data, ctx) => {
+    if (data.category === "Others") {
+      if (!data.customCategory || data.customCategory.trim().length < 2) {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Please specify your custom job category",
+          path: ["customCategory"],
+        });
       }
-      return true;
-    },
-    {
-      message: "Please specify your custom job category",
-      path: ["customCategory"],
     }
-  );
+    if (isScheduleRequiredCategory(data.category, data.customCategory)) {
+      if (!data.date || data.date.trim() === "") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Date is required for catering or event jobs",
+          path: ["date"],
+        });
+      }
+      if (!data.startTime || data.startTime.trim() === "") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Start time is required for catering or event jobs",
+          path: ["startTime"],
+        });
+      }
+      if (!data.endTime || data.endTime.trim() === "") {
+        ctx.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "End time is required for catering or event jobs",
+          path: ["endTime"],
+        });
+      }
+    }
+  });
 
 export type CreateJobFormData = z.infer<typeof createJobSchema>;
+

@@ -7,9 +7,9 @@ export interface IJob extends Document {
   description: string;
   category: string;
 
-  date: Date;
-  startTime: string;
-  endTime: string;
+  date?: Date;
+  startTime?: string;
+  endTime?: string;
 
   district: string;
   location: string;
@@ -55,18 +55,19 @@ const jobSchema = new Schema<IJob>(
 
     date: {
       type: Date,
-      required: true,
+      required: false,
     },
 
     startTime: {
       type: String,
-      required: true,
+      required: false,
     },
 
     endTime: {
       type: String,
-      required: true,
+      required: false,
     },
+
 
     district: {
       type: String,

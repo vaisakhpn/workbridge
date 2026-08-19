@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/Button";
 import { useEditJob } from "@/hooks/useEditJob";
 import {
   createJobSchema,
+  isScheduleRequiredCategory,
   type CreateJobFormData,
 } from "@/schemas/job.schema";
 
@@ -44,6 +45,10 @@ export function EditJobForm({ jobId }: EditJobFormProps) {
       salary: 1000,
     },
   });
+
+  const selectedCategory = watch("category");
+  const customCategory = watch("customCategory");
+  const showSchedule = isScheduleRequiredCategory(selectedCategory, customCategory);
 
   const { isLoading, isSubmitting, error, updateJob, fetchJob } = useEditJob(
     jobId,
@@ -110,8 +115,11 @@ export function EditJobForm({ jobId }: EditJobFormProps) {
           watch={watch}
         />
 
-        {/* Section 2: Schedule */}
-        <ScheduleSection register={register} errors={errors} />
+        {/* Section 2: Schedule (Shown only for Catering & Events) */}
+        {showSchedule && (
+          <ScheduleSection register={register} errors={errors} />
+        )}
+
 
         {/* Section 3: Location */}
         <LocationSection register={register} errors={errors} />

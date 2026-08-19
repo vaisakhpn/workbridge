@@ -14,9 +14,9 @@ export interface Job {
   title: string;
   description: string;
   category: string;
-  date: string;
-  startTime: string;
-  endTime: string;
+  date?: string;
+  startTime?: string;
+  endTime?: string;
   district: string;
   location: string;
   workersNeeded: number;
@@ -33,9 +33,9 @@ export interface CreateJobInput {
   title: string;
   description?: string;
   category: string;
-  date: string;
-  startTime: string;
-  endTime: string;
+  date?: string;
+  startTime?: string;
+  endTime?: string;
   district: string;
   location: string;
   workersNeeded: number;

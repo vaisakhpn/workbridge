@@ -185,14 +185,13 @@ export function LatestJobsSection() {
           /* Job Cards Grid */
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {jobs.map((job) => {
-              const formattedDate = new Date(job.date).toLocaleDateString(
-                "en-GB",
-                {
-                  day: "numeric",
-                  month: "short",
-                  year: "numeric",
-                }
-              );
+              const formattedDate = job.date
+                ? new Date(job.date).toLocaleDateString("en-GB", {
+                    day: "numeric",
+                    month: "short",
+                    year: "numeric",
+                  })
+                : null;
 
               return (
                 <Card
@@ -215,13 +214,16 @@ export function LatestJobsSection() {
 
                     {/* Meta Details Grid */}
                     <div className="text-muted-foreground border-border/50 grid grid-cols-2 gap-x-3 gap-y-2.5 border-t pt-2 text-xs">
-                      <div className="flex items-center gap-1.5 truncate">
-                        <Calendar
-                          size={14}
-                          className="shrink-0 text-orange-600"
-                        />
-                        <span>{formattedDate}</span>
-                      </div>
+                      {formattedDate && (
+                        <div className="flex items-center gap-1.5 truncate">
+                          <Calendar
+                            size={14}
+                            className="shrink-0 text-orange-600"
+                          />
+                          <span>{formattedDate}</span>
+                        </div>
+                      )}
+
 
                       <div className="flex items-center gap-1.5 truncate">
                         <MapPin
