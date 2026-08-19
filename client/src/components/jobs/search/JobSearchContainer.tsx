@@ -74,8 +74,15 @@ export function JobSearchContainer() {
   const router = useRouter();
   const { user, isAuthenticated } = useAuthStore();
 
-  const initialQuery = searchParams.get("q") || searchParams.get("search") || searchParams.get("keyword") || "";
-  const initialDistrict = searchParams.get("district") || searchParams.get("location") || "All Districts";
+  const initialQuery =
+    searchParams.get("q") ||
+    searchParams.get("search") ||
+    searchParams.get("keyword") ||
+    "";
+  const initialDistrict =
+    searchParams.get("district") ||
+    searchParams.get("location") ||
+    "All Districts";
   const initialCategory = searchParams.get("category") || "All Categories";
   const initialSort = searchParams.get("sort") || "latest";
 
@@ -92,7 +99,9 @@ export function JobSearchContainer() {
 
   const [applyingJobId, setApplyingJobId] = useState<string | null>(null);
   const [appliedJobIds, setAppliedJobIds] = useState<Set<string>>(new Set());
-  const [appliedStatusMap, setAppliedStatusMap] = useState<Map<string, string>>(new Map());
+  const [appliedStatusMap, setAppliedStatusMap] = useState<Map<string, string>>(
+    new Map()
+  );
 
   // Fetch existing worker applications
   useEffect(() => {
@@ -150,8 +159,17 @@ export function JobSearchContainer() {
 
   // Sync state with URL params on param change
   useEffect(() => {
-    setSearchQuery(searchParams.get("q") || searchParams.get("search") || searchParams.get("keyword") || "");
-    setSelectedDistrict(searchParams.get("district") || searchParams.get("location") || "All Districts");
+    setSearchQuery(
+      searchParams.get("q") ||
+        searchParams.get("search") ||
+        searchParams.get("keyword") ||
+        ""
+    );
+    setSelectedDistrict(
+      searchParams.get("district") ||
+        searchParams.get("location") ||
+        "All Districts"
+    );
     setSelectedCategory(searchParams.get("category") || "All Categories");
     setSelectedSort(searchParams.get("sort") || "latest");
   }, [searchParams]);
@@ -204,8 +222,10 @@ export function JobSearchContainer() {
   const updateUrlParams = () => {
     const params = new URLSearchParams();
     if (searchQuery.trim()) params.set("q", searchQuery.trim());
-    if (selectedDistrict !== "All Districts") params.set("district", selectedDistrict);
-    if (selectedCategory !== "All Categories") params.set("category", selectedCategory);
+    if (selectedDistrict !== "All Districts")
+      params.set("district", selectedDistrict);
+    if (selectedCategory !== "All Categories")
+      params.set("category", selectedCategory);
     if (selectedSort !== "latest") params.set("sort", selectedSort);
 
     router.push(`/jobs/search?${params.toString()}`);
@@ -225,7 +245,7 @@ export function JobSearchContainer() {
     selectedCategory !== "All Categories";
 
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+    <div className="bg-background text-foreground flex min-h-screen flex-col font-sans">
       <LandingHeader />
 
       {/* Main Container */}
@@ -233,48 +253,53 @@ export function JobSearchContainer() {
         <Container className="space-y-8">
           {/* Header Banner */}
           <div className="space-y-3 text-center sm:text-left">
-            <div className="flex flex-wrap items-center gap-2 justify-center sm:justify-start">
+            <div className="flex flex-wrap items-center justify-center gap-2 sm:justify-start">
               <Badge
                 variant="secondary"
-                className="bg-orange-500/10 text-orange-600 border-orange-200 text-xs font-semibold px-3 py-0.5 rounded-full"
+                className="rounded-full border-orange-200 bg-orange-500/10 px-3 py-0.5 text-xs font-semibold text-orange-600"
               >
                 Search Results
               </Badge>
             </div>
 
-            <h1 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-foreground">
+            <h1 className="text-foreground text-2xl font-extrabold tracking-tight sm:text-4xl">
               {searchQuery.trim() ? (
                 <>
-                  Results for &ldquo;<span className="text-orange-600">{searchQuery}</span>&rdquo;
+                  Results for &ldquo;
+                  <span className="text-orange-600">{searchQuery}</span>&rdquo;
                 </>
               ) : (
-                "Explore Event Jobs Across Kerala"
+                "Explore Job Across Kerala"
               )}
             </h1>
 
-            <p className="text-sm sm:text-base text-muted-foreground max-w-2xl">
-              Filter by job position, location/district, or company name to discover live verified event work opportunities.
+            <p className="text-muted-foreground max-w-2xl text-sm sm:text-base">
+              Filter by job position, location/district, or company name to
+              discover live verified event work opportunities.
             </p>
           </div>
 
           {/* Search & Filter Control Bar Card */}
-          <Card className="p-4 sm:p-6 bg-orange-50/60 dark:bg-orange-950/20 border-orange-200/80 dark:border-orange-900/40 space-y-4">
-            <form onSubmit={handleSearchSubmit} className="grid gap-3 md:grid-cols-12">
+          <Card className="space-y-4 border-orange-200/80 bg-orange-50/60 p-4 sm:p-6 dark:border-orange-900/40 dark:bg-orange-950/20">
+            <form
+              onSubmit={handleSearchSubmit}
+              className="grid gap-3 md:grid-cols-12"
+            >
               {/* Search Bar Input */}
               <div className="relative md:col-span-5">
-                <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" />
+                <Search className="text-muted-foreground pointer-events-none absolute top-1/2 left-3.5 h-4 w-4 -translate-y-1/2" />
                 <input
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder="Search job title, category, district, or company..."
-                  className="w-full rounded-xl bg-white dark:bg-neutral-900 pl-10 pr-9 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/70 border border-orange-200/80 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all shadow-xs"
+                  className="text-foreground placeholder:text-muted-foreground/70 w-full rounded-xl border border-orange-200/80 bg-white py-2.5 pr-9 pl-10 text-sm shadow-xs transition-all focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none dark:bg-neutral-900"
                 />
                 {searchQuery && (
                   <button
                     type="button"
                     onClick={() => setSearchQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground cursor-pointer"
+                    className="text-muted-foreground hover:text-foreground absolute top-1/2 right-3 -translate-y-1/2 cursor-pointer"
                   >
                     <X className="h-4 w-4" />
                   </button>
@@ -286,7 +311,7 @@ export function JobSearchContainer() {
                 <select
                   value={selectedDistrict}
                   onChange={(e) => setSelectedDistrict(e.target.value)}
-                  className="w-full rounded-xl bg-white dark:bg-neutral-900 px-3 py-2.5 text-sm text-foreground border border-orange-200/80 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all shadow-xs cursor-pointer"
+                  className="text-foreground w-full cursor-pointer rounded-xl border border-orange-200/80 bg-white px-3 py-2.5 text-sm shadow-xs transition-all focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none dark:bg-neutral-900"
                 >
                   {KERALA_DISTRICTS.map((d) => (
                     <option key={d} value={d}>
@@ -301,7 +326,7 @@ export function JobSearchContainer() {
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="w-full rounded-xl bg-white dark:bg-neutral-900 px-3 py-2.5 text-sm text-foreground border border-orange-200/80 focus:border-orange-500 focus:outline-none focus:ring-1 focus:ring-orange-500 transition-all shadow-xs cursor-pointer"
+                  className="text-foreground w-full cursor-pointer rounded-xl border border-orange-200/80 bg-white px-3 py-2.5 text-sm shadow-xs transition-all focus:border-orange-500 focus:ring-1 focus:ring-orange-500 focus:outline-none dark:bg-neutral-900"
                 >
                   {JOB_CATEGORIES.map((c) => (
                     <option key={c} value={c}>
@@ -316,7 +341,7 @@ export function JobSearchContainer() {
                 <Button
                   type="submit"
                   variant="primary"
-                  className="w-full bg-orange-600 hover:bg-orange-700 text-white rounded-xl py-2.5 font-semibold transition-colors flex items-center justify-center gap-2"
+                  className="flex w-full items-center justify-center gap-2 rounded-xl bg-orange-600 py-2.5 font-semibold text-white transition-colors hover:bg-orange-700"
                 >
                   <Search className="h-4 w-4" />
                   <span>Search</span>
@@ -325,17 +350,18 @@ export function JobSearchContainer() {
             </form>
 
             {/* Filter Summary & Sorting Controls */}
-            <div className="flex flex-wrap items-center justify-between gap-3 pt-2 border-t border-orange-200/60 dark:border-orange-900/30 text-xs sm:text-sm">
-              <div className="flex items-center gap-2 text-muted-foreground">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-orange-200/60 pt-2 text-xs sm:text-sm dark:border-orange-900/30">
+              <div className="text-muted-foreground flex items-center gap-2">
                 <SlidersHorizontal className="h-4 w-4 text-orange-600" />
                 <span>
-                  Found <strong className="text-foreground">{totalJobs}</strong> open job{totalJobs !== 1 ? "s" : ""}
+                  Found <strong className="text-foreground">{totalJobs}</strong>{" "}
+                  open job{totalJobs !== 1 ? "s" : ""}
                 </span>
                 {hasActiveFilters && (
                   <button
                     type="button"
                     onClick={handleResetFilters}
-                    className="ml-2 text-orange-600 hover:underline font-medium inline-flex items-center gap-1 cursor-pointer"
+                    className="ml-2 inline-flex cursor-pointer items-center gap-1 font-medium text-orange-600 hover:underline"
                   >
                     <X className="h-3.5 w-3.5" />
                     Clear Filters
@@ -345,11 +371,13 @@ export function JobSearchContainer() {
 
               {/* Sort Selector */}
               <div className="flex items-center gap-2">
-                <span className="text-muted-foreground hidden sm:inline">Sort by:</span>
+                <span className="text-muted-foreground hidden sm:inline">
+                  Sort by:
+                </span>
                 <select
                   value={selectedSort}
                   onChange={(e) => setSelectedSort(e.target.value)}
-                  className="rounded-lg bg-white dark:bg-neutral-900 px-2.5 py-1.5 text-xs text-foreground border border-orange-200/80 focus:border-orange-500 focus:outline-none cursor-pointer"
+                  className="text-foreground cursor-pointer rounded-lg border border-orange-200/80 bg-white px-2.5 py-1.5 text-xs focus:border-orange-500 focus:outline-none dark:bg-neutral-900"
                 >
                   <option value="latest">Latest First</option>
                   <option value="salary_desc">Salary: High to Low</option>
@@ -363,9 +391,9 @@ export function JobSearchContainer() {
           {isLoading ? (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {Array.from({ length: 6 }).map((_, i) => (
-                <Card key={i} className="p-6 space-y-4 rounded-2xl">
+                <Card key={i} className="space-y-4 rounded-2xl p-6">
                   <div className="flex items-start justify-between">
-                    <div className="space-y-2 flex-1">
+                    <div className="flex-1 space-y-2">
                       <Skeleton className="h-5 w-3/4 rounded" />
                       <Skeleton className="h-4 w-1/2 rounded" />
                     </div>
@@ -378,23 +406,25 @@ export function JobSearchContainer() {
             </div>
           ) : jobs.length === 0 ? (
             /* Empty State */
-            <Card className="p-12 text-center flex flex-col items-center justify-center space-y-4 rounded-2xl bg-orange-50/40 dark:bg-orange-950/10 border-orange-200/80 border-dashed">
-              <div className="p-4 rounded-full bg-orange-500/10 text-orange-600">
+            <Card className="flex flex-col items-center justify-center space-y-4 rounded-2xl border-dashed border-orange-200/80 bg-orange-50/40 p-12 text-center dark:bg-orange-950/10">
+              <div className="rounded-full bg-orange-500/10 p-4 text-orange-600">
                 <Briefcase className="h-8 w-8" />
               </div>
-              <div className="space-y-1 max-w-md">
-                <h3 className="text-lg font-bold text-foreground">
+              <div className="max-w-md space-y-1">
+                <h3 className="text-foreground text-lg font-bold">
                   No matching jobs found
                 </h3>
-                <p className="text-sm text-muted-foreground">
-                  We couldn&apos;t find any open event listings matching your search parameters. Try adjusting your query or district filters.
+                <p className="text-muted-foreground text-sm">
+                  We couldn&apos;t find any open event listings matching your
+                  search parameters. Try adjusting your query or district
+                  filters.
                 </p>
               </div>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handleResetFilters}
-                className="border-orange-200 text-orange-600 hover:bg-orange-100/50 hover:border-orange-400 rounded-full px-5"
+                className="rounded-full border-orange-200 px-5 text-orange-600 hover:border-orange-400 hover:bg-orange-100/50"
               >
                 Reset Search Filters
               </Button>
@@ -417,33 +447,33 @@ export function JobSearchContainer() {
                 return (
                   <Card
                     key={job._id}
-                    className="flex flex-col justify-between p-6 space-y-5 rounded-2xl border-orange-200/80 dark:border-orange-900/40 bg-orange-50/60 dark:bg-orange-950/20 hover:border-orange-300 hover:shadow-md transition-all duration-200"
+                    className="flex flex-col justify-between space-y-5 rounded-2xl border-orange-200/80 bg-orange-50/60 p-6 transition-all duration-200 hover:border-orange-300 hover:shadow-md dark:border-orange-900/40 dark:bg-orange-950/20"
                   >
                     <div className="space-y-4">
                       {/* Top Header with Company Info & Category Badge */}
                       <div className="flex items-start justify-between gap-2">
-                        <div className="space-y-1 min-w-0">
-                          <div className="flex items-center gap-1.5 text-xs text-orange-600 font-semibold truncate">
+                        <div className="min-w-0 space-y-1">
+                          <div className="flex items-center gap-1.5 truncate text-xs font-semibold text-orange-600">
                             <Building2 className="h-3.5 w-3.5 shrink-0" />
                             <span className="truncate">{companyName}</span>
                           </div>
-                          <h3 className="text-base sm:text-lg font-bold text-foreground line-clamp-1">
+                          <h3 className="text-foreground line-clamp-1 text-base font-bold sm:text-lg">
                             {job.title}
                           </h3>
                         </div>
 
                         <Badge
                           variant="secondary"
-                          className="shrink-0 bg-orange-500/10 text-orange-600 border-orange-200 text-xs font-semibold px-2.5 py-0.5 rounded-full"
+                          className="shrink-0 rounded-full border-orange-200 bg-orange-500/10 px-2.5 py-0.5 text-xs font-semibold text-orange-600"
                         >
                           {job.category}
                         </Badge>
                       </div>
 
                       {/* Job Meta Details */}
-                      <div className="grid grid-cols-2 gap-3 text-xs text-muted-foreground border-t border-orange-200/60 dark:border-orange-900/30 pt-3">
+                      <div className="text-muted-foreground grid grid-cols-2 gap-3 border-t border-orange-200/60 pt-3 text-xs dark:border-orange-900/30">
                         <div className="flex items-center gap-1.5 truncate">
-                          <MapPin className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                          <MapPin className="h-3.5 w-3.5 shrink-0 text-orange-600" />
                           <span className="truncate">
                             {job.location && job.district
                               ? `${job.location}, ${job.district}`
@@ -453,33 +483,32 @@ export function JobSearchContainer() {
 
                         {formattedDate && (
                           <div className="flex items-center gap-1.5 truncate">
-                            <Calendar className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                            <Calendar className="h-3.5 w-3.5 shrink-0 text-orange-600" />
                             <span>{formattedDate}</span>
                           </div>
                         )}
 
                         {job.startTime && job.endTime && (
                           <div className="flex items-center gap-1.5 truncate">
-                            <Clock className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                            <Clock className="h-3.5 w-3.5 shrink-0 text-orange-600" />
                             <span>
                               {job.startTime} - {job.endTime}
                             </span>
                           </div>
                         )}
 
-
                         <div className="flex items-center gap-1.5 truncate">
-                          <Users className="h-3.5 w-3.5 text-orange-600 shrink-0" />
+                          <Users className="h-3.5 w-3.5 shrink-0 text-orange-600" />
                           <span>{job.workersNeeded} Workers Needed</span>
                         </div>
                       </div>
 
                       {/* Salary Highlight Box */}
-                      <div className="flex items-center justify-between p-3 rounded-xl bg-white/80 dark:bg-neutral-900/80 border border-orange-200/60">
-                        <span className="text-xs text-muted-foreground font-medium">
+                      <div className="flex items-center justify-between rounded-xl border border-orange-200/60 bg-white/80 p-3 dark:bg-neutral-900/80">
+                        <span className="text-muted-foreground text-xs font-medium">
                           Offered Salary:
                         </span>
-                        <div className="flex items-center font-bold text-emerald-600 text-sm sm:text-base">
+                        <div className="flex items-center text-sm font-bold text-emerald-600 sm:text-base">
                           <IndianRupee className="h-4 w-4" />
                           <span>{job.salary} / day</span>
                         </div>
@@ -495,7 +524,7 @@ export function JobSearchContainer() {
                               variant="outline"
                               size="sm"
                               disabled
-                              className="w-full border-rose-500/50 bg-rose-500/10 text-rose-600 dark:text-rose-400 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
+                              className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl border-rose-500/50 bg-rose-500/10 py-2.5 text-sm font-semibold text-rose-600 dark:text-rose-400"
                             >
                               <XCircle className="h-4 w-4" />
                               <span>Rejected</span>
@@ -505,30 +534,32 @@ export function JobSearchContainer() {
                               variant="outline"
                               size="sm"
                               disabled
-                              className="w-full border-emerald-500/50 bg-emerald-50 text-emerald-600 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
+                              className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl border-emerald-500/50 bg-emerald-50 py-2.5 text-sm font-semibold text-emerald-600"
                             >
                               <CheckCircle2 className="h-4 w-4" />
                               <span>Applied</span>
                             </Button>
                           )
-                        ) : job.status === "FILLED" || (job.activeApplicationsCount ?? job.applicationsCount ?? 0) >= (job.workersNeeded || 1) ? (
+                        ) : job.status === "FILLED" ||
+                          (job.activeApplicationsCount ??
+                            job.applicationsCount ??
+                            0) >= (job.workersNeeded || 1) ? (
                           <Button
                             variant="outline"
                             size="sm"
                             disabled
-                            className="w-full border-amber-500/50 bg-amber-500/10 text-amber-700 dark:text-amber-300 font-semibold py-2.5 rounded-xl flex items-center justify-center gap-2 text-sm cursor-not-allowed"
+                            className="flex w-full cursor-not-allowed items-center justify-center gap-2 rounded-xl border-amber-500/50 bg-amber-500/10 py-2.5 text-sm font-semibold text-amber-700 dark:text-amber-300"
                           >
                             <Users className="h-4 w-4" />
                             <span>Applicants Full</span>
                           </Button>
                         ) : (
-
                           <Button
                             variant="primary"
                             size="sm"
                             onClick={() => handleApply(job._id)}
                             disabled={applyingJobId === job._id}
-                            className="w-full bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2.5 rounded-xl transition-colors flex items-center justify-center gap-2 text-sm cursor-pointer"
+                            className="flex w-full cursor-pointer items-center justify-center gap-2 rounded-xl bg-orange-600 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-orange-700"
                           >
                             {applyingJobId === job._id ? (
                               <>
@@ -564,11 +595,11 @@ export function JobSearchContainer() {
                 size="sm"
                 disabled={page <= 1}
                 onClick={() => setPage((p) => Math.max(p - 1, 1))}
-                className="border-orange-200 rounded-xl"
+                className="rounded-xl border-orange-200"
               >
                 Previous
               </Button>
-              <span className="text-sm font-medium text-muted-foreground px-3">
+              <span className="text-muted-foreground px-3 text-sm font-medium">
                 Page {page} of {totalPages}
               </span>
               <Button
@@ -576,7 +607,7 @@ export function JobSearchContainer() {
                 size="sm"
                 disabled={page >= totalPages}
                 onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
-                className="border-orange-200 rounded-xl"
+                className="rounded-xl border-orange-200"
               >
                 Next
               </Button>
