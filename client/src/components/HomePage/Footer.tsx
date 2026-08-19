@@ -3,12 +3,12 @@ import Logo from "@/components/layout/shared/Logo";
 
 export function LandingFooter() {
   return (
-    <footer className="bg-black text-white border-t border-zinc-800 pt-12 pb-8">
+    <footer className="bg-black text-white border-t border-zinc-800 pt-6 pb-4">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 space-y-8">
         <div className="flex flex-col md:flex-row items-start justify-between gap-8 border-b border-zinc-800 pb-8">
           {/* Brand Logo & Tagline */}
           <div className="space-y-3 max-w-xs">
-            <Logo />
+            <Logo variant="mobile" />
             <p className="text-xs text-zinc-400 leading-relaxed">
               Connecting businesses, employers, and organizers with reliable part-time staff across World.
             </p>
