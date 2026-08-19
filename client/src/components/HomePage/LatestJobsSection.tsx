@@ -274,7 +274,7 @@ export function LatestJobsSection() {
                         <span>Applied</span>
                       </Button>
                     )
-                  ) : (job.activeApplicationsCount ?? job.applicationsCount ?? 0) >= (job.workersNeeded || 1) + 4 ? (
+                  ) : job.status === "FILLED" || (job.activeApplicationsCount ?? job.applicationsCount ?? 0) >= (job.workersNeeded || 1) ? (
                     <Button
                       variant="outline"
                       size="sm"
@@ -285,6 +285,7 @@ export function LatestJobsSection() {
                       <span>Applicants Full</span>
                     </Button>
                   ) : (
+
                     <Button
                       variant="primary"
                       size="sm"

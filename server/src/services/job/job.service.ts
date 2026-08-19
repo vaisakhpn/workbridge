@@ -208,7 +208,7 @@ class JobService {
 
     const skip = (pageNumber - 1) * limitNumber;
     const filter: any = {
-      status: "OPEN",
+      status: { $in: ["OPEN", "FILLED"] },
       $or: [
         { date: { $exists: false } },
         { date: null },
@@ -566,7 +566,7 @@ class JobService {
     startOfToday.setHours(0, 0, 0, 0);
 
     const jobs = await Job.find({
-      status: "OPEN",
+      status: { $in: ["OPEN", "FILLED"] },
       $or: [
         { date: { $exists: false } },
         { date: null },
@@ -607,7 +607,7 @@ class JobService {
     startOfToday.setHours(0, 0, 0, 0);
 
     const filter: any = {
-      status: "OPEN",
+      status: { $in: ["OPEN", "FILLED"] },
       $or: [
         { date: { $exists: false } },
         { date: null },
