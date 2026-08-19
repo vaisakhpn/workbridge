@@ -244,7 +244,7 @@ export function LatestJobsSection() {
 
                       <div className="flex items-center gap-1 truncate font-semibold text-emerald-600">
                         <IndianRupee size={14} className="shrink-0" />
-                        <span>₹{job.salary} / worker</span>
+                        <span>{job.salary} / worker</span>
                       </div>
                     </div>
                   </div>
