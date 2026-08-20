@@ -31,21 +31,25 @@ connectDB();
 
 app.disable("x-powered-by");
 
-const allowedOrigins = process.env.CLIENT_URL
-  ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
-  : ["http://localhost:3000", "http://localhost:3001"];
+const allowedOrigins = new Set([
+  "http://localhost:3000",
+  "http://localhost:3001",
+  ...(process.env.CLIENT_URL
+    ? process.env.CLIENT_URL.split(",").map((url) => url.trim())
+    : []),
+]);
 
 app.use(
   cors({
     origin: (origin, callback) => {
       if (
         !origin ||
-        allowedOrigins.includes(origin) ||
+        allowedOrigins.has(origin) ||
         origin.endsWith(".vercel.app")
       ) {
         callback(null, true);
       } else {
-        callback(new Error("CORS policy violation: Access from this origin is prohibited"));
+        callback(new Error(`CORS policy violation: Access from origin '${origin}' is prohibited`));
       }
     },
     credentials: true,
