@@ -130,8 +130,8 @@ export function EventTeamDashboardContainer() {
 
       {/* Bottom Grid: Recent Applications & Active Jobs */}
       <div className="grid gap-6 lg:grid-cols-2">
-        <RecentApplications />
-        <RecentJobs />
+        <RecentApplications applications={dashboardData.recentApplications} />
+        <RecentJobs jobs={dashboardData.recentJobs} />
       </div>
     </div>
   );

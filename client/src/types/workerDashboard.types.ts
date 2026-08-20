@@ -13,9 +13,17 @@ export interface WorkerDashboardStats {
   rejected: number;
 }
 
+export interface RecentNotificationItem {
+  id: string | number;
+  title: string;
+  time: string;
+  isUnread?: boolean;
+}
+
 export interface WorkerDashboardData {
   profile: WorkerDashboardProfile;
   stats: WorkerDashboardStats;
+  recentNotifications?: RecentNotificationItem[];
 }
 
 export interface WorkerDashboardApiResponse {
@@ -23,3 +31,5 @@ export interface WorkerDashboardApiResponse {
   message: string;
   data: WorkerDashboardData;
 }
+
+

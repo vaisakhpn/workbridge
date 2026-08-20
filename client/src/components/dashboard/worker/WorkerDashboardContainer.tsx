@@ -99,7 +99,7 @@ export function WorkerDashboardContainer() {
       {/* Bottom Grid: Upcoming Jobs & Notifications */}
       <div className="grid gap-6 lg:grid-cols-2">
         <UpcomingJobs />
-        <RecentNotifications />
+        <RecentNotifications notifications={dashboardData.recentNotifications} />
       </div>
     </div>
   );

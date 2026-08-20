@@ -14,7 +14,7 @@ interface JobItem {
   district?: string;
   workersNeeded: number;
   applicantsCount: number;
-  status: "OPEN" | "FILLED" | "COMPLETED";
+  status: "OPEN" | "FILLED" | "COMPLETED" | "CANCELLED";
 }
 
 interface RecentJobsProps {
