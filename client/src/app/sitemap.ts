@@ -11,10 +11,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1.0,
     },
     {
-      url: `${baseUrl}/jobs/search`,
+      url: `${baseUrl}/jobs`,
       lastModified: new Date(),
       changeFrequency: "hourly",
       priority: 0.9,
+    },
+    {
+      url: `${baseUrl}/jobs/search`,
+      lastModified: new Date(),
+      changeFrequency: "hourly",
+      priority: 0.8,
     },
     {
       url: `${baseUrl}/about`,

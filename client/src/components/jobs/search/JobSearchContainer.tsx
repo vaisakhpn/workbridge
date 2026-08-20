@@ -457,9 +457,11 @@ export function JobSearchContainer() {
                             <Building2 className="h-3.5 w-3.5 shrink-0" />
                             <span className="truncate">{companyName}</span>
                           </div>
-                          <h3 className="text-foreground line-clamp-1 text-base font-bold sm:text-lg">
-                            {job.title}
-                          </h3>
+                          <Link href={`/jobs/${job.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "")}-${(job.district || "kerala").toLowerCase().replace(/[^a-z0-9]+/g, "")}-${job._id}`}>
+                            <h3 className="text-foreground line-clamp-1 text-base font-bold sm:text-lg hover:text-orange-600 transition-colors">
+                              {job.title}
+                            </h3>
+                          </Link>
                         </div>
 
                         <Badge
