@@ -18,14 +18,15 @@ export const KERALA_DISTRICTS = [
 ];
 
 export const JOB_CATEGORIES = [
-  "Catering & Restaurant",
+  "Catering",
+  "Hotel & Bakery Helper",
   "Shop & Retail",
   "Delivery & Logistics",
   "Construction & Labour",
   "Electrical & Plumbing",
   "Driving & Transport",
   "Cleaning & Housekeeping",
-  "Events & Promotion",
+  "Events & Decoration",
   "Factory & Warehouse",
   "Office & Customer Service",
   "Others",
