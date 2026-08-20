@@ -21,34 +21,19 @@ interface UpcomingJobsProps {
   jobs?: UpcomingJobItem[];
 }
 
-const defaultUpcomingJobs: UpcomingJobItem[] = [
-  {
-    id: "1",
-    title: "Wedding Catering Assistant",
-    location: "Kozhikode",
-    date: "Tomorrow",
-    time: "9:00 AM",
-    status: "Confirmed",
-  },
-  {
-    id: "2",
-    title: "Birthday Event Setup",
-    location: "Malappuram",
-    date: "Friday",
-    time: "11:30 AM",
-    status: "Confirmed",
-  },
-];
+const defaultUpcomingJobs: UpcomingJobItem[] = [];
 
-export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) {
+export function UpcomingJobs({
+  jobs = defaultUpcomingJobs,
+}: UpcomingJobsProps) {
   return (
     <Card className="p-6">
       <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="bg-primary/10 rounded-lg p-1.5 text-primary">
+          <div className="bg-primary/10 text-primary rounded-lg p-1.5">
             <Briefcase className="h-4 w-4" />
           </div>
-          <h3 className="text-base font-semibold text-foreground">
+          <h3 className="text-foreground text-base font-semibold">
             Upcoming Jobs
           </h3>
         </div>
@@ -59,12 +44,12 @@ export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) 
       </div>
 
       {jobs.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-8 text-center border border-dashed border-border rounded-xl">
-          <p className="text-sm font-medium text-muted-foreground">
+        <div className="border-border flex flex-col items-center justify-center rounded-xl border border-dashed py-8 text-center">
+          <p className="text-muted-foreground text-sm font-medium">
             No upcoming jobs scheduled
           </p>
           <Button variant="outline" size="xs" className="mt-3" asChild>
-            <Link href="/worker/jobs">Find Work Now</Link>
+            <Link href="/jobs/search">Find Work Now</Link>
           </Button>
         </div>
       ) : (
@@ -75,20 +60,20 @@ export function UpcomingJobs({ jobs = defaultUpcomingJobs }: UpcomingJobsProps) 
               className="border-border hover:bg-muted/40 rounded-xl border p-4 transition-colors"
             >
               <div className="flex items-start justify-between gap-2">
-                <h4 className="font-semibold text-foreground text-sm">
+                <h4 className="text-foreground text-sm font-semibold">
                   {job.title}
                 </h4>
                 {job.status && (
                   <Badge
                     variant="secondary"
-                    className="bg-emerald-500/10 text-emerald-600 border-emerald-200 text-[10px]"
+                    className="border-emerald-200 bg-emerald-500/10 text-[10px] text-emerald-600"
                   >
                     {job.status}
                   </Badge>
                 )}
               </div>
 
-              <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+              <div className="text-muted-foreground mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="text-primary h-3.5 w-3.5" />
                   <span>

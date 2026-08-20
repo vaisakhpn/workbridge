@@ -15,20 +15,15 @@ interface RecentNotificationsProps {
 }
 
 const defaultNotifications: NotificationItem[] = [
+ 
   {
     id: "1",
-    title: "Application Accepted for Wedding Catering",
-    time: "2 hours ago",
-    isUnread: true,
-  },
-  {
-    id: "2",
     title: "New Event Catering Job available in Calicut",
     time: "Yesterday",
     isUnread: false,
   },
   {
-    id: "3",
+    id: "2",
     title: "Profile Viewed by Malabar Event Team",
     time: "2 days ago",
     isUnread: false,
