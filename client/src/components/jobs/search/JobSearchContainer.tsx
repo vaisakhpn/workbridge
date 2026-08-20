@@ -431,7 +431,7 @@ export function JobSearchContainer() {
             </Card>
           ) : (
             /* Cards Grid */
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full min-w-0">
               {jobs.map((job) => {
                 const formattedDate = job.date
                   ? new Date(job.date).toLocaleDateString("en-GB", {
@@ -447,12 +447,12 @@ export function JobSearchContainer() {
                 return (
                   <Card
                     key={job._id}
-                    className="flex flex-col justify-between space-y-5 rounded-2xl border-orange-200/80 bg-orange-50/60 p-6 transition-all duration-200 hover:border-orange-300 hover:shadow-md dark:border-orange-900/40 dark:bg-orange-950/20"
+                    className="flex flex-col justify-between space-y-5 rounded-2xl border-orange-200/80 bg-orange-50/60 p-4 sm:p-6 transition-all duration-200 hover:border-orange-300 hover:shadow-md dark:border-orange-900/40 dark:bg-orange-950/20 w-full min-w-0 overflow-hidden"
                   >
-                    <div className="space-y-4">
+                    <div className="space-y-4 min-w-0">
                       {/* Top Header with Company Info & Category Badge */}
-                      <div className="flex items-start justify-between gap-2">
-                        <div className="min-w-0 space-y-1">
+                      <div className="flex items-start justify-between gap-2 min-w-0">
+                        <div className="min-w-0 flex-1 space-y-1">
                           <div className="flex items-center gap-1.5 truncate text-xs font-semibold text-orange-600">
                             <Building2 className="h-3.5 w-3.5 shrink-0" />
                             <span className="truncate">{companyName}</span>
@@ -473,10 +473,10 @@ export function JobSearchContainer() {
                       </div>
 
                       {/* Job Meta Details */}
-                      <div className="text-muted-foreground grid grid-cols-2 gap-3 border-t border-orange-200/60 pt-3 text-xs dark:border-orange-900/30">
-                        <div className="flex items-center gap-1.5 truncate">
+                      <div className="text-muted-foreground grid grid-cols-2 gap-3 border-t border-orange-200/60 pt-3 text-xs dark:border-orange-900/30 min-w-0">
+                        <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
                           <MapPin className="h-3.5 w-3.5 shrink-0 text-orange-600" />
-                          <span className="truncate">
+                          <span className="truncate min-w-0">
                             {job.location && job.district
                               ? `${job.location}, ${job.district}`
                               : job.location || job.district}
@@ -484,24 +484,24 @@ export function JobSearchContainer() {
                         </div>
 
                         {formattedDate && (
-                          <div className="flex items-center gap-1.5 truncate">
+                          <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
                             <Calendar className="h-3.5 w-3.5 shrink-0 text-orange-600" />
-                            <span>{formattedDate}</span>
+                            <span className="truncate min-w-0">{formattedDate}</span>
                           </div>
                         )}
 
                         {job.startTime && job.endTime && (
-                          <div className="flex items-center gap-1.5 truncate">
+                          <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
                             <Clock className="h-3.5 w-3.5 shrink-0 text-orange-600" />
-                            <span>
+                            <span className="truncate min-w-0">
                               {job.startTime} - {job.endTime}
                             </span>
                           </div>
                         )}
 
-                        <div className="flex items-center gap-1.5 truncate">
+                        <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
                           <Users className="h-3.5 w-3.5 shrink-0 text-orange-600" />
-                          <span>{job.workersNeeded} Workers Needed</span>
+                          <span className="truncate min-w-0">{job.workersNeeded} Workers Needed</span>
                         </div>
                       </div>
 
