@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bincoz.in"),
+  metadataBase: new URL("https://www.bincoz.in"),
   title: {
     default: "Bincoz | Find Part Time Jobs Near Me & Local Workforce Marketplace",
     template: "%s | Bincoz - Part Time Jobs Near Me",
@@ -38,13 +38,13 @@ export const metadata: Metadata = {
     "urgent part time job openings",
   ],
   alternates: {
-    canonical: "https://bincoz.in",
+    canonical: "https://www.bincoz.in",
   },
   openGraph: {
     title: "Bincoz | Find Part Time Jobs Near Me & Local Workforce Marketplace",
     description:
       "Search & apply for part time jobs near you, daily wage work, and event jobs. Connect with verified local employers instantly on Bincoz.",
-    url: "https://bincoz.in",
+    url: "https://www.bincoz.in",
     siteName: "Bincoz",
     locale: "en_IN",
     type: "website",
@@ -73,22 +73,22 @@ const jsonLd = {
   "@graph": [
     {
       "@type": "WebSite",
-      "@id": "https://bincoz.in/#website",
-      "url": "https://bincoz.in",
+      "@id": "https://www.bincoz.in/#website",
+      "url": "https://www.bincoz.in",
       "name": "Bincoz",
       "description": "Part-Time Jobs & Local Workforce Marketplace",
       "potentialAction": {
         "@type": "SearchAction",
-        "target": "https://bincoz.in/jobs/search?q={search_term_string}",
+        "target": "https://www.bincoz.in/jobs/search?q={search_term_string}",
         "query-input": "required name=search_term_string"
       }
     },
     {
       "@type": "Organization",
-      "@id": "https://bincoz.in/#organization",
+      "@id": "https://www.bincoz.in/#organization",
       "name": "Bincoz",
-      "url": "https://bincoz.in",
-      "logo": "https://bincoz.in/favicon.ico",
+      "url": "https://www.bincoz.in",
+      "logo": "https://www.bincoz.in/favicon.ico",
       "sameAs": []
     }
   ]

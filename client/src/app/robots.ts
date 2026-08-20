@@ -9,6 +9,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ["/api/", "/admin/"],
       },
     ],
-    sitemap: "https://bincoz.in/sitemap.xml",
+    sitemap: "https://www.bincoz.in/sitemap.xml",
   };
 }
