@@ -97,7 +97,7 @@ export default function ContactContainer() {
                     </div>
                     <div>
                       <div className="font-semibold text-foreground">Phone & WhatsApp</div>
-                      <div className="text-muted-foreground">+91 XXXXXXX</div>
+                      <div className="text-muted-foreground">+91 7559092281</div>
                       <div className="text-xs text-muted-foreground/80 mt-0.5">
                         Mon - Sat, 9:00 AM - 7:00 PM
                       </div>
